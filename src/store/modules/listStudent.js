@@ -3,6 +3,7 @@ import ky from "ky";
 export default {
   state: {
     students: [],
+    visibleDialog: false,
     testStudents: [
       {
         fullName: "Берстенева Ольга Владимировна",
@@ -34,6 +35,12 @@ export default {
     updateStudents(state, students) {
       state.students = students;
     },
+    showDialog(state) {
+      state.visibleDialog = true;
+    },
+    closeDialog(state) {
+      state.visibleDialog = false;
+    },
   },
   actions: {
     async fetchStudents(ctx) {
@@ -47,6 +54,9 @@ export default {
     },
     getTestStudents(state) {
       return state.testStudents;
+    },
+    getVisibleDialog(state) {
+      return state.visibleDialog;
     },
   },
 };

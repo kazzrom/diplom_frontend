@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
-import student from "./modules/student";
+import listStudent from "./modules/listStudent";
 
 export default createStore({
   modules: {
-    student,
+    listStudent,
   },
 });
