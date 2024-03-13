@@ -31,6 +31,7 @@ export default {
       },
     ],
   },
+
   mutations: {
     updateStudents(state, students) {
       state.students = students;
@@ -42,20 +43,22 @@ export default {
       state.visibleDialog = false;
     },
   },
+
   actions: {
     async fetchStudents(ctx) {
       const students = await ky.get("http://localhost:5000/students").json();
       ctx.commit("updateStudents", students);
     },
   },
+
   getters: {
-    getStudents(state) {
+    students(state) {
       return state.students;
     },
-    getTestStudents(state) {
+    testStudents(state) {
       return state.testStudents;
     },
-    getVisibleDialog(state) {
+    visibleDialog(state) {
       return state.visibleDialog;
     },
   },

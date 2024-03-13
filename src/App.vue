@@ -1,5 +1,5 @@
 <script setup>
-import ListStudentPage from "./pages/ListStudentPage.vue";
+import ListStudentPage from "./pages/ListStudentPage/ListStudentPage.vue";
 </script>
 
 <template>
