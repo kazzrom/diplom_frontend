@@ -4,6 +4,7 @@ import "primeicons/primeicons.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import store from "./store/index";
+import router from "./routes/router.js";
 
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-purple/theme.css";
@@ -24,7 +25,10 @@ import Dialog from "primevue/dialog";
 
 import Calendar from "primevue/calendar";
 
+import PanelMenu from "primevue/panelmenu";
+
 const app = createApp(App);
+
 app.use(PrimeVue, {
   locale: {
     accept: "Да",
@@ -185,17 +189,19 @@ app.use(PrimeVue, {
     },
   },
 });
-app.use(store);
+app.use(store).use(router);
 
-app.component("Button", Button);
-app.component("ButtonGroup", ButtonGroup);
-app.component("DataTable", DataTable);
-app.component("Column", Column);
-app.component("MultiSelect", MultiSelect);
-app.component("InputGroup", InputGroup);
-app.component("InputGroupAddon", InputGroupAddon);
-app.component("InputText", InputText);
-app.component("Dialog", Dialog);
-app.component("Calendar", Calendar);
+app
+  .component("Button", Button)
+  .component("ButtonGroup", ButtonGroup)
+  .component("DataTable", DataTable)
+  .component("Column", Column)
+  .component("MultiSelect", MultiSelect)
+  .component("InputGroup", InputGroup)
+  .component("InputGroupAddon", InputGroupAddon)
+  .component("InputText", InputText)
+  .component("Dialog", Dialog)
+  .component("Calendar", Calendar)
+  .component("PanelMenu", PanelMenu);
 
 app.mount("#app");

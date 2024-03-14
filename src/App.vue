@@ -1,9 +1,10 @@
 <script setup>
-import ListStudentPage from "./pages/ListStudentPage/ListStudentPage.vue";
+import Navbar from "@/components/Navbar.vue";
 </script>
 
 <template>
-  <ListStudentPage />
+  <div class="app flex">
+    <Navbar class="w-[300px]" />
+    <router-view class="grow"></router-view>
+  </div>
 </template>
-
-<style scoped></style>
