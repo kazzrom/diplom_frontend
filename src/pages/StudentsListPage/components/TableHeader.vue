@@ -4,31 +4,33 @@ const store = useStore();
 </script>
 
 <template>
-  <div class="bg-white flex justify-between items-center h-[100px] px-[35px]">
+  <div class="bg-white flex justify-between items-center h-16 px-[80px]">
     <div class="flex justify-between items-center gap-[30px]">
-      <h2 class="text-4xl font-medium">Список группы</h2>
+      <h3 class="text-2xl font-medium">403 ИСП</h3>
       <ButtonGroup>
         <Button
+          label="Добавить студента"
           icon="pi pi-user-plus"
+          iconPos="right"
           severity="secondary"
           aria-label="Добавить обучающегося"
           @click="store.commit('showDialog')"
         />
         <Button
+          label="Удалить студента"
           icon="pi pi-user-minus"
+          iconPos="right"
           severity="secondary"
           aria-label="Удалить обучающегося"
         />
       </ButtonGroup>
     </div>
     <div class="flex justify-between items-center gap-[40px]">
-      <MultiSelect class="w-[350px]" placeholder="Выберите столбцы" />
-      <InputGroup class="w-[350px]">
-        <InputGroupAddon>
-          <i class="pi pi-search" />
-        </InputGroupAddon>
+      <MultiSelect placeholder="Выберите столбцы" />
+      <IconField iconPosition="left">
+        <InputIcon class="pi pi-search"> </InputIcon>
         <InputText placeholder="Поиск" />
-      </InputGroup>
+      </IconField>
     </div>
   </div>
 </template>

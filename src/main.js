@@ -17,6 +17,8 @@ import MultiSelect from "primevue/multiselect";
 import InputGroup from "primevue/inputgroup";
 import InputGroupAddon from "primevue/inputgroupaddon";
 import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -199,6 +201,8 @@ app
   .component("MultiSelect", MultiSelect)
   .component("InputGroup", InputGroup)
   .component("InputGroupAddon", InputGroupAddon)
+  .component("IconField", IconField)
+  .component("InputIcon", InputIcon)
   .component("InputText", InputText)
   .component("Dialog", Dialog)
   .component("Calendar", Calendar)

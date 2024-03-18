@@ -11,14 +11,15 @@ const columns = ref([
   { field: "fullName", header: "ФИО" },
   { field: "reportCardNumber", header: "Табельный номер" },
 ]);
+const selectedStudents = ref();
 </script>
 
 <template>
-  <DataTable :value="students" tableStyle="min-width: 50rem">
+  <DataTable v-model:selection="selectedStudents" :value="students" tableStyle="min-width: 50rem">
     <template #header>
       <TableHeader />
     </template>
-    <Column field="id" header="ID" />
+    <Column selectionMode="multiple"/>
     <Column
       v-for="column in columns"
       :key="column.id"
