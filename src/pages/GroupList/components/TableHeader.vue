@@ -9,7 +9,6 @@ const store = useStore();
       <h3 class="text-2xl font-medium">403 ИСП</h3>
       <ButtonGroup>
         <Button
-          label="Добавить студента"
           icon="pi pi-user-plus"
           iconPos="right"
           severity="secondary"
@@ -17,7 +16,6 @@ const store = useStore();
           @click="store.commit('showDialog')"
         />
         <Button
-          label="Удалить студента"
           icon="pi pi-user-minus"
           iconPos="right"
           severity="secondary"

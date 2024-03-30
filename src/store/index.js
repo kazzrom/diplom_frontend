@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
-import listStudent from "./modules/listStudent";
+import groupList from "@/pages/GroupList/stores/groupList.js";
 
 export default createStore({
   modules: {
-    listStudent,
+    groupList,
   },
 });

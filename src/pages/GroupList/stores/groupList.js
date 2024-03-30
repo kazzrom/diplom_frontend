@@ -3,7 +3,7 @@ import ky from "ky";
 export default {
   state: {
     students: [],
-    visibleDialog: false,
+    visibleAddStudentForm: false,
     testStudents: [],
   },
 
@@ -15,10 +15,10 @@ export default {
       state.testStudents = students;
     },
     showDialog(state) {
-      state.visibleDialog = true;
+      state.visibleAddStudentForm = true;
     },
     closeDialog(state) {
-      state.visibleDialog = false;
+      state.visibleAddStudentForm = false;
     },
   },
 
@@ -42,8 +42,8 @@ export default {
     testStudents(state) {
       return state.testStudents;
     },
-    visibleDialog(state) {
-      return state.visibleDialog;
+    visibleAddStudentForm(state) {
+      return state.visibleAddStudentForm;
     },
   },
 };

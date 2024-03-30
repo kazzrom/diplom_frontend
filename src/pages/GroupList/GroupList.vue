@@ -1,5 +1,5 @@
 <script setup>
-import FormAddStudent from "./components/FormAddStudent.vue";
+import AddStudentForm from "./components/AddStudentForm.vue";
 import StudentsTable from "./components/StudentsTable.vue";
 </script>
 
@@ -9,6 +9,6 @@ import StudentsTable from "./components/StudentsTable.vue";
       <h2 class="text-4xl font-medium ml-[35px]">Список группы</h2>
     </header>
     <StudentsTable />
-    <FormAddStudent />
+    <AddStudentForm />
   </div>
 </template>

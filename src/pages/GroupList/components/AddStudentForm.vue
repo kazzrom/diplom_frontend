@@ -3,7 +3,9 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-const visibleDialog = computed(() => store.getters.visibleDialog);
+const visibleAddStudentForm = computed(
+  () => store.getters.visibleAddStudentForm
+);
 const student = ref({
   name: "",
   surname: "",
@@ -19,7 +21,7 @@ const student = ref({
 
 <template>
   <Dialog
-    v-model:visible="visibleDialog"
+    v-model:visible="visibleAddStudentForm"
     modal
     header="Добавление студента"
     class="p-4"
