@@ -29,6 +29,8 @@ import Calendar from "primevue/calendar";
 
 import PanelMenu from "primevue/panelmenu";
 
+import Avatar from "primevue/avatar";
+
 const app = createApp(App);
 
 app.use(PrimeVue, {
@@ -206,6 +208,7 @@ app
   .component("InputText", InputText)
   .component("Dialog", Dialog)
   .component("Calendar", Calendar)
-  .component("PanelMenu", PanelMenu);
+  .component("PanelMenu", PanelMenu)
+  .component("Avatar", Avatar);
 
 app.mount("#app");

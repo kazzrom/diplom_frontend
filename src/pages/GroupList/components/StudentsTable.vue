@@ -4,16 +4,15 @@ import { useStore } from "vuex";
 import TableHeader from "./TableHeader.vue";
 
 const store = useStore();
-onMounted(() => store.dispatch("fetchTestStudents"));
-const students = computed(() => store.getters.testStudents);
 
-const columns = ref([
-  { field: "fullname", header: "ФИО" },
-  { field: "gender", header: "Пол" },
-  { field: "birthday", header: "Дата рождения" },
-  { field: "residentialAddress", header: "Домашний адрес" },
-  { field: "reportCardNumber", header: "Табельный номер" },
-]);
+onMounted(() => store.dispatch("fetchTestStudents"));
+
+const students = computed(() => store.getters.testStudents);
+const studentColumns = computed(() => store.getters.studentColumns);
+
+const columns = ref(studentColumns);
+// const selectedColumns = ref(columns.value);
+
 const selectedStudents = ref();
 </script>
 

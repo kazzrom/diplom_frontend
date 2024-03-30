@@ -3,8 +3,15 @@ import ky from "ky";
 export default {
   state: {
     students: [],
-    visibleAddStudentForm: false,
     testStudents: [],
+    studentColumns: [
+      { field: "fullname", header: "ФИО" },
+      { field: "gender", header: "Пол" },
+      { field: "birthday", header: "Дата рождения" },
+      { field: "residentialAddress", header: "Домашний адрес" },
+      { field: "reportCardNumber", header: "Табельный номер" },
+    ],
+    visibleAddStudentForm: false,
   },
 
   mutations: {
@@ -41,6 +48,9 @@ export default {
     },
     testStudents(state) {
       return state.testStudents;
+    },
+    studentColumns(state) {
+      return state.studentColumns;
     },
     visibleAddStudentForm(state) {
       return state.visibleAddStudentForm;
