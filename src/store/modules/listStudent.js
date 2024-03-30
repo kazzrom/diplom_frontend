@@ -4,37 +4,15 @@ export default {
   state: {
     students: [],
     visibleDialog: false,
-    testStudents: [
-      {
-        fullName: "Берстенева Ольга Владимировна",
-        id: 1,
-        surname: "Берстенева",
-        name: "Ольга",
-        patronymic: "Владимировна",
-        reportCardNumber: 19301,
-      },
-      {
-        fullName: "Васильева Юлия Андреевна",
-        id: 2,
-        surname: "Васильева",
-        name: "Юлия",
-        patronymic: "Андреевна",
-        reportCardNumber: 19302,
-      },
-      {
-        fullName: "Волокитин Матвей Александрович",
-        id: 3,
-        surname: "Волокитин",
-        name: "Матвей",
-        patronymic: "Александрович",
-        reportCardNumber: 19303,
-      },
-    ],
+    testStudents: [],
   },
 
   mutations: {
     updateStudents(state, students) {
       state.students = students;
+    },
+    updateTestStudents(state, students) {
+      state.testStudents = students;
     },
     showDialog(state) {
       state.visibleDialog = true;
@@ -48,6 +26,12 @@ export default {
     async fetchStudents(ctx) {
       const students = await ky.get("http://localhost:5000/students").json();
       ctx.commit("updateStudents", students);
+    },
+    async fetchTestStudents(ctx) {
+      const testStudents = await ky
+        .get("https://65f9714bdf1514524611a1fc.mockapi.io/journal/students")
+        .json();
+      ctx.commit("updateTestStudents", testStudents);
     },
   },
 
