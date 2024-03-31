@@ -1,3 +1,12 @@
+<script setup>
+import OrphansTable from "./components/OrphansTable.vue";
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold m-2">Социальный паспорт</h1>
+  <div class="flex flex-col">
+    <header class="bg-white py-8">
+      <h2 class="text-4xl font-medium ml-10">Социальный паспорт</h2>
+    </header>
+    <OrphansTable />
+  </div>
 </template>

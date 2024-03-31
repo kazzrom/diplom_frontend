@@ -7,6 +7,7 @@ export default {
     studentColumns: [
       { field: "gender", header: "Пол" },
       { field: "birthday", header: "Дата рождения" },
+      { field: "phoneNumber", header: "Номер телефона" },
       { field: "residentialAddress", header: "Домашний адрес" },
       { field: "reportCardNumber", header: "Табельный номер" },
     ],
