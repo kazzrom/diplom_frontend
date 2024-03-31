@@ -1,10 +1,6 @@
 <script setup>
 import { useStore } from "vuex";
 const store = useStore();
-
-// const studentColumns = computed(() => store.getters.studentColumns);
-// const columns = ref(studentColumns);
-// defineProps(["selectedColumns"]);
 </script>
 
 <template>
@@ -17,7 +13,7 @@ const store = useStore();
           iconPos="right"
           severity="secondary"
           aria-label="Добавить обучающегося"
-          @click="store.commit('showDialog')"
+          @click="store.commit('showAddStudentForm')"
         />
         <Button
           icon="pi pi-user-minus"
@@ -28,11 +24,7 @@ const store = useStore();
       </ButtonGroup>
     </div>
     <div class="flex justify-between items-center gap-8">
-      <MultiSelect placeholder="Выберите столбцы" />
-      <IconField iconPosition="left">
-        <InputIcon class="pi pi-search"> </InputIcon>
-        <InputText placeholder="Поиск" />
-      </IconField>
+      <slot></slot>
     </div>
   </div>
 </template>

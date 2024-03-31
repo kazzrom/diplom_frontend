@@ -5,7 +5,6 @@ export default {
     students: [],
     testStudents: [],
     studentColumns: [
-      { field: "fullname", header: "ФИО" },
       { field: "gender", header: "Пол" },
       { field: "birthday", header: "Дата рождения" },
       { field: "residentialAddress", header: "Домашний адрес" },
@@ -21,10 +20,10 @@ export default {
     updateTestStudents(state, students) {
       state.testStudents = students;
     },
-    showDialog(state) {
+    showAddStudentForm(state) {
       state.visibleAddStudentForm = true;
     },
-    closeDialog(state) {
+    closeAddStudentForm(state) {
       state.visibleAddStudentForm = false;
     },
   },

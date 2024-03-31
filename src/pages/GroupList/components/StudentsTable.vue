@@ -11,7 +11,11 @@ const students = computed(() => store.getters.testStudents);
 const studentColumns = computed(() => store.getters.studentColumns);
 
 const columns = ref(studentColumns);
-// const selectedColumns = ref(columns.value);
+const selectedColumns = ref(columns.value);
+
+const onToggle = (val) => {
+  selectedColumns.value = columns.value.filter((col) => val.includes(col));
+};
 
 const selectedStudents = ref();
 </script>
@@ -25,11 +29,25 @@ const selectedStudents = ref();
     :rows="13"
   >
     <template #header>
-      <TableHeader />
+      <TableHeader>
+        <MultiSelect
+          :model-value="selectedColumns"
+          :options="columns"
+          optionLabel="header"
+          @update:model-value="onToggle"
+          :max-selected-labels="3"
+          placeholder="Выберите столбцы"
+        />
+        <IconField iconPosition="left">
+          <InputIcon class="pi pi-search"> </InputIcon>
+          <InputText placeholder="Поиск" />
+        </IconField>
+      </TableHeader>
     </template>
     <Column selectionMode="multiple" />
+    <Column field="fullname" header="ФИО" />
     <Column
-      v-for="column in columns"
+      v-for="column in selectedColumns"
       :key="column.id"
       :field="column.field"
       :header="column.header"

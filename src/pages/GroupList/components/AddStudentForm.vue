@@ -81,7 +81,7 @@ const student = ref({
           icon="pi pi-times"
           iconPos="right"
           severity="secondary"
-          @click="store.commit('closeDialog')"
+          @click="store.commit('closeAddStudentForm')"
         />
       </div>
     </div>
