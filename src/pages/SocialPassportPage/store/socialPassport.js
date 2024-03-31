@@ -2,8 +2,8 @@ import ky from "ky";
 
 export default {
   state: {
-    orphans: [],
-    orphansColumns: [
+    students: [],
+    orphansOrGuardiansColumns: [
       { field: "studentFullname", header: "ФИО студента" },
       { field: "relativeFullname", header: "ФИО родственника" },
       { field: "address", header: "Адрес проживания" },
@@ -12,27 +12,29 @@ export default {
   },
 
   mutations: {
-    updateOrphans(state, orphans) {
-      state.orphans = orphans;
+    updateStudents(state, students) {
+      state.students = students;
     },
   },
 
   actions: {
-    async fetchOrphans(ctx) {
-      const orphans = await ky
-        .get("https://65f9714bdf1514524611a1fc.mockapi.io/journal/orphans")
+    async fetchStudents(ctx, tableType = "orphans") {
+      const students = await ky
+        .get(`https://65f9714bdf1514524611a1fc.mockapi.io/journal/${tableType}`)
         .json();
-      console.log(orphans);
-      ctx.commit("updateOrphans", orphans);
+      ctx.commit("updateStudents", students);
     },
   },
 
   getters: {
-    orphans(state) {
-      return state.orphans;
+    students(state) {
+      return state.students;
     },
     orphansColumns(state) {
-      return state.orphansColumns;
+      return state.orphansOrGuardiansColumns;
+    },
+    guardiansColumns(state) {
+      return state.orphansOrGuardiansColumns;
     },
   },
 };

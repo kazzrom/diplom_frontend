@@ -31,6 +31,8 @@ import PanelMenu from "primevue/panelmenu";
 
 import Avatar from "primevue/avatar";
 
+import TabMenu from "primevue/tabmenu";
+
 const app = createApp(App);
 
 app.use(PrimeVue, {
@@ -209,6 +211,7 @@ app
   .component("Dialog", Dialog)
   .component("Calendar", Calendar)
   .component("PanelMenu", PanelMenu)
-  .component("Avatar", Avatar);
+  .component("Avatar", Avatar)
+  .component("TabMenu", TabMenu);
 
 app.mount("#app");
