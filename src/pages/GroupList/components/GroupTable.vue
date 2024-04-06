@@ -22,6 +22,7 @@ const selectedStudents = ref();
 
 <template>
   <DataTable
+    :loading="store.loading"
     v-model:selection="selectedStudents"
     :value="students"
     tableStyle="min-width: 50rem"

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import ky from "ky";
 
 export const useGroupListStore = defineStore("groupList", () => {
+  const loading = ref(false);
   const students = ref([]);
 
   const studentColumns = [
@@ -26,16 +27,20 @@ export const useGroupListStore = defineStore("groupList", () => {
   const closeStudentForm = () => (visibleStudentForm.value = false);
 
   const fetchStudents = async () => {
+    loading.value = true;
     const response = await ky.get("http://localhost:5000/students").json();
     students.value = response;
+    loading.value = false;
   };
 
   const fetchTestStudents = async () => {
+    loading.value = true;
     const response = await ky
       .get("https://65f9714bdf1514524611a1fc.mockapi.io/journal/students")
       .json();
 
     students.value = response;
+    loading.value = false;
   };
 
   return {
@@ -46,5 +51,6 @@ export const useGroupListStore = defineStore("groupList", () => {
     closeStudentForm,
     fetchStudents,
     fetchTestStudents,
+    loading,
   };
 });

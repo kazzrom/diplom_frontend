@@ -1,15 +1,16 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useSocialPassportStore } from "@/stores/socialPassport.js";
+import { storeToRefs } from "pinia";
 
 const store = useSocialPassportStore();
-onMounted(() => store.fetchOrphans());
-const orphans = store.getStudents;
-const columns = store.getOrphansColumns;
+const { loading } = storeToRefs(store);
+
+const props = defineProps(["items", "columns"]);
 </script>
 
 <template>
-  <DataTable :value="orphans">
+  <DataTable :loading="loading" ref="dataStudentsTable" :value="items">
     <Column field="id" header="№" />
     <Column
       v-for="column in columns"
