@@ -8,3 +8,12 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+@layer components {
+  h2 {
+    @apply text-4xl font-medium;
+  }
+  h3 {
+    @apply text-3xl font-medium;
+  }
+}

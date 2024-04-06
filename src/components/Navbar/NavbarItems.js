@@ -32,6 +32,10 @@ const NavbarItems = [
     label: "Успеваемость",
     url: "#",
   },
+  {
+    label: "Профиль студента",
+    route: "/profile",
+  },
 ];
 
 export default NavbarItems;

@@ -1,12 +1,12 @@
 <script setup>
-defineProps(['scr_item']);
+defineProps(['item']);
 </script>
 
 <template>
   <router-link
-    v-if="scr_item.route"
+    v-if="item.route"
     v-slot="{ href, navigate }"
-    :to="scr_item.route"
+    :to="item.route"
     custom
   >
     <a
@@ -14,20 +14,20 @@ defineProps(['scr_item']);
       :href="href"
       @click="navigate"
     >
-      <span :class="scr_item.icon" />
-      <span class="ml-2 text-slate-800">{{ scr_item.label }}</span>
+      <span :class="item.icon" />
+      <span class="ml-2 text-slate-800">{{ item.label }}</span>
     </a>
   </router-link>
   <a
     v-else
     class="flex items-center cursor-pointer text-slate-800 px-3 py-2"
-    :href="scr_item.url"
-    :target="scr_item.target"
+    :href="item.url"
+    :target="item.target"
   >
-    <span :class="scr_item.icon" />
-    <span class="ml-2">{{ scr_item.label }}</span>
+    <span :class="item.icon" />
+    <span class="ml-2">{{ item.label }}</span>
     <span
-      v-if="scr_item.items"
+      v-if="item.items"
       class="pi pi-angle-down text-slate-800 ml-auto"
     />
   </a>
