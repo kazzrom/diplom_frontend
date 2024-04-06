@@ -1,5 +1,7 @@
 <script setup>
 import StudentsTable from "./components/StudentsTable.vue";
+import TabView from "primevue/tabview";
+import TabPanel from "primevue/tabpanel";
 const items = [
   { label: "Сироты" },
   { label: "Опекаемые" },
@@ -18,7 +20,6 @@ function tabChange(event) {
     <header class="bg-white py-8">
       <h2 class="text-4xl font-medium ml-10">Социальный паспорт</h2>
     </header>
-    <TabMenu :model="items" @tab-change="tabChange"></TabMenu>
     <StudentsTable />
   </div>
 </template>

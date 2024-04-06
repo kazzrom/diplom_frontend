@@ -3,7 +3,7 @@ import "primeicons/primeicons.css";
 
 import { createApp } from "vue";
 import App from "./App.vue";
-import store from "./store/index";
+import { createPinia } from "pinia";
 import router from "./routes/router.js";
 
 import PrimeVue from "primevue/config";
@@ -195,7 +195,8 @@ app.use(PrimeVue, {
     },
   },
 });
-app.use(store).use(router);
+
+app.use(createPinia()).use(router);
 
 app
   .component("Button", Button)

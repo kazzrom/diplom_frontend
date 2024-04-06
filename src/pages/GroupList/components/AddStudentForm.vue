@@ -1,11 +1,8 @@
 <script setup>
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { useGroupListStore } from "@/stores/groupList.js";
 
-const store = useStore();
-const visibleAddStudentForm = computed(
-  () => store.getters.visibleAddStudentForm
-);
+const { visibleAddStudentForm } = useGroupListStore();
 const student = ref({
   name: "",
   surname: "",
@@ -81,7 +78,7 @@ const student = ref({
           icon="pi pi-times"
           iconPos="right"
           severity="secondary"
-          @click="store.commit('closeAddStudentForm')"
+          @click="visibleAddStudentForm = false"
         />
       </div>
     </div>

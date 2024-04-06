@@ -1,14 +1,14 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { useStore } from "vuex";
+import { useGroupListStore } from "@/stores/groupList.js";
 import TableHeader from "./TableHeader.vue";
 
-const store = useStore();
+const store = useGroupListStore();
 
-onMounted(() => store.dispatch("fetchTestStudents"));
+onMounted(() => store.fetchTestStudents());
 
-const students = computed(() => store.getters.testStudents);
-const studentColumns = computed(() => store.getters.studentColumns);
+const students = store.getStudents;
+const studentColumns = store.getStudentsColumns;
 
 const columns = ref(studentColumns);
 const selectedColumns = ref(columns.value);

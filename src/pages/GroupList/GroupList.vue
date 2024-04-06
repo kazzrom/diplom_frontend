@@ -1,6 +1,6 @@
 <script setup>
 import AddStudentForm from "./components/AddStudentForm.vue";
-import StudentsTable from "./components/StudentsTable.vue";
+import StudentsTable from "./components/GroupTable.vue";
 </script>
 
 <template>

@@ -1,10 +1,11 @@
 <script setup>
-import { useStore } from "vuex";
-const store = useStore();
+import { useGroupListStore } from "@/stores/groupList.js";
+
+const { visibleAddStudentForm } = useGroupListStore();
 </script>
 
 <template>
-  <div class="bg-white flex justify-between items-center h-16 px-20">
+  <div class="wrapper">
     <div class="flex justify-between items-center gap-8">
       <h3 class="text-2xl font-medium">403 ИСП</h3>
       <ButtonGroup>
@@ -13,7 +14,7 @@ const store = useStore();
           iconPos="right"
           severity="secondary"
           aria-label="Добавить обучающегося"
-          @click="store.commit('showAddStudentForm')"
+          @click="visibleAddStudentForm = true"
         />
         <Button
           icon="pi pi-user-minus"
@@ -28,3 +29,10 @@ const store = useStore();
     </div>
   </div>
 </template>
+
+<style scoped>
+.wrapper {
+  @apply flex justify-between items-center 
+  bg-white h-16 px-20;
+}
+</style>

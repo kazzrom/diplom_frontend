@@ -1,11 +1,11 @@
 <script setup>
 import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+import { useSocialPassportStore } from "@/stores/socialPassport.js";
 
-const store = useStore();
-onMounted(() => store.dispatch("fetchStudents"));
-const orphans = computed(() => store.getters.students);
-const columns = computed(() => store.getters.orphansColumns);
+const store = useSocialPassportStore();
+onMounted(() => store.fetchOrphans());
+const orphans = store.getStudents;
+const columns = store.getOrphansColumns;
 </script>
 
 <template>
