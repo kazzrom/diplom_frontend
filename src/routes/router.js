@@ -1,47 +1,48 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import StudentsListPage from "@/pages/GroupList/GroupList.vue";
-import StartPage from "@/pages/StartPage/StartPage.vue";
-import SocialPassportPage from "@/pages/SocialPassportPage/SocialPassportPage.vue";
-import ParentMeetingsPage from "@/pages/ParentMeetingsPage/ParentMeetingsPage.vue";
-import GroupMeetingsPage from "@/pages/GroupMeetingsPage/GroupMeetingsPage.vue";
-import HomeroomsPage from "@/pages/HomeroomsPage/HomeroomsPage.vue";
-import ProfilePage from "@/pages/ProfilePage/ProfilePage.vue";
-import GeneralInformation from "@/pages/ProfilePage/components/GeneralInformation.vue";
-import Characteristic from "@/pages/ProfilePage/components/Characteristic.vue";
-import Family from "@/pages/ProfilePage/components/Family.vue";
-import IndividualWork from "@/pages/ProfilePage/components/IndividualWork.vue";
+import GroupListView from "@/views/GroupList/GroupListView.vue";
+import StartView from "@/views/Start/StartView.vue";
+import SocialPassportView from "@/views/SocialPassport/SocialPassportView.vue";
+import ParentMeetingsView from "@/views/ParentMeetings/ParentMeetingsView.vue";
+import GroupMeetingsView from "@/views/GroupMeetings/GroupMeetingsView.vue";
+import HomeroomsView from "@/views/Homerooms/HomeroomsView.vue";
+
+import ProfileView from "@/views/Profile/ProfileView.vue";
+import GeneralInformation from "@/views/Profile/components/GeneralInformation.vue";
+import Characteristic from "@/views/Profile/components/Characteristic.vue";
+import Family from "@/views/Profile/components/Family.vue";
+import IndividualWork from "@/views/Profile/components/IndividualWork.vue";
 
 const routes = [
-  { path: "/", component: StartPage },
-  { path: "/students", component: StudentsListPage },
-  { path: "/social-passport", component: SocialPassportPage },
-  { path: "/parent-meetings", component: ParentMeetingsPage },
-  { path: "/group-meetings", component: GroupMeetingsPage },
-  { path: "/homerooms", component: HomeroomsPage },
+  { path: "/", component: StartView },
+  { path: "/students", name: "Students", component: GroupListView },
+  { path: "/social-passport", component: SocialPassportView },
+  { path: "/parent-meetings", component: ParentMeetingsView },
+  { path: "/group-meetings", component: GroupMeetingsView },
+  { path: "/homerooms", component: HomeroomsView },
   {
     path: "/profile",
-    component: ProfilePage,
-    redirect: { name: "generalInformation" },
+    component: ProfileView,
+    redirect: { name: "GeneralInformation" },
     children: [
       {
         path: "general-information",
-        name: "generalInformation",
+        name: "GeneralInformation",
         component: GeneralInformation,
       },
       {
         path: "characteristic",
-        name: "characteristic",
+        name: "Characteristic",
         component: Characteristic,
       },
       {
         path: "family",
-        name: "family",
+        name: "Family",
         component: Family,
       },
       {
         path: "individual-work",
-        name: "individualWork",
+        name: "IndividualWork",
         component: IndividualWork,
       },
     ],
