@@ -1,3 +1,11 @@
+<script setup>
+import { useCounterStore } from "@/stores/counter.js";
+const { getCounter, increment } = useCounterStore();
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold m-2">Стартовая страница</h1>
+  <div class="flex flex-col justify-start">
+    <h1 class="text-3xl font-bold m-2">{{ getCounter }}</h1>
+    <Button label="Клик" @click="increment" />
+  </div>
 </template>

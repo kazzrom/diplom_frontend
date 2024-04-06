@@ -1,7 +1,7 @@
 <script setup>
 import { useGroupListStore } from "@/stores/groupList.js";
 
-const { visibleAddStudentForm } = useGroupListStore();
+const { openStudentForm } = useGroupListStore();
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { visibleAddStudentForm } = useGroupListStore();
           iconPos="right"
           severity="secondary"
           aria-label="Добавить обучающегося"
-          @click="visibleAddStudentForm = true"
+          @click="openStudentForm"
         />
         <Button
           icon="pi pi-user-minus"

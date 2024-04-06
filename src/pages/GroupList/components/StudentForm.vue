@@ -1,8 +1,10 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useGroupListStore } from "@/stores/groupList.js";
 
-const { visibleAddStudentForm } = useGroupListStore();
+const { getVisibleStudentForm, closeStudentForm } =
+  useGroupListStore();
+
 const student = ref({
   name: "",
   surname: "",
@@ -10,15 +12,19 @@ const student = ref({
   residentialAddress: "",
   phoneNumber: "",
   birthday: NaN,
-  reportCardNuber: "",
+  reportCardNumber: "",
   SNILS: "",
   medicalPolicy: "",
 });
+
+function AddStudent() {
+  closeStudentForm();
+}
 </script>
 
 <template>
   <Dialog
-    v-model:visible="visibleAddStudentForm"
+    v-model:visible="getVisibleStudentForm"
     modal
     header="Добавление студента"
     class="p-4"
@@ -60,7 +66,7 @@ const student = ref({
         <label for="reportCardNuber">Табельный номер</label>
         <InputText
           id="reportCardNuber"
-          v-model.number="student.reportCardNuber"
+          v-model.number="student.reportCardNumber"
         />
       </div>
       <div class="flex flex-col">
@@ -72,13 +78,18 @@ const student = ref({
         <InputText id="medicalPolicy" v-model="student.medicalPolicy" />
       </div>
       <div class="col-span-3 flex justify-end gap-2 mt-5">
-        <Button label="Добавить" icon="pi pi-user-plus" iconPos="right" />
+        <Button
+          label="Добавить"
+          icon="pi pi-user-plus"
+          iconPos="right"
+          @click="AddStudent"
+        />
         <Button
           label="Отмена"
           icon="pi pi-times"
           iconPos="right"
           severity="secondary"
-          @click="visibleAddStudentForm = false"
+          @click="closeStudentForm"
         />
       </div>
     </div>

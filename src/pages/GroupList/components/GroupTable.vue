@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useGroupListStore } from "@/stores/groupList.js";
 import TableHeader from "./TableHeader.vue";
 
