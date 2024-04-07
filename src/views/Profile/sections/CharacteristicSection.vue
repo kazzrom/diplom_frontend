@@ -5,7 +5,7 @@ import Sidebar from "../modules/Sidebar.vue";
 <template>
   <div class="wrapper">
     <Sidebar />
-    <RouterView class="m-10" />
+    <RouterView class="m-10 grow" />
   </div>
 </template>
 
