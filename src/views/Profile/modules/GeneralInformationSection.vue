@@ -1,3 +1,17 @@
+<script setup>
+import StudentCard from "../components/StudentCard.vue";
+import StudentForm from "./StudentForm.vue";
+</script>
 <template>
-  <h1>Общие сведения</h1>
+  <div class="wrapper">
+    <StudentCard />
+    <StudentForm />
+  </div>
 </template>
+
+<style scoped>
+.wrapper {
+  @apply flex flex-row gap-10 items-center
+          p-7;
+}
+</style>
