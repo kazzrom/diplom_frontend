@@ -4,7 +4,7 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import { useSocialPassportStore } from "@/stores/socialPassport";
 import { tables, TABLE_API_URL } from "@/utils/tables.js";
-import StudentsTable from "./components/StudentsTable.vue";
+import StudentsTable from "./modules/StudentsTable.vue";
 
 onMounted(() => store.fetchStudents(TABLE_API_URL.ORPHANS));
 

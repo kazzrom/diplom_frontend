@@ -4,7 +4,7 @@ import "primeicons/primeicons.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createPinia } from "pinia";
-import router from "./routes/router.js";
+import router from "./routes/mainRouter.js";
 
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-purple/theme.css";

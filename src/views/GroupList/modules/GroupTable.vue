@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useGroupListStore } from "@/stores/groupList.js";
-import TableHeader from "./TableHeader.vue";
+import TableHeader from "../components/TableHeader.vue";
 
 const store = useGroupListStore();
 
