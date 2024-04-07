@@ -1,3 +1,16 @@
+<script setup>
+import Sidebar from "../modules/Sidebar.vue";
+</script>
+
 <template>
-  <h1>Характеристика</h1>
+  <div class="wrapper">
+    <Sidebar />
+    <RouterView class="m-10" />
+  </div>
 </template>
+
+<style scoped>
+.wrapper {
+  @apply flex flex-row justify-start
+}
+</style>

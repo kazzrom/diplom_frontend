@@ -15,7 +15,7 @@ const student = ref({
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-5">
+  <div class="form_wrapper">
     <div class="input-text">
       <label for="surname">Фамилия</label>
       <InputText id="surname" v-model="student.surname" />
@@ -64,7 +64,7 @@ const student = ref({
 </template>
 
 <style scoped>
-.wrapper {
+.form_wrapper {
   @apply grid grid-cols-3 gap-5;
 }
 
