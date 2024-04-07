@@ -1,6 +1,6 @@
 <script setup>
 import StudentCard from "../components/StudentCard.vue";
-import StudentForm from "./StudentForm.vue";
+import StudentForm from "../modules/StudentForm.vue";
 </script>
 <template>
   <div class="wrapper">

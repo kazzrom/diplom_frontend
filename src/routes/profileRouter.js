@@ -1,7 +1,7 @@
-import GeneralInformationSection from "@/views/Profile/modules/GeneralInformationSection.vue";
-import CharacteristicSection from "@/views/Profile/modules/CharacteristicSection.vue";
-import FamilySection from "@/views/Profile/modules/FamilySection.vue";
-import IndividualWorkTable from "@/views/Profile/modules/IndividualWorkTable.vue";
+import GeneralInformationSection from "@/views/Profile/sections/GeneralInformationSection.vue";
+import CharacteristicSection from "@/views/Profile/sections/CharacteristicSection.vue";
+import FamilySection from "@/views/Profile/sections/FamilySection.vue";
+import IndividualWorkTable from "@/views/Profile/sections/IndividualWorkTable.vue";
 
 export default [
   {
