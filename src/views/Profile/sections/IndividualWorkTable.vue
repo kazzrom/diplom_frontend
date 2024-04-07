@@ -6,7 +6,13 @@ const columns = [
   { field: "participant", header: "С кем проведена беседа" },
   { field: "questions", header: "Какие вопросы обсуждались" },
 ];
-const individualWorks = ref([]);
+const individualWorks = ref([
+  {
+    workDate: "11.02.2022",
+    participant: "Березина Мария Данииловна",
+    questions: "Успеваемость обучающего на первый семестр",
+  },
+]);
 </script>
 
 <template>

@@ -34,7 +34,11 @@ const student = ref({
     </div>
     <div class="input-text">
       <label for="phoneNumber">Номер телефона</label>
-      <InputText id="phoneNumber" v-model="student.phoneNumber" />
+      <InputMask
+        id="phoneNumber"
+        mask="+7 999 999-99-99"
+        v-model="student.phoneNumber"
+      />
     </div>
     <div class="input-text">
       <label for="birthday">Дата рождения</label>
@@ -47,18 +51,23 @@ const student = ref({
     </div>
     <div class="input-text">
       <label for="reportCardNuber">Табельный номер</label>
-      <InputText
+      <InputNumber
         id="reportCardNuber"
-        v-model.number="student.reportCardNumber"
+        v-model="student.reportCardNumber"
+        :useGrouping="false"
       />
     </div>
     <div class="input-text">
       <label for="SNILS">СНИЛС</label>
-      <InputText id="SNILS" v-model="student.SNILS" />
+      <InputMask id="SNILS" mask="999-999-999 99" v-model="student.SNILS" />
     </div>
     <div class="input-text">
       <label for="medicalPolicy">Мед. полис</label>
-      <InputText id="medicalPolicy" v-model="student.medicalPolicy" />
+      <InputMask
+        id="medicalPolicy"
+        mask="9999 9999 9999 9999"
+        v-model="student.medicalPolicy"
+      />
     </div>
   </div>
 </template>

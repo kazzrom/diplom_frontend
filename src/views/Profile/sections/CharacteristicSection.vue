@@ -5,12 +5,12 @@ import Sidebar from "../modules/Sidebar.vue";
 <template>
   <div class="wrapper">
     <Sidebar />
-    <RouterView class="m-10 grow" />
+    <RouterView class="mx-10 grow" />
   </div>
 </template>
 
 <style scoped>
 .wrapper {
-  @apply flex flex-row justify-start
+  @apply flex flex-row justify-start pt-5;
 }
 </style>

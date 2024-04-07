@@ -24,7 +24,7 @@ const relative = ref(props.relative);
       </div>
       <div class="input-text">
         <label for="phoneNumber">Номер телефона</label>
-        <InputText id="phoneNumber" v-model="relative.phoneNumber" />
+        <InputMask id="phoneNumber" mask="+7 999 999-99-99" v-model="relative.phoneNumber" />
       </div>
       <div class="input-text">
         <label for="phoneNumber">Место работы</label>

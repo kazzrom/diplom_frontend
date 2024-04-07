@@ -19,6 +19,8 @@ import InputGroupAddon from "primevue/inputgroupaddon";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
+import InputMask from "primevue/inputmask";
+import InputNumber from "primevue/inputnumber";
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -209,6 +211,8 @@ app
   .component("IconField", IconField)
   .component("InputIcon", InputIcon)
   .component("InputText", InputText)
+  .component("InputMask", InputMask)
+  .component("InputNumber", InputNumber)
   .component("Dialog", Dialog)
   .component("Calendar", Calendar)
   .component("PanelMenu", PanelMenu)
