@@ -1,7 +1,10 @@
 <script setup>
 import { useGroupListStore } from "@/stores/groupList.js";
+import { storeToRefs } from "pinia";
+import Toolbar from "primevue/toolbar";
 
-const { openStudentForm } = useGroupListStore();
+const { openStudentForm, onToggle } = useGroupListStore();
+const { selectedColumns, studentColumns } = storeToRefs(useGroupListStore());
 </script>
 
 <template>
@@ -25,7 +28,18 @@ const { openStudentForm } = useGroupListStore();
       </ButtonGroup>
     </div>
     <div class="flex justify-between items-center gap-8">
-      <slot></slot>
+      <MultiSelect
+        :model-value="selectedColumns"
+        :options="studentColumns"
+        optionLabel="header"
+        @update:model-value="onToggle"
+        :max-selected-labels="3"
+        placeholder="Выберите столбцы"
+      />
+      <IconField iconPosition="left">
+        <InputIcon class="pi pi-search"> </InputIcon>
+        <InputText placeholder="Поиск" />
+      </IconField>
     </div>
   </div>
 </template>

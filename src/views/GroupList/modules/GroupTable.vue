@@ -1,25 +1,16 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useGroupListStore } from "@/stores/groupList.js";
 import TableHeader from "../components/TableHeader.vue";
-import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 
 const router = useRouter();
 const store = useGroupListStore();
 
 onMounted(() => store.fetchTestStudents());
 
-const students = store.getStudents;
-const studentColumns = store.getStudentsColumns;
-
-const columns = ref(studentColumns);
-const selectedColumns = ref(columns.value);
-
-const onToggle = (val) => {
-  selectedColumns.value = columns.value.filter((col) => val.includes(col));
-};
-
-const selectedStudents = ref();
+const { students, selectedColumns } = storeToRefs(store);
 
 function doubleClickRow(event) {
   router.push({ name: "Profile", params: { id: Number(event.data.id) } });
@@ -29,7 +20,7 @@ function doubleClickRow(event) {
 <template>
   <DataTable
     :loading="store.loading"
-    v-model:selection="selectedStudents"
+    v-model:selection="selectedColumns"
     :value="students"
     tableStyle="min-width: 50rem"
     paginator
@@ -37,20 +28,7 @@ function doubleClickRow(event) {
     @row-dblclick="doubleClickRow"
   >
     <template #header>
-      <TableHeader>
-        <MultiSelect
-          :model-value="selectedColumns"
-          :options="columns"
-          optionLabel="header"
-          @update:model-value="onToggle"
-          :max-selected-labels="3"
-          placeholder="Выберите столбцы"
-        />
-        <IconField iconPosition="left">
-          <InputIcon class="pi pi-search"> </InputIcon>
-          <InputText placeholder="Поиск" />
-        </IconField>
-      </TableHeader>
+      <TableHeader />
     </template>
     <Column selectionMode="multiple" />
     <Column field="fullname" header="ФИО" />

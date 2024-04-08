@@ -6,25 +6,29 @@ export const useGroupListStore = defineStore("groupList", () => {
   const loading = ref(false);
   const students = ref([]);
 
-  const studentColumns = [
+  const studentColumns = ref([
     { field: "gender", header: "Пол" },
     { field: "birthday", header: "Дата рождения" },
     { field: "phoneNumber", header: "Номер телефона" },
     { field: "residentialAddress", header: "Домашний адрес" },
     { field: "reportCardNumber", header: "Табельный номер" },
-  ];
+  ]);
 
-  const visibleStudentForm = ref(false);
+  const selectedColumns = ref(studentColumns.value);
 
-  const getStudents = computed(() => students);
+  const onToggle = (val) => {
+    selectedColumns.value = studentColumns.value.filter((col) =>
+      val.includes(col)
+    );
+  };
 
-  const getStudentsColumns = computed(() => studentColumns);
+  const _visibleStudentForm = ref(false);
 
-  const getVisibleStudentForm = computed(() => visibleStudentForm);
+  const getVisibleStudentForm = computed(() => _visibleStudentForm);
 
-  const openStudentForm = () => (visibleStudentForm.value = true);
+  const openStudentForm = () => (_visibleStudentForm.value = true);
 
-  const closeStudentForm = () => (visibleStudentForm.value = false);
+  const closeStudentForm = () => (_visibleStudentForm.value = false);
 
   const fetchStudents = async () => {
     loading.value = true;
@@ -44,9 +48,11 @@ export const useGroupListStore = defineStore("groupList", () => {
   };
 
   return {
+    students,
+    studentColumns,
+    selectedColumns,
+    onToggle,
     getVisibleStudentForm,
-    getStudents,
-    getStudentsColumns,
     openStudentForm,
     closeStudentForm,
     fetchStudents,
