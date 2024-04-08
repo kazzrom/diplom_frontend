@@ -40,7 +40,8 @@ const routes = [
     component: HomeroomsView,
   },
   {
-    path: "/profile",
+    path: "/profile/:id(\\d+)",
+    name: "Profile",
     component: ProfileView,
     redirect: { name: "GeneralInformation" },
     children: profileRouter,

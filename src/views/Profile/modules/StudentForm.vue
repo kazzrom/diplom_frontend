@@ -1,17 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { useProfileStore } from "@/stores/profile.js";
+import { storeToRefs } from "pinia";
 
-const student = ref({
-  name: "",
-  surname: "",
-  patronymic: "",
-  residentialAddress: "",
-  phoneNumber: "",
-  birthday: NaN,
-  reportCardNumber: "",
-  SNILS: "",
-  medicalPolicy: "",
-});
+const { student } = storeToRefs(useProfileStore());
 </script>
 
 <template>

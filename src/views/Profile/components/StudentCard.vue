@@ -1,9 +1,11 @@
-<script></script>
+<script setup>
+defineProps(["fullname"]);
+</script>
 
 <template>
   <div class="card_wrapper">
     <div class="avatar"></div>
-    <h4>Казанцев Роман</h4>
+    <h4>{{ fullname }}</h4>
   </div>
 </template>
 
@@ -14,5 +16,9 @@
 }
 .avatar {
   @apply w-[200px] h-[200px] bg-slate-500 rounded-full;
+}
+
+.card_wrapper {
+  @apply text-center;
 }
 </style>

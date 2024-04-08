@@ -1,10 +1,19 @@
 <script setup>
 import StudentCard from "../components/StudentCard.vue";
 import StudentForm from "../modules/StudentForm.vue";
+import { useProfileStore } from "@/stores/profile.js";
+import { useRoute } from "vue-router";
+import { onMounted } from "vue";
+
+const store = useProfileStore();
+const route = useRoute();
+
+const studentId = route.params.id;
+onMounted(() => store.fetchTestStudent(studentId));
 </script>
 <template>
   <div class="wrapper">
-    <StudentCard />
+    <StudentCard :fullname="store.student.fullname" />
     <StudentForm />
   </div>
 </template>

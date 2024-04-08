@@ -2,7 +2,9 @@
 import { onMounted, ref } from "vue";
 import { useGroupListStore } from "@/stores/groupList.js";
 import TableHeader from "../components/TableHeader.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useGroupListStore();
 
 onMounted(() => store.fetchTestStudents());
@@ -18,6 +20,10 @@ const onToggle = (val) => {
 };
 
 const selectedStudents = ref();
+
+function doubleClickRow(event) {
+  router.push({ name: "Profile", params: { id: Number(event.data.id) } });
+}
 </script>
 
 <template>
@@ -28,6 +34,7 @@ const selectedStudents = ref();
     tableStyle="min-width: 50rem"
     paginator
     :rows="13"
+    @row-dblclick="doubleClickRow"
   >
     <template #header>
       <TableHeader>

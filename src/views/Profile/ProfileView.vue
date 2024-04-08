@@ -4,6 +4,7 @@ import TabMenuItem from "@/components/TabMenu/TabMenuItem.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
 const items = [
   { label: "Общие сведения", route: { name: "GeneralInformation" } },
   { label: "Характеристика", route: { name: "Characteristic" } },
