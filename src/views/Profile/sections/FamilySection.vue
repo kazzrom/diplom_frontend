@@ -6,17 +6,20 @@ import RelativeCard from "../modules/RelativeCard.vue";
 
 import { useFamilySectionStore } from "@/stores/familySection";
 import { ACTIONS } from "@/constants";
+import { storeToRefs } from "pinia";
 
 const store = useFamilySectionStore();
-const { getIsShowDialog, getRelatives, openDialog, getHeaderForm } = store;
-
-const isShowDialog = getIsShowDialog;
-const header = getHeaderForm;
+const { getRelatives } = store;
 const relatives = getRelatives;
+const { dialog } = storeToRefs(store);
 </script>
 <template>
   <div class="wrapper">
-    <Dialog modal v-model:visible="isShowDialog" :header="header">
+    <Dialog
+      modal
+      v-model:visible="dialog.isShowDialog"
+      :header="dialog.currentHeader"
+    >
       <RelativeForm />
     </Dialog>
     <Toolbar>
@@ -30,7 +33,7 @@ const relatives = getRelatives;
             label="Добавить члена семьи"
             icon="pi pi-plus"
             icon-pos="right"
-            @click="openDialog(ACTIONS.ADD)"
+            @click="dialog.openDialog(ACTIONS.ADD)"
           />
         </div>
       </template>

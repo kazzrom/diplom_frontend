@@ -2,9 +2,10 @@
 import { ref } from "vue";
 import { useFamilySectionStore } from "@/stores/familySection";
 import { ACTIONS } from "@/constants";
+import { storeToRefs } from "pinia";
 
 const store = useFamilySectionStore();
-const { openDialog } = store;
+const { dialog } = storeToRefs(store);
 const props = defineProps(["relative"]);
 
 const relative = ref(props.relative);
@@ -17,7 +18,7 @@ const relative = ref(props.relative);
       text
       rounded
       class="edit_button"
-      @click="openDialog(ACTIONS.EDIT)"
+      @click="dialog.openDialog(ACTIONS.EDIT)"
     />
     <h4 class="font-bold mb-5">{{ relative.kinship }}</h4>
     <div class="form">

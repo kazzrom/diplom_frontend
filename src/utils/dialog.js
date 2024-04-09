@@ -4,11 +4,11 @@ export default class DialogForm {
   action = ACTIONS.VIEW;
   isShowDialog = false;
   formHeaders = { add: "", edit: "", view: "" };
-  currentHeaderForm = "";
+  currentHeader = "";
 
   constructor(formHeaders) {
     this.formHeaders = formHeaders;
-    this.currentHeaderForm = formHeaders.view;
+    this.currentHeader = formHeaders.view;
   }
 
   get isShowDialog() {
@@ -18,13 +18,13 @@ export default class DialogForm {
   setHeaderForm(action) {
     switch (action) {
       case ACTIONS.ADD:
-        this.currentHeaderForm = this.formHeaders.add;
+        this.currentHeader = this.formHeaders.add;
         break;
       case ACTIONS.EDIT:
-        this.currentHeaderForm = this.formHeaders.edit;
+        this.currentHeader = this.formHeaders.edit;
         break;
       default:
-        this.currentHeaderForm = this.formHeaders.view;
+        this.currentHeader = this.formHeaders.view;
         break;
     }
   }

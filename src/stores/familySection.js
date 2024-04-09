@@ -1,11 +1,15 @@
 import { ACTIONS } from "@/constants";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import DialogForm from "@/utils/dialog";
 
 export const useFamilySectionStore = defineStore("familySection", () => {
-  const dialogAction = ref(ACTIONS.VIEW);
-  const getAction = computed(() => dialogAction);
-
+  const formHeaders = {
+    add: "Добавление члена семьи",
+    edit: "Редактирование информации",
+    view: "Просмотр информации",
+  };
+  const dialog = ref(new DialogForm(formHeaders));
   const relative = ref({
     name: "",
     surname: "",
@@ -49,35 +53,7 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     },
   ]);
 
-  const isShowDialog = ref(false);
-
-  const getIsShowDialog = computed(() => isShowDialog);
-
   const getRelatives = computed(() => relatives);
-
-  const headerForm = ref("");
-  function setHeaderForm() {
-    switch (dialogAction.value) {
-      case ACTIONS.ADD:
-        headerForm.value = "Добавление члена семьи";
-        break;
-      case ACTIONS.EDIT:
-        headerForm.value = "Редактирование члена семьи";
-        break;
-      default:
-        headerForm.value = "Просмотр информации";
-        break;
-    }
-  }
-  const getHeaderForm = computed(() => headerForm);
-
-  const openDialog = (action) => {
-    dialogAction.value = action;
-    setHeaderForm();
-    isShowDialog.value = true;
-  };
-
-  const closeDialog = () => (isShowDialog.value = false);
 
   function AddRelative() {}
   function EditRelative() {}
@@ -87,15 +63,10 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   }
 
   return {
-    getIsShowDialog,
     getRelatives,
-    openDialog,
-    closeDialog,
     relative,
-    selectedKinship,
     kinships,
     getByIdRelative,
-    getAction,
-    getHeaderForm,
+    dialog,
   };
 });
