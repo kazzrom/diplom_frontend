@@ -1,7 +1,10 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export const useParentMeetingsStore = defineStore("parentMeetings", () => {
+  const router = useRouter();
+
   const parentMeeting = ref({
     title: "",
     theme: "",
@@ -39,8 +42,11 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
 
   const getVisibleParentMeetingForm = computed(() => visibleParentMeetingForm);
 
-  const openParentMeetingForm = () => (visibleParentMeetingForm.value = true);
-  const closeParentMeetingForm = () => (visibleParentMeetingForm.value = false);
+  const openParentMeetingForm = () =>
+    router.push({ name: "ParentMeetingForm" });
+
+  const closeParentMeetingForm = () =>
+    router.push({ name: "ParentMeetingList" });
 
   const isNotNullParentMeetings = ref(true);
 

@@ -12,6 +12,7 @@ const { parentMeeting } = storeToRefs(store);
 
 <template>
   <div class="wrapper">
+    <h3 class="mb-5">Добавление родительского собрания</h3>
     <div class="form_items">
       <div class="form_left_part">
         <div class="form_item">
@@ -54,7 +55,9 @@ const { parentMeeting } = storeToRefs(store);
 
 <style scoped>
 .wrapper {
-  @apply flex flex-col gap-7 p-4;
+  @apply flex flex-col gap-7 p-10 m-5
+  border border-solid border-slate-300 rounded-md
+  bg-white;
 }
 
 .form_items {

@@ -4,10 +4,11 @@ import GroupListView from "@/views/GroupList/GroupListView.vue";
 import StartView from "@/views/Start/StartView.vue";
 import SocialPassportView from "@/views/SocialPassport/SocialPassportView.vue";
 import ParentMeetingsView from "@/views/ParentMeetings/ParentMeetingsView.vue";
+import parentMeeting from "./parentMeeting.js";
 import GroupMeetingsView from "@/views/GroupMeetings/GroupMeetingsView.vue";
 import HomeroomsView from "@/views/Homerooms/HomeroomsView.vue";
 import ProfileView from "@/views/Profile/ProfileView.vue";
-import profileRouter from "./profileRouter";
+import profileRouter from "./profileRouter.js";
 
 const routes = [
   {
@@ -28,6 +29,8 @@ const routes = [
     path: "/parent-meetings",
     name: "ParentMeetings",
     component: ParentMeetingsView,
+    redirect: { name: "ParentMeetingList" },
+    children: parentMeeting,
   },
   {
     path: "/group-meetings",
