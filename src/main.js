@@ -7,6 +7,7 @@ import { createPinia } from "pinia";
 import router from "./routes/mainRouter.js";
 
 import PrimeVue from "primevue/config";
+import ConfirmationService from "primevue/confirmationservice";
 import "primevue/resources/themes/aura-light-purple/theme.css";
 
 import Button from "primevue/button";
@@ -198,7 +199,7 @@ app.use(PrimeVue, {
   },
 });
 
-app.use(createPinia()).use(router);
+app.use(ConfirmationService).use(createPinia()).use(router);
 
 app
   .component("Button", Button)

@@ -10,7 +10,8 @@ const store = useGroupListStore();
 
 onMounted(() => store.fetchTestStudents());
 
-const { students, selectedColumns } = storeToRefs(store);
+const students = store.getStudents;
+const selectedColumns = store.getStudentColumns;
 
 function doubleClickRow(event) {
   router.push({ name: "Profile", params: { id: Number(event.data.id) } });

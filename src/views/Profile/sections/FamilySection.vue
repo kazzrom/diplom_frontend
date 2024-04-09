@@ -33,6 +33,6 @@ const relatives = [
 
 <style scoped>
 .wrapper {
-  @apply flex flex-col gap-14 pl-14 pt-10;
+  @apply flex flex-col gap-14 px-14 pt-10;
 }
 </style>

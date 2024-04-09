@@ -16,13 +16,16 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const selectedColumns = ref(studentColumns.value);
 
+  const _visibleStudentForm = ref(false);
+
+  const getStudents = computed(() => students);
+  const getStudentColumns = computed(() => studentColumns);
+
   const onToggle = (val) => {
     selectedColumns.value = studentColumns.value.filter((col) =>
       val.includes(col)
     );
   };
-
-  const _visibleStudentForm = ref(false);
 
   const getVisibleStudentForm = computed(() => _visibleStudentForm);
 
@@ -48,8 +51,8 @@ export const useGroupListStore = defineStore("groupList", () => {
   };
 
   return {
-    students,
-    studentColumns,
+    getStudents,
+    getStudentColumns,
     selectedColumns,
     onToggle,
     getVisibleStudentForm,

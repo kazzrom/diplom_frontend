@@ -24,7 +24,11 @@ const relative = ref(props.relative);
       </div>
       <div class="input-text">
         <label for="phoneNumber">Номер телефона</label>
-        <InputMask id="phoneNumber" mask="+7 999 999-99-99" v-model="relative.phoneNumber" />
+        <InputMask
+          id="phoneNumber"
+          mask="+7 999 999-99-99"
+          v-model="relative.phoneNumber"
+        />
       </div>
       <div class="input-text">
         <label for="phoneNumber">Место работы</label>
@@ -40,7 +44,9 @@ const relative = ref(props.relative);
 
 <style scoped>
 .form_wrapper {
-  @apply flex flex-col;
+  @apply flex flex-col
+  border border-solid border-slate-300 rounded-md
+  px-10 pt-8 pb-10;
 }
 
 .form {
