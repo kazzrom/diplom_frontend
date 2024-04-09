@@ -1,9 +1,10 @@
 <script setup>
-import StudentCard from "../components/StudentCard.vue";
-import StudentForm from "../modules/StudentForm.vue";
-import { useProfileStore } from "@/stores/profile.js";
-import { useRoute } from "vue-router";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+
+import { useProfileStore } from "@/stores/profile.js";
+import StudentForm from "../modules/StudentForm.vue";
+import StudentPhoto from "../components/StudentPhoto.vue";
 
 const store = useProfileStore();
 const route = useRoute();
@@ -13,7 +14,7 @@ onMounted(() => store.fetchTestStudent(studentId));
 </script>
 <template>
   <div class="wrapper">
-    <StudentCard :fullname="store.student.fullname" />
+    <StudentPhoto :fullname="store.student.fullname" />
     <StudentForm />
   </div>
 </template>

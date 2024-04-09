@@ -1,9 +1,15 @@
+import DialogForm from "@/utils/dialog";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
 
 export const useParentMeetingsStore = defineStore("parentMeetings", () => {
-  const router = useRouter();
+  const dialog = ref(
+    new DialogForm({
+      add: "Добавление протокола",
+      edit: "Редактирование протокола",
+      view: "Просмотр протокола",
+    })
+  );
 
   const parentMeeting = ref({
     title: "",
@@ -36,17 +42,7 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     },
   ]);
 
-  const visibleParentMeetingForm = ref(false);
-
   const getParentMeetins = computed(() => parentMeetings);
-
-  const getVisibleParentMeetingForm = computed(() => visibleParentMeetingForm);
-
-  const openParentMeetingForm = () =>
-    router.push({ name: "ParentMeetingForm" });
-
-  const closeParentMeetingForm = () =>
-    router.push({ name: "ParentMeetingList" });
 
   const isNotNullParentMeetings = ref(true);
 
@@ -62,12 +58,10 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   }
 
   return {
+    dialog,
     parentMeeting,
     fetchParentMeetings,
     getParentMeetins,
-    getVisibleParentMeetingForm,
-    openParentMeetingForm,
-    closeParentMeetingForm,
     deleteParentMeeting,
     isNotNullParentMeetings,
   };

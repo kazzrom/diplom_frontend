@@ -1,10 +1,10 @@
 <script setup>
-import Sidebar from "../modules/Sidebar.vue";
+import CharacteristicSidebar from "../modules/CharacteristicSidebar.vue";
 </script>
 
 <template>
   <div class="wrapper">
-    <Sidebar />
+    <CharacteristicSidebar />
     <RouterView class="mx-10 grow" />
   </div>
 </template>

@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from "vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import ViewHeader from "@/components/ViewHeader.vue";
-import { useSocialPassportStore } from "@/stores/socialPassport";
+import { useSocialPassportStore } from "@/views/SocialPassport/stores/socialPassport";
 import { tables, TABLE_API_URL } from "@/utils/tables.js";
 import StudentsTable from "./modules/StudentsTable.vue";
 

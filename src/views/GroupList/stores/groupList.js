@@ -1,9 +1,34 @@
 import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import ky from "ky";
+import DialogForm from "@/utils/dialog.js";
 
 export const useGroupListStore = defineStore("groupList", () => {
+  const dialog = ref(
+    new DialogForm({
+      add: "Добавление студента",
+      edit: "",
+      view: "",
+    })
+  );
+
+  const router = useRouter();
+
   const loading = ref(false);
+
+  const student = ref({
+    name: "",
+    surname: "",
+    patronymic: "",
+    residentialAddress: "",
+    phoneNumber: "",
+    birthday: NaN,
+    reportCardNumber: "",
+    SNILS: "",
+    medicalPolicy: "",
+  });
+
   const students = ref([]);
 
   const studentColumns = ref([
@@ -16,8 +41,6 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const selectedColumns = ref(studentColumns.value);
 
-  const _visibleStudentForm = ref(false);
-
   const getStudents = computed(() => students);
   const getStudentColumns = computed(() => studentColumns);
 
@@ -26,12 +49,6 @@ export const useGroupListStore = defineStore("groupList", () => {
       val.includes(col)
     );
   };
-
-  const getVisibleStudentForm = computed(() => _visibleStudentForm);
-
-  const openStudentForm = () => (_visibleStudentForm.value = true);
-
-  const closeStudentForm = () => (_visibleStudentForm.value = false);
 
   const fetchStudents = async () => {
     loading.value = true;
@@ -50,16 +67,20 @@ export const useGroupListStore = defineStore("groupList", () => {
     loading.value = false;
   };
 
+  function doubleClickRow(event) {
+    router.push({ name: "Profile", params: { id: Number(event.data.id) } });
+  }
+
   return {
+    dialog,
+    student,
     getStudents,
-    getStudentColumns,
     selectedColumns,
+    getStudentColumns,
     onToggle,
-    getVisibleStudentForm,
-    openStudentForm,
-    closeStudentForm,
     fetchStudents,
     fetchTestStudents,
     loading,
+    doubleClickRow,
   };
 });

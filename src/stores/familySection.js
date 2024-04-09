@@ -1,15 +1,16 @@
-import { ACTIONS } from "@/constants";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import DialogForm from "@/utils/dialog";
 
 export const useFamilySectionStore = defineStore("familySection", () => {
-  const formHeaders = {
-    add: "Добавление члена семьи",
-    edit: "Редактирование информации",
-    view: "Просмотр информации",
-  };
-  const dialog = ref(new DialogForm(formHeaders));
+  const dialog = ref(
+    new DialogForm({
+      add: "Добавление члена семьи",
+      edit: "Редактирование информации",
+      view: "Просмотр информации",
+    })
+  );
+
   const relative = ref({
     name: "",
     surname: "",
@@ -63,10 +64,10 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   }
 
   return {
+    dialog,
     getRelatives,
     relative,
     kinships,
     getByIdRelative,
-    dialog,
   };
 });

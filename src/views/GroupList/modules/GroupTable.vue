@@ -1,26 +1,21 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import { useGroupListStore } from "@/stores/groupList.js";
-import TableHeader from "../components/TableHeader.vue";
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-const router = useRouter();
+import { useGroupListStore } from "../stores/groupList.js";
+
+onMounted(() => fetchTestStudents());
+
 const store = useGroupListStore();
+const { fetchTestStudents, getStudents, doubleClickRow } = store;
+const { selectedColumns, loading } = storeToRefs(store);
 
-onMounted(() => store.fetchTestStudents());
-
-const students = store.getStudents;
-const selectedColumns = store.getStudentColumns;
-
-function doubleClickRow(event) {
-  router.push({ name: "Profile", params: { id: Number(event.data.id) } });
-}
+const students = getStudents;
 </script>
 
 <template>
   <DataTable
-    :loading="store.loading"
+    :loading="loading"
     v-model:selection="selectedColumns"
     :value="students"
     tableStyle="min-width: 50rem"
@@ -28,9 +23,6 @@ function doubleClickRow(event) {
     :rows="13"
     @row-dblclick="doubleClickRow"
   >
-    <template #header>
-      <TableHeader />
-    </template>
     <Column selectionMode="multiple" />
     <Column field="fullname" header="ФИО" />
     <Column

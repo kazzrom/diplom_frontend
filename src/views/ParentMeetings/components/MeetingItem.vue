@@ -1,14 +1,14 @@
 <script setup>
-import { useParentMeetingsStore } from "@/stores/parentMeetings.js";
 import { storeToRefs } from "pinia";
 
-const props = defineProps(["meeting"]);
-const { fetchParentMeetings, openParentMeetingForm } = useParentMeetingsStore();
+import { ACTIONS } from "@/constants";
+import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 
-function view() {
-  fetchParentMeetings();
-  openParentMeetingForm();
-}
+const props = defineProps(["meeting"]);
+
+const store = useParentMeetingsStore();
+const { deleteParentMeeting } = store;
+const { dialog } = storeToRefs(store);
 </script>
 
 <template>
@@ -22,8 +22,18 @@ function view() {
       </p>
     </div>
     <div class="item_buttons">
-      <Button @click="view" icon="pi pi-eye" text rounded />
-      <Button icon="pi pi-pencil" text rounded />
+      <Button
+        @click="dialog.openDialog(ACTIONS.VIEW)"
+        icon="pi pi-eye"
+        text
+        rounded
+      />
+      <Button
+        @click="dialog.openDialog(ACTIONS.EDIT)"
+        icon="pi pi-pencil"
+        text
+        rounded
+      />
       <Button
         @click="deleteParentMeeting(meeting.id)"
         icon="pi pi-trash"

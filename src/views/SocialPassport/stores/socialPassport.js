@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import ky from "ky";
-import { TABLE_API_URL } from "@/utils/tables";
 
 export const useSocialPassportStore = defineStore("socialPassport", () => {
   const loading = ref(false);

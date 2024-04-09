@@ -16,13 +16,13 @@ const { dialog } = storeToRefs(store);
 <template>
   <div class="wrapper">
     <Dialog
-      modal
       v-model:visible="dialog.isShowDialog"
       :header="dialog.currentHeader"
+      modal
     >
       <RelativeForm />
     </Dialog>
-    <Toolbar>
+    <Toolbar class="px-5">
       <template #start>
         <div class="toolbar_start">
           <IconField iconPosition="left">

@@ -1,7 +1,6 @@
 <script setup>
 import { useFamilySectionStore } from "@/stores/familySection";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
 import Dropdown from "primevue/dropdown";
 import { ACTIONS } from "@/constants";
 
@@ -47,20 +46,25 @@ const { relative, kinships, dialog } = storeToRefs(store);
     </div>
     <div class="form_buttons">
       <Button
-        v-if="dialog.action === ACTIONS.ADD"
+        v-show="dialog.action === ACTIONS.ADD"
         @click="dialog.closeDialog()"
         label="Добавить"
         icon="pi pi-plus"
         iconPos="right"
       />
       <Button
-        v-else-if="dialog.action === ACTIONS.EDIT"
+        v-show="dialog.action === ACTIONS.EDIT"
         @click="dialog.closeDialog()"
         label="Сохранить"
         icon="pi pi-save"
         iconPos="right"
       />
-      <Button @click="dialog.closeDialog()" label="Отмена" severity="secondary" />
+      <Button
+        v-show="dialog.action !== ACTIONS.VIEW"
+        @click="dialog.closeDialog()"
+        label="Отмена"
+        severity="secondary"
+      />
     </div>
   </div>
 </template>

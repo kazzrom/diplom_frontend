@@ -1,6 +1,5 @@
 <script setup>
-import { computed, onMounted } from "vue";
-import { useSocialPassportStore } from "@/stores/socialPassport.js";
+import { useSocialPassportStore } from "../stores/socialPassport.js";
 import { storeToRefs } from "pinia";
 
 const store = useSocialPassportStore();
