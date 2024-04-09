@@ -55,8 +55,7 @@ const { parentMeeting } = storeToRefs(store);
 
 <style scoped>
 .wrapper {
-  @apply flex flex-col gap-7 p-10 m-5
-  border border-solid border-slate-300 rounded-md
+  @apply flex flex-col gap-7 p-10
   bg-white;
 }
 

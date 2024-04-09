@@ -20,6 +20,7 @@ const items = ref(NavbarItems);
 <style scoped>
 .wrapper {
   @apply flex flex-col items-center 
-  bg-white h-screen p-3;
+  bg-white h-screen p-3
+  border border-solid;
 }
 </style>

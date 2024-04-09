@@ -1,28 +1,32 @@
 <script setup>
+import { useFamilySectionStore } from "@/stores/familySection";
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import Dropdown from "primevue/dropdown";
+import { ACTIONS } from "@/constants";
 
-const props = defineProps(["relative"]);
-
-const relative = ref(props.relative);
+const store = useFamilySectionStore();
+const { closeDialog, getAction } = store;
+const action = getAction;
+const { relative, kinships } = storeToRefs(store);
 </script>
 
 <template>
   <div class="form_wrapper">
-    <h4 class="font-bold mb-5">{{ relative.kinship }}</h4>
-    <div class="form">
-      <div class="input-text">
+    <div class="form_items">
+      <div class="form_item">
         <label for="surname">Фамилия</label>
         <InputText id="surname" v-model="relative.surname" />
       </div>
-      <div class="input-text">
+      <div class="form_item">
         <label for="name">Имя</label>
         <InputText id="name" v-model="relative.name" />
       </div>
-      <div class="input-text">
+      <div class="form_item">
         <label for="patronymic">Отчество</label>
         <InputText id="patronymic" v-model="relative.patronymic" />
       </div>
-      <div class="input-text">
+      <div class="form_item">
         <label for="phoneNumber">Номер телефона</label>
         <InputMask
           id="phoneNumber"
@@ -30,14 +34,35 @@ const relative = ref(props.relative);
           v-model="relative.phoneNumber"
         />
       </div>
-      <div class="input-text">
+      <div class="form_item">
         <label for="phoneNumber">Место работы</label>
         <InputText id="phoneNumber" v-model="relative.workPlace" />
       </div>
-      <div class="input-text">
+      <div class="form_item">
         <label for="phoneNumber">Должность</label>
         <InputText id="phoneNumber" v-model="relative.jobTitle" />
       </div>
+      <div class="form_item">
+        <label for="kinship">Родство</label>
+        <Dropdown id="kinship" v-model="relative.kinship" :options="kinships" />
+      </div>
+    </div>
+    <div class="form_buttons">
+      <Button
+        v-if="action === ACTIONS.ADD"
+        @click="closeDialog"
+        label="Добавить"
+        icon="pi pi-plus"
+        iconPos="right"
+      />
+      <Button
+        v-else-if="action === ACTIONS.EDIT"
+        @click="closeDialog"
+        label="Сохранить"
+        icon="pi pi-save"
+        iconPos="right"
+      />
+      <Button @click="closeDialog" label="Отмена" severity="secondary" />
     </div>
   </div>
 </template>
@@ -45,19 +70,20 @@ const relative = ref(props.relative);
 <style scoped>
 .form_wrapper {
   @apply flex flex-col
-  border border-solid border-slate-300 rounded-md
-  px-10 pt-8 pb-10;
+  p-5;
 }
-
-.form {
+.form_buttons {
+  @apply flex flex-row justify-end gap-5;
+}
+.form_items {
   @apply grid grid-cols-3 gap-5;
 }
 
-.input-text {
+.form_item {
   @apply flex flex-col gap-2 w-[260px];
 }
 
-.input-text label {
+.form_item label {
   @apply font-bold;
 }
 </style>
