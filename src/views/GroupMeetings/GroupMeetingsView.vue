@@ -1,3 +1,7 @@
+<script setup>
+import ViewHeader from "@/components/ViewHeader.vue";
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold m-2">Собрания группы</h1>
+  <ViewHeader>Собрания группы</ViewHeader>
 </template>

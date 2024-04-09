@@ -1,6 +1,7 @@
 <script setup>
 import TabMenu from "primevue/tabmenu";
 import TabMenuItem from "@/components/TabMenu/TabMenuItem.vue";
+import ViewHeader from "@/components/ViewHeader.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -18,16 +19,7 @@ function toGroupList() {
 
 <template>
   <div class="wrapper">
-    <header class="header">
-      <Button
-        @click="toGroupList"
-        icon="pi pi-arrow-left text-xl"
-        text
-        rounded
-        severity="secondary"
-      />
-      <h2>Профиль студента</h2>
-    </header>
+    <ViewHeader>Профиль студента</ViewHeader>
     <main class="main">
       <TabMenu :model="items">
         <template #item="{ item, props }">

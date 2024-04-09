@@ -1,8 +1,10 @@
+<script setup>
+import ViewHeader from "@/components/ViewHeader.vue";
+</script>
+
 <template>
   <div class="wrapper">
-    <header class="bg-white py-8">
-      <h2 class="text-4xl font-medium ml-10">Родительские собрания</h2>
-    </header>
+    <ViewHeader>Родительские собрания</ViewHeader>
     <RouterView />
   </div>
 </template>

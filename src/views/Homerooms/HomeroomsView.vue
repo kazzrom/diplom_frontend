@@ -1,3 +1,7 @@
+<script setup>
+import ViewHeader from "@/components/ViewHeader.vue";
+</script>
+
 <template>
-  <h1 class="text-3xl font-bold m-2">Классные часы</h1>
+  <ViewHeader>Классные часы</ViewHeader>
 </template>

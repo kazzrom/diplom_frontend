@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from "vue";
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
+import ViewHeader from "@/components/ViewHeader.vue";
 import { useSocialPassportStore } from "@/stores/socialPassport";
 import { tables, TABLE_API_URL } from "@/utils/tables.js";
 import StudentsTable from "./modules/StudentsTable.vue";
@@ -28,9 +29,7 @@ const exportCSV = () => {
 
 <template>
   <div class="flex flex-col">
-    <header class="bg-white py-8">
-      <h2 class="text-4xl font-medium ml-10">Социальный паспорт</h2>
-    </header>
+    <ViewHeader>Социальный паспорт</ViewHeader>
     <TabView v-model:active-index="activeTab">
       <TabPanel
         v-for="table in tables"
