@@ -10,9 +10,10 @@ const selectedPresenceOffenses = ref();
 
 const badHabits = ref([
   { name: "Нет" },
-  { name: "Курение" },
-  { name: "Алкоголизм" },
-  { name: "Наркомания" },
+  { name: "К курению" },
+  { name: "К распитию спиртного" },
+  { name: "К бродяжничеству" },
+  { name: "К вороству" },
 ]);
 const selectedbadHabits = ref();
 
@@ -34,7 +35,7 @@ const leisure = ref();
       <Textarea id="negative-sides" rows="10" />
     </div>
     <div class="form_item">
-      <label for="bad-habits">Вредные привычки</label>
+      <label for="bad-habits">Склонности</label>
       <MultiSelect
         id="bad-habits"
         v-model="selectedbadHabits"

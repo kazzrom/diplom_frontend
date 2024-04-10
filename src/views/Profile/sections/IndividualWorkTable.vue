@@ -12,6 +12,11 @@ const individualWorks = ref([
     participant: "Березина Мария Данииловна",
     questions: "Успеваемость обучающего на первый семестр",
   },
+  {
+    workDate: "11.02.2022",
+    participant: "Березина Мария Данииловна",
+    questions: undefined,
+  },
 ]);
 </script>
 
