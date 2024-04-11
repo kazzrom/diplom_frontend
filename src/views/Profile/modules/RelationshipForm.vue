@@ -23,7 +23,7 @@ const selectedRelationship = ref();
       <Textarea id="senior" rows="10" />
     </div>
     <div class="form_item">
-      <label for="failures"> Отношение к своим неудачам в обучении: </label>
+      <label for="failures">Отношение к своим неудачам в обучении: </label>
       <Textarea id="failures" rows="10" />
     </div>
     <div class="form_item">

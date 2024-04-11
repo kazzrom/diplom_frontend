@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import ky from "ky";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
