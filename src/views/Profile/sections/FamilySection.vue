@@ -25,10 +25,6 @@ const { dialog } = storeToRefs(store);
     <Toolbar class="px-5">
       <template #start>
         <div class="toolbar_start">
-          <IconField iconPosition="left">
-            <InputIcon class="pi pi-search" />
-            <InputText placeholder="Поиск" />
-          </IconField>
           <Button
             label="Добавить члена семьи"
             icon="pi pi-plus"
@@ -54,6 +50,6 @@ const { dialog } = storeToRefs(store);
 }
 
 .toolbar_start {
-  @apply flex flex-row gap-5;
+  @apply flex flex-row;
 }
 </style>

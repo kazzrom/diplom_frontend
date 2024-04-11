@@ -2,15 +2,17 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-import { useProfileStore } from "@/stores/profile.js";
+import { useGeneralInformationStore } from "@/stores/generalInformation.js";
 import StudentForm from "../modules/StudentForm.vue";
 import StudentPhoto from "../components/StudentPhoto.vue";
 
-const store = useProfileStore();
 const route = useRoute();
-
 const studentId = route.params.id;
-onMounted(() => store.fetchTestStudent(studentId));
+
+const store = useGeneralInformationStore();
+const { fetchTestStudent } = store;
+
+onMounted(() => fetchTestStudent(studentId));
 </script>
 <template>
   <div class="wrapper">
