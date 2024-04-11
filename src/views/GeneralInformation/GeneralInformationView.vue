@@ -2,9 +2,9 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-import { useGeneralInformationStore } from "@/stores/generalInformation.js";
-import StudentForm from "../modules/StudentForm.vue";
-import StudentPhoto from "../components/StudentPhoto.vue";
+import { useGeneralInformationStore } from "./stores/generalInformation.js";
+import StudentForm from "./modules/StudentForm.vue";
+import StudentPhoto from "./components/StudentPhoto.vue";
 
 const route = useRoute();
 const studentId = route.params.id;

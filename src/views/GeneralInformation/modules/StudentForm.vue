@@ -1,5 +1,5 @@
 <script setup>
-import { useGeneralInformationStore } from "@/stores/generalInformation.js";
+import { useGeneralInformationStore } from "../stores/generalInformation.js";
 import { storeToRefs } from "pinia";
 
 const store = useGeneralInformationStore();

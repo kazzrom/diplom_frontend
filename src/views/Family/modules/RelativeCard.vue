@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useFamilySectionStore } from "@/stores/familySection";
+import { useFamilySectionStore } from "../stores/family.js";
 import { ACTIONS } from "@/constants";
 import { storeToRefs } from "pinia";
 

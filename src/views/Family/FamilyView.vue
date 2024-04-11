@@ -1,12 +1,11 @@
 <script setup>
 import Toolbar from "primevue/toolbar";
-import DataView from "primevue/dataview";
 import ScrollPanel from "primevue/scrollpanel";
 
-import RelativeForm from "../modules/RelativeForm.vue";
-import RelativeCard from "../modules/RelativeCard.vue";
+import RelativeForm from "./modules/RelativeForm.vue";
+import RelativeCard from "./modules/RelativeCard.vue";
 
-import { useFamilySectionStore } from "@/stores/familySection";
+import { useFamilySectionStore } from "./stores/family.js";
 import { ACTIONS } from "@/constants";
 import { storeToRefs } from "pinia";
 

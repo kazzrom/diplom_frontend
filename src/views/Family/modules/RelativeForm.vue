@@ -1,5 +1,5 @@
 <script setup>
-import { useFamilySectionStore } from "@/stores/familySection";
+import { useFamilySectionStore } from "../stores/family.js";
 import { storeToRefs } from "pinia";
 import Dropdown from "primevue/dropdown";
 import { ACTIONS } from "@/constants";

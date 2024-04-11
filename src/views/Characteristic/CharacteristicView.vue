@@ -1,5 +1,5 @@
 <script setup>
-import CharacteristicSidebar from "../modules/CharacteristicSidebar.vue";
+import CharacteristicSidebar from "./modules/CharacteristicSidebar.vue";
 </script>
 
 <template>

@@ -1,30 +1,30 @@
-import GeneralInformationSection from "@/views/Profile/sections/GeneralInformationSection.vue";
-import CharacteristicSection from "@/views/Profile/sections/CharacteristicSection.vue";
+import GeneralInformationView from "@/views/GeneralInformation/GeneralInformationView.vue";
+import CharacteristicView from "@/views/Characteristic/CharacteristicView.vue";
 import characteristicRouter from "./characteristicRouter";
-import FamilySection from "@/views/Profile/sections/FamilySection.vue";
-import IndividualWorkTable from "@/views/Profile/sections/IndividualWorkTable.vue";
+import FamilyView from "@/views/Family/FamilyView.vue";
+import IndividualWorksView from "@/views/IndividualWorks/IndividualWorksView.vue";
 
 export default [
   {
     path: "general-information",
     name: "GeneralInformation",
-    component: GeneralInformationSection,
+    component: GeneralInformationView,
   },
   {
     path: "characteristic",
     name: "Characteristic",
-    component: CharacteristicSection,
+    component: CharacteristicView,
     redirect: { name: "Relationship" },
     children: characteristicRouter,
   },
   {
     path: "family",
     name: "Family",
-    component: FamilySection,
+    component: FamilyView,
   },
   {
     path: "individual-work",
     name: "IndividualWork",
-    component: IndividualWorkTable,
+    component: IndividualWorksView,
   },
 ];
