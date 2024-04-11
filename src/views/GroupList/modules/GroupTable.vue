@@ -3,20 +3,25 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useGroupListStore } from "../stores/groupList.js";
+import { useSearchStore } from "@/stores/search.js";
 
 onMounted(() => fetchTestStudents());
 
 const store = useGroupListStore();
 const { fetchTestStudents, getStudents, openProfile } = store;
-const { selectedColumns, loading } = storeToRefs(store);
-
+const { selectedColumns, loading, selectedStudents } = storeToRefs(store);
 const students = getStudents;
+
+const search = useSearchStore();
+const { filters } = storeToRefs(search);
 </script>
 
 <template>
   <DataTable
+    :filters="filters"
+    :global-filter-fields="['fullname']"
     :loading="loading"
-    v-model:selection="selectedColumns"
+    v-model:selection="selectedStudents"
     :value="students"
     tableStyle="min-width: 50rem"
     paginator

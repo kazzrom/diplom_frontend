@@ -3,7 +3,7 @@ import { storeToRefs } from "pinia";
 import { useGroupListStore } from "../stores/groupList.js";
 
 const store = useGroupListStore();
-const { AddStudent } = store;
+const { addStudent } = store;
 const { student, dialog } = storeToRefs(store);
 </script>
 
@@ -91,7 +91,7 @@ const { student, dialog } = storeToRefs(store);
           label="Добавить"
           icon="pi pi-user-plus"
           iconPos="right"
-          @click="AddStudent"
+          @click="addStudent"
         />
         <Button
           label="Отмена"

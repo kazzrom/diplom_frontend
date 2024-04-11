@@ -4,12 +4,15 @@ import Toolbar from "primevue/toolbar";
 
 import { ACTIONS } from "@/constants";
 import { useGroupListStore } from "../stores/groupList.js";
+import { useSearchStore } from "@/stores/search.js";
 
 const store = useGroupListStore();
-const { onToggle, getStudentColumns } = store;
-const { selectedColumns, dialog } = storeToRefs(store);
-
+const { onToggle, getStudentColumns, confirmDeleteStudents } = store;
+const { selectedColumns, dialog, selectedStudents } = storeToRefs(store);
 const studentColumns = getStudentColumns;
+
+const search = useSearchStore();
+const { filters } = storeToRefs(search);
 </script>
 
 <template>
@@ -18,7 +21,7 @@ const studentColumns = getStudentColumns;
       <div class="toolbar_part">
         <IconField iconPosition="left">
           <InputIcon class="pi pi-search" />
-          <InputText placeholder="Поиск" />
+          <InputText placeholder="Поиск" v-model="filters['global'].value" />
         </IconField>
         <MultiSelect
           :model-value="selectedColumns"
@@ -39,9 +42,11 @@ const studentColumns = getStudentColumns;
           @click="dialog.openDialog(ACTIONS.ADD)"
         />
         <Button
+          :disabled="!selectedStudents.length"
           label="Удалить обучающегося"
           icon="pi pi-user-minus"
           iconPos="right"
+          @click="confirmDeleteStudents()"
         />
       </div>
     </template>

@@ -3,6 +3,7 @@ import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import ky from "ky";
 import DialogForm from "@/utils/dialog.js";
+import { useConfirm } from "primevue/useconfirm";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const dialog = ref(
@@ -71,14 +72,49 @@ export const useGroupListStore = defineStore("groupList", () => {
     router.push({ name: "Profile", params: { id: Number(event.data.id) } });
   }
 
-  function AddStudent() {
-    
+  function addStudent() {
     dialog.value.closeDialog();
   }
+
+  const selectedStudents = ref([]);
+
+  async function deleteStudents() {
+    const ids = selectedStudents.value.map((student) => student.id);
+
+    ids.forEach(async (id) => {
+      students.value = students.value.filter((stud) => stud.id !== id);
+      const answer = await ky
+        .delete(
+          `https://65f9714bdf1514524611a1fc.mockapi.io/journal/students/${id}`
+        )
+        .json();
+      console.log(answer);
+    });
+
+    selectedStudents.value = [];
+  }
+
+  const confirm = useConfirm();
+
+  const confirmDeleteStudents = () => {
+    confirm.require({
+      message: "Вы точно хотите удалить выбранных студентов?",
+      header: "Удаление",
+      icon: "pi pi-info-circle",
+      rejectLabel: "Отмена",
+      acceptLabel: "Удалить",
+      rejectClass: "p-button-secondary p-button-outlined",
+      acceptClass: "p-button-danger",
+      accept: () => {
+        deleteStudents();
+      },
+    });
+  };
 
   return {
     dialog,
     student,
+    selectedStudents,
     getStudents,
     selectedColumns,
     getStudentColumns,
@@ -87,6 +123,7 @@ export const useGroupListStore = defineStore("groupList", () => {
     fetchTestStudents,
     loading,
     openProfile,
-    AddStudent,
+    addStudent,
+    confirmDeleteStudents,
   };
 });
