@@ -56,8 +56,12 @@ export const useFamilySectionStore = defineStore("familySection", () => {
 
   const getRelatives = computed(() => relatives);
 
-  function AddRelative() {}
-  function EditRelative() {}
+  function AddRelative() {
+    dialog.value.closeDialog();
+  }
+  function EditRelative() {
+    dialog.value.closeDialog();
+  }
 
   function getByIdRelative(id) {
     return relatives.value.find((relative) => relative.id === id);
@@ -69,5 +73,7 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     relative,
     kinships,
     getByIdRelative,
+    AddRelative,
+    EditRelative,
   };
 });

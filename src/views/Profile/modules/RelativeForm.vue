@@ -5,6 +5,7 @@ import Dropdown from "primevue/dropdown";
 import { ACTIONS } from "@/constants";
 
 const store = useFamilySectionStore();
+const { AddRelative, EditRelative } = store;
 const { relative, kinships, dialog } = storeToRefs(store);
 </script>
 
@@ -47,14 +48,14 @@ const { relative, kinships, dialog } = storeToRefs(store);
     <div class="form_buttons">
       <Button
         v-show="dialog.action === ACTIONS.ADD"
-        @click="dialog.closeDialog()"
+        @click="AddRelative"
         label="Добавить"
         icon="pi pi-plus"
         iconPos="right"
       />
       <Button
         v-show="dialog.action === ACTIONS.EDIT"
-        @click="dialog.closeDialog()"
+        @click="EditRelative"
         label="Сохранить"
         icon="pi pi-save"
         iconPos="right"

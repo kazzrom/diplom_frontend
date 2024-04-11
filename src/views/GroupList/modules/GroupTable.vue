@@ -7,7 +7,7 @@ import { useGroupListStore } from "../stores/groupList.js";
 onMounted(() => fetchTestStudents());
 
 const store = useGroupListStore();
-const { fetchTestStudents, getStudents, doubleClickRow } = store;
+const { fetchTestStudents, getStudents, openProfile } = store;
 const { selectedColumns, loading } = storeToRefs(store);
 
 const students = getStudents;
@@ -21,7 +21,7 @@ const students = getStudents;
     tableStyle="min-width: 50rem"
     paginator
     :rows="13"
-    @row-dblclick="doubleClickRow"
+    @row-dblclick="openProfile"
   >
     <Column selectionMode="multiple" />
     <Column field="fullname" header="ФИО" />

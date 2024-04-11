@@ -57,6 +57,14 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     parentMeeting.value = parentMeetings.value.find((meet) => meet.id === id);
   }
 
+  function AddParentMetting() {
+    dialog.value.closeDialog();
+  }
+
+  function EditParentMetting() {
+    dialog.value.closeDialog();
+  }
+
   return {
     dialog,
     parentMeeting,
@@ -64,5 +72,7 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     getParentMeetins,
     deleteParentMeeting,
     isNotNullParentMeetings,
+    AddParentMetting,
+    EditParentMetting,
   };
 });

@@ -67,8 +67,13 @@ export const useGroupListStore = defineStore("groupList", () => {
     loading.value = false;
   };
 
-  function doubleClickRow(event) {
+  function openProfile(event) {
     router.push({ name: "Profile", params: { id: Number(event.data.id) } });
+  }
+
+  function AddStudent() {
+    
+    dialog.value.closeDialog();
   }
 
   return {
@@ -81,6 +86,7 @@ export const useGroupListStore = defineStore("groupList", () => {
     fetchStudents,
     fetchTestStudents,
     loading,
-    doubleClickRow,
+    openProfile,
+    AddStudent,
   };
 });
