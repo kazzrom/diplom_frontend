@@ -52,27 +52,41 @@ export const useFamilySectionStore = defineStore("familySection", () => {
       jobTitle: "Повар",
       kinship: "Мать",
     },
+    {
+      id: 3,
+      name: "Ясsdfмина",
+      surname: "Молчанова",
+      patronymic: "Тимуровна",
+      phoneNumber: "+79122717256",
+      workPlace: "Кухня",
+      jobTitle: "Повар",
+      kinship: "Мать",
+    },
+    {
+      id: 4,
+      name: "sfdsfsfdds",
+      surname: "Молчанова",
+      patronymic: "Тимуровна",
+      phoneNumber: "+79122717256",
+      workPlace: "Кухня",
+      jobTitle: "Повар",
+      kinship: "Мать",
+    },
   ]);
-
-  const getRelatives = computed(() => relatives);
 
   function AddRelative() {
     dialog.value.closeDialog();
   }
+
   function EditRelative() {
     dialog.value.closeDialog();
   }
 
-  function getByIdRelative(id) {
-    return relatives.value.find((relative) => relative.id === id);
-  }
-
   return {
     dialog,
-    getRelatives,
     relative,
+    relatives,
     kinships,
-    getByIdRelative,
     AddRelative,
     EditRelative,
   };

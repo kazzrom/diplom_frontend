@@ -76,6 +76,23 @@ export const socialPassportTables = [
   { header: "Проблемные семьи", columns: problemFamiliesColumns },
   { header: "Многодетные семьи", columns: largeFamiliesColumns },
   { header: "Малообечпеченные семьи", columns: lowIncomeFamiliesColumns },
+  {
+    header: "Обучающиеся, у которых родители безработные",
+    columns: unemployedParentsColumns,
+  },
+  {
+    header: "Обучающиеся, стоящие на учете в ОППН",
+    columns: registeredOPPNFamiliesColumns,
+  },
+  {
+    header: "Обучающиеся, имеющие хронические заболевания",
+    columns: studentsWithChronicDiseasesColumns,
+  },
+  {
+    header:
+      "Обучающиеся, из семей, в которых родители (1 из родителей) инвалид",
+    columns: disabledParentsColumns,
+  },
 ];
 
 export const TABLE_API_URL = {

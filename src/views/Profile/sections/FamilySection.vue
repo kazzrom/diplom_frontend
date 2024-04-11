@@ -1,5 +1,7 @@
 <script setup>
 import Toolbar from "primevue/toolbar";
+import DataView from "primevue/dataview";
+import ScrollPanel from "primevue/scrollpanel";
 
 import RelativeForm from "../modules/RelativeForm.vue";
 import RelativeCard from "../modules/RelativeCard.vue";
@@ -9,10 +11,9 @@ import { ACTIONS } from "@/constants";
 import { storeToRefs } from "pinia";
 
 const store = useFamilySectionStore();
-const { getRelatives } = store;
-const relatives = getRelatives;
-const { dialog } = storeToRefs(store);
+const { dialog, relatives } = storeToRefs(store);
 </script>
+
 <template>
   <div class="wrapper">
     <Dialog
@@ -34,19 +35,21 @@ const { dialog } = storeToRefs(store);
         </div>
       </template>
     </Toolbar>
-    <div class="relative-cards">
-      <RelativeCard
-        v-for="(relative, index) in relatives"
-        :key="index"
-        :relative="relative"
-      />
-    </div>
+    <ScrollPanel>
+      <div class="relative-cards">
+        <RelativeCard
+          v-for="(relative, index) in relatives"
+          :key="index"
+          :relative="relative"
+        />
+      </div>
+    </ScrollPanel>
   </div>
 </template>
 
 <style scoped>
 .relative-cards {
-  @apply flex flex-col gap-14 px-14 pt-10;
+  @apply flex flex-col;
 }
 
 .toolbar_start {

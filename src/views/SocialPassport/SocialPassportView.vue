@@ -4,7 +4,7 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import ViewHeader from "@/components/ViewHeader.vue";
 import { useSocialPassportStore } from "@/views/SocialPassport/stores/socialPassport";
-import { socialPassportTables, TABLE_API_URL } from "@/utils/tables.js";
+import { socialPassportTables, TABLE_API_URL } from "./utils/tables.js";
 import StudentsTable from "./modules/StudentsTable.vue";
 
 onMounted(() => store.fetchStudents(TABLE_API_URL.ORPHANS));
@@ -24,9 +24,9 @@ const students = store.getStudents;
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col w-1">
     <ViewHeader>Социальный паспорт</ViewHeader>
-    <TabView v-model:active-index="activeTab">
+    <TabView class="w-full" v-model:active-index="activeTab" :scrollable="true">
       <TabPanel
         v-for="table in socialPassportTables"
         :key="table.header"
