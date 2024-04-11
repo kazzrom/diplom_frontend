@@ -1,7 +1,16 @@
 const NavbarItems = [
   {
-    label: "Список группы",
-    route: "/students",
+    label: "Группа",
+    items: [
+      {
+        label: "Список студентов",
+        route: "/students",
+      },
+      {
+        label: "Актив группы",
+        route: "/group-active",
+      },
+    ],
   },
   {
     label: "Социальный паспорт",

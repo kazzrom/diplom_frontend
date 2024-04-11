@@ -4,7 +4,7 @@ import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import ViewHeader from "@/components/ViewHeader.vue";
 import { useSocialPassportStore } from "@/views/SocialPassport/stores/socialPassport";
-import { tables, TABLE_API_URL } from "@/utils/tables.js";
+import { socialPassportTables, TABLE_API_URL } from "@/utils/tables.js";
 import StudentsTable from "./modules/StudentsTable.vue";
 
 onMounted(() => store.fetchStudents(TABLE_API_URL.ORPHANS));
@@ -12,6 +12,7 @@ onMounted(() => store.fetchStudents(TABLE_API_URL.ORPHANS));
 const store = useSocialPassportStore();
 
 const tableAPI = Object.values(TABLE_API_URL);
+console.log(tableAPI);
 
 const activeTab = ref(0);
 
@@ -20,11 +21,6 @@ watch(activeTab, async (newIndex) => {
 });
 
 const students = store.getStudents;
-const dataStudentsTable = ref();
-
-const exportCSV = () => {
-  dataStudentsTable.value.exportCSV();
-};
 </script>
 
 <template>
@@ -32,7 +28,7 @@ const exportCSV = () => {
     <ViewHeader>Социальный паспорт</ViewHeader>
     <TabView v-model:active-index="activeTab">
       <TabPanel
-        v-for="table in tables"
+        v-for="table in socialPassportTables"
         :key="table.header"
         :header="table.header"
       >

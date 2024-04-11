@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import GroupListView from "@/views/GroupList/GroupListView.vue";
+import GroupActiveView from "@/views/GroupActive/GroupActiveView.vue";
 import StartView from "@/views/Start/StartView.vue";
 import SocialPassportView from "@/views/SocialPassport/SocialPassportView.vue";
 import ParentMeetingsView from "@/views/ParentMeetings/ParentMeetingsView.vue";
@@ -18,6 +19,11 @@ const routes = [
     path: "/students",
     name: "Students",
     component: GroupListView,
+  },
+  {
+    path: "/group-active",
+    name: "GroupActive",
+    component: GroupActiveView,
   },
   {
     path: "/social-passport",
