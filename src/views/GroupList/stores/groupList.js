@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import ky from "ky";
 import DialogForm from "@/utils/dialog.js";
 import { useConfirm } from "primevue/useconfirm";
+import { API_URL } from "@/constants";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const dialog = ref(
@@ -19,31 +20,50 @@ export const useGroupListStore = defineStore("groupList", () => {
   const loading = ref(false);
 
   const student = ref({
-    name: "",
-    surname: "",
-    patronymic: "",
-    residentialAddress: "",
-    phoneNumber: "",
-    birthday: NaN,
-    reportCardNumber: "",
-    SNILS: "",
-    medicalPolicy: "",
+    id: undefined,
+    surname: undefined,
+    name: undefined,
+    patronymic: undefined,
+    sex: undefined,
+    Personaldatum: {
+      studentId: undefined,
+      birthday: undefined,
+      reportCardNumber: undefined,
+      phoneNumber: undefined,
+      residentialAddress: undefined,
+      SNILS: undefined,
+      medicalPolicy: undefined,
+    },
   });
 
   const students = ref([]);
 
   const studentColumns = ref([
-    { field: "gender", header: "Пол" },
-    { field: "birthday", header: "Дата рождения" },
-    { field: "phoneNumber", header: "Номер телефона" },
-    { field: "residentialAddress", header: "Домашний адрес" },
-    { field: "reportCardNumber", header: "Табельный номер" },
+    { field: "Personaldatum.birthday", header: "Дата рождения", minWidth: 200 },
+    {
+      field: "Personaldatum.phoneNumber",
+      header: "Номер телефона",
+      minWidth: 200,
+    },
+    {
+      field: "Personaldatum.residentialAddress",
+      header: "Домашний адрес",
+      minWidth: 300,
+    },
+    {
+      field: "Personaldatum.reportCardNumber",
+      header: "Табельный номер",
+      minWidth: 200,
+    },
+    { field: "Personaldatum.SNILS", header: "СНИЛС", minWidth: 150 },
+    {
+      field: "Personaldatum.medicalPolicy",
+      header: "Медицинский полис",
+      minWidth: 200,
+    },
   ]);
 
   const selectedColumns = ref(studentColumns.value);
-
-  const getStudents = computed(() => students);
-  const getStudentColumns = computed(() => studentColumns);
 
   const onToggle = (val) => {
     selectedColumns.value = studentColumns.value.filter((col) =>
@@ -53,23 +73,13 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const fetchStudents = async () => {
     loading.value = true;
-    const response = await ky.get("http://localhost:5000/students").json();
-    students.value = response;
-    loading.value = false;
-  };
-
-  const fetchTestStudents = async () => {
-    loading.value = true;
-    const response = await ky
-      .get("https://65f9714bdf1514524611a1fc.mockapi.io/journal/students")
-      .json();
-
+    const response = await ky.get(`${API_URL}/students`).json();
     students.value = response;
     loading.value = false;
   };
 
   function openProfile(event) {
-    router.push({ name: "Profile", params: { id: Number(event.data.id) } });
+    router.push({ name: "Profile", params: { id: event.data.id } });
   }
 
   function addStudent() {
@@ -114,13 +124,12 @@ export const useGroupListStore = defineStore("groupList", () => {
   return {
     dialog,
     student,
+    students,
     selectedStudents,
-    getStudents,
+    studentColumns,
     selectedColumns,
-    getStudentColumns,
     onToggle,
     fetchStudents,
-    fetchTestStudents,
     loading,
     openProfile,
     addStudent,

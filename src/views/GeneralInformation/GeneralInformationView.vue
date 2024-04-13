@@ -5,18 +5,21 @@ import { useRoute } from "vue-router";
 import { useGeneralInformationStore } from "./stores/generalInformation.js";
 import StudentForm from "./modules/StudentForm.vue";
 import StudentPhoto from "./components/StudentPhoto.vue";
+import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const studentId = route.params.id;
 
-const store = useGeneralInformationStore();
-const { fetchTestStudent } = store;
+onMounted(() => fetchStudent(studentId));
 
-onMounted(() => fetchTestStudent(studentId));
+const store = useGeneralInformationStore();
+const { fetchStudent } = store;
+const { student } = storeToRefs(store);
 </script>
+
 <template>
   <div class="wrapper">
-    <StudentPhoto :fullname="store.student.fullname" />
+    <StudentPhoto :fullname="student.surname + ' ' + student.name" />
     <StudentForm />
   </div>
 </template>

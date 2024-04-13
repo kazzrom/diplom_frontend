@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from "vue";
-import { useFamilySectionStore } from "../stores/family.js";
-import { ACTIONS } from "@/constants";
 import { storeToRefs } from "pinia";
+
+import { ACTIONS } from "@/constants";
+import { useFamilySectionStore } from "../stores/family.js";
+
+const props = defineProps(["relative"]);
 
 const store = useFamilySectionStore();
 const { dialog } = storeToRefs(store);
-const props = defineProps(["relative"]);
 
 const relative = ref(props.relative);
 </script>

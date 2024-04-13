@@ -74,11 +74,11 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     },
   ]);
 
-  function AddRelative() {
+  function addRelative() {
     dialog.value.closeDialog();
   }
 
-  function EditRelative() {
+  function editRelative() {
     dialog.value.closeDialog();
   }
 
@@ -87,7 +87,7 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     relative,
     relatives,
     kinships,
-    AddRelative,
-    EditRelative,
+    addRelative,
+    editRelative,
   };
 });

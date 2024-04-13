@@ -8,8 +8,8 @@ import { useSearchStore } from "@/stores/search.js";
 
 const store = useGroupListStore();
 const { onToggle, getStudentColumns, confirmDeleteStudents } = store;
-const { selectedColumns, dialog, selectedStudents } = storeToRefs(store);
-const studentColumns = getStudentColumns;
+const { selectedColumns, dialog, selectedStudents, studentColumns } =
+  storeToRefs(store);
 
 const search = useSearchStore();
 const { filters } = storeToRefs(search);

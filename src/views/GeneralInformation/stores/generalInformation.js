@@ -1,28 +1,31 @@
 import { defineStore } from "pinia";
 import ky from "ky";
 import { ref } from "vue";
+import { API_URL } from "@/constants";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
   () => {
     const student = ref({
-      name: "",
-      surname: "",
-      patronymic: "",
-      residentialAddress: "",
-      phoneNumber: "",
-      birthday: NaN,
-      reportCardNumber: "",
-      SNILS: "",
-      medicalPolicy: "",
+      id: undefined,
+      surname: undefined,
+      name: undefined,
+      patronymic: undefined,
+      sex: undefined,
+      Personaldatum: {
+        studentId: undefined,
+        birthday: undefined,
+        reportCardNumber: undefined,
+        phoneNumber: undefined,
+        residentialAddress: undefined,
+        SNILS: undefined,
+        medicalPolicy: undefined,
+      },
     });
 
-    const fetchTestStudent = async (id) => {
-      const response = await ky
-        .get(
-          `https://65f9714bdf1514524611a1fc.mockapi.io/journal/students/${id}`
-        )
-        .json();
+    const fetchStudent = async (id) => {
+      const response = await ky.get(`${API_URL}/students/${id}`).json();
+      console.log("response");
       student.value = response;
     };
 
@@ -30,6 +33,6 @@ export const useGeneralInformationStore = defineStore(
       console.log("editStudent");
     }
 
-    return { student, fetchTestStudent, editStudent };
+    return { student, fetchStudent, editStudent };
   }
 );

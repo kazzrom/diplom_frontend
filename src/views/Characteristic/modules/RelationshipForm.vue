@@ -41,7 +41,7 @@ const selectedRelationship = ref();
 
 <style scoped>
 .wrapper {
-  @apply grid grid-cols-2 gap-[80px];
+  @apply grid grid-cols-2 gap-12;
 }
 
 .form_item {

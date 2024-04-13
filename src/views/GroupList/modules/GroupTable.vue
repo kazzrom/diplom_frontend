@@ -5,12 +5,12 @@ import { storeToRefs } from "pinia";
 import { useGroupListStore } from "../stores/groupList.js";
 import { useSearchStore } from "@/stores/search.js";
 
-onMounted(() => fetchTestStudents());
+onMounted(() => fetchStudents());
 
 const store = useGroupListStore();
-const { fetchTestStudents, getStudents, openProfile } = store;
-const { selectedColumns, loading, selectedStudents } = storeToRefs(store);
-const students = getStudents;
+const { fetchStudents, getStudents, openProfile } = store;
+const { selectedColumns, loading, selectedStudents, students } =
+  storeToRefs(store);
 
 const search = useSearchStore();
 const { filters } = storeToRefs(search);
@@ -18,6 +18,7 @@ const { filters } = storeToRefs(search);
 
 <template>
   <DataTable
+    scrollable
     :filters="filters"
     :global-filter-fields="['fullname']"
     :loading="loading"
@@ -29,12 +30,13 @@ const { filters } = storeToRefs(search);
     @row-dblclick="openProfile"
   >
     <Column selectionMode="multiple" />
-    <Column field="fullname" header="ФИО" />
+    <Column field="fullname" header="ФИО" style="min-width: 300px" />
     <Column
       v-for="column in selectedColumns"
       :key="column.id"
       :field="column.field"
       :header="column.header"
+      :style="'min-width: ' + column.minWidth + 'px'"
     />
   </DataTable>
 </template>

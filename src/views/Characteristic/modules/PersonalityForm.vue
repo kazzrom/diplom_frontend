@@ -5,15 +5,15 @@ import MultiSelect from "primevue/multiselect";
 import Textarea from "primevue/textarea";
 import { ref } from "vue";
 
-const presenceOffenses = ref([{ name: "Да" }, { name: "Нет" }]);
+const presenceOffenses = ref(["Да", "Нет"]);
 const selectedPresenceOffenses = ref();
 
 const badHabits = ref([
-  { name: "Нет" },
-  { name: "К курению" },
-  { name: "К распитию спиртного" },
-  { name: "К бродяжничеству" },
-  { name: "К вороству" },
+  "Нет",
+  "К курению",
+  "К распитию спиртного",
+  "К бродяжничеству",
+  "К вороству",
 ]);
 const selectedbadHabits = ref();
 
@@ -40,7 +40,6 @@ const leisure = ref();
         id="bad-habits"
         v-model="selectedbadHabits"
         :options="badHabits"
-        option-label="name"
         placeholder="Выберите плохие привычки"
       />
     </div>
@@ -50,7 +49,6 @@ const leisure = ref();
         id="presence-offenses"
         v-model="selectedPresenceOffenses"
         :options="presenceOffenses"
-        option-label="name"
         placeholder="Выберите статус"
       />
     </div>

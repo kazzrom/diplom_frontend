@@ -7,7 +7,7 @@ import { ACTIONS } from "@/constants";
 import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 
 const store = useParentMeetingsStore();
-const { AddParentMetting, EditParentMetting } = store;
+const { addParentMetting, editParentMetting } = store;
 const { parentMeeting, dialog } = storeToRefs(store);
 </script>
 
@@ -46,14 +46,14 @@ const { parentMeeting, dialog } = storeToRefs(store);
       <div class="form_buttons">
         <Button
           v-show="dialog.action === ACTIONS.ADD"
-          @click="AddParentMetting"
+          @click="addParentMetting"
           label="Добавить"
           icon="pi pi-plus"
           iconPos="right"
         />
         <Button
           v-show="dialog.action === ACTIONS.EDIT"
-          @click="EditParentMetting"
+          @click="editParentMetting"
           label="Сохранить"
           icon="pi pi-save"
           iconPos="right"

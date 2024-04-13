@@ -26,7 +26,7 @@ const { student } = storeToRefs(store);
         <label for="residentialAddress">Домашний адрес</label>
         <InputText
           id="residentialAddress"
-          v-model="student.residentialAddress"
+          v-model="student.Personaldatum.residentialAddress"
         />
       </div>
       <div class="input-text">
@@ -34,13 +34,13 @@ const { student } = storeToRefs(store);
         <InputMask
           id="phoneNumber"
           mask="+7 999 999-99-99"
-          v-model="student.phoneNumber"
+          v-model="student.Personaldatum.phoneNumber"
         />
       </div>
       <div class="input-text">
         <label for="birthday">Дата рождения</label>
         <Calendar
-          v-model="student.birthday"
+          v-model="student.Personaldatum.birthday"
           dateFormat="dd.mm.yy"
           showIcon
           iconDisplay="input"
@@ -50,20 +50,20 @@ const { student } = storeToRefs(store);
         <label for="reportCardNuber">Табельный номер</label>
         <InputNumber
           id="reportCardNuber"
-          v-model="student.reportCardNumber"
+          v-model="student.Personaldatum.reportCardNumber"
           :useGrouping="false"
         />
       </div>
       <div class="input-text">
         <label for="SNILS">СНИЛС</label>
-        <InputMask id="SNILS" mask="999-999-999 99" v-model="student.SNILS" />
+        <InputMask id="SNILS" mask="999-999-999 99" v-model="student.Personaldatum.SNILS" />
       </div>
       <div class="input-text">
         <label for="medicalPolicy">Мед. полис</label>
         <InputMask
           id="medicalPolicy"
           mask="9999 9999 9999 9999"
-          v-model="student.medicalPolicy"
+          v-model="student.Personaldatum.medicalPolicy"
         />
       </div>
     </div>

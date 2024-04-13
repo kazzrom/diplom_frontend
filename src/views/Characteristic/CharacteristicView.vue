@@ -3,10 +3,8 @@ import CharacteristicSidebar from "./modules/CharacteristicSidebar.vue";
 </script>
 
 <template>
-  <div class="wrapper">
-    <CharacteristicSidebar />
-    <RouterView class="mx-10 grow" />
-  </div>
+  <CharacteristicSidebar />
+  <RouterView class="mx-10 grow" />
 </template>
 
 <style scoped>

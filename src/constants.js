@@ -4,4 +4,4 @@ export const ACTIONS = {
   VIEW: "view",
 };
 
-export const API_URL = "http://localhost:5000/";
+export const API_URL = "http://localhost:5000";
