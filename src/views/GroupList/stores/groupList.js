@@ -1,40 +1,14 @@
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import ky from "ky";
-import DialogForm from "@/utils/dialog.js";
 import { useConfirm } from "primevue/useconfirm";
 import { API_URL } from "@/constants";
 
 export const useGroupListStore = defineStore("groupList", () => {
-  const dialog = ref(
-    new DialogForm({
-      add: "Добавление студента",
-      edit: "",
-      view: "",
-    })
-  );
-
   const router = useRouter();
 
   const loading = ref(false);
-
-  const student = ref({
-    id: undefined,
-    surname: undefined,
-    name: undefined,
-    patronymic: undefined,
-    sex: undefined,
-    Personaldatum: {
-      studentId: undefined,
-      birthday: undefined,
-      reportCardNumber: undefined,
-      phoneNumber: undefined,
-      residentialAddress: undefined,
-      SNILS: undefined,
-      medicalPolicy: undefined,
-    },
-  });
 
   const students = ref([]);
 
@@ -82,10 +56,6 @@ export const useGroupListStore = defineStore("groupList", () => {
     router.push({ name: "Profile", params: { id: event.data.id } });
   }
 
-  function addStudent() {
-    dialog.value.closeDialog();
-  }
-
   const selectedStudents = ref([]);
 
   async function deleteStudents() {
@@ -93,11 +63,7 @@ export const useGroupListStore = defineStore("groupList", () => {
 
     ids.forEach(async (id) => {
       students.value = students.value.filter((stud) => stud.id !== id);
-      const answer = await ky
-        .delete(
-          `https://65f9714bdf1514524611a1fc.mockapi.io/journal/students/${id}`
-        )
-        .json();
+      const answer = await ky.delete(`${API_URL}/students/${id}`).json();
       console.log(answer);
     });
 
@@ -118,12 +84,13 @@ export const useGroupListStore = defineStore("groupList", () => {
       accept: () => {
         deleteStudents();
       },
+      reject: () => {
+        selectedStudents.value = [];
+      },
     });
   };
 
   return {
-    dialog,
-    student,
     students,
     selectedStudents,
     studentColumns,
@@ -132,7 +99,6 @@ export const useGroupListStore = defineStore("groupList", () => {
     fetchStudents,
     loading,
     openProfile,
-    addStudent,
     confirmDeleteStudents,
   };
 });

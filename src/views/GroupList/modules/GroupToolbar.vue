@@ -4,12 +4,16 @@ import Toolbar from "primevue/toolbar";
 
 import { ACTIONS } from "@/constants";
 import { useGroupListStore } from "../stores/groupList.js";
+import { useStudentFormStore } from "../stores/studentForm.js";
 import { useSearchStore } from "@/stores/search.js";
 
-const store = useGroupListStore();
-const { onToggle, getStudentColumns, confirmDeleteStudents } = store;
-const { selectedColumns, dialog, selectedStudents, studentColumns } =
-  storeToRefs(store);
+const groupListStore = useGroupListStore();
+const { onToggle, getStudentColumns, confirmDeleteStudents } = groupListStore;
+const { selectedColumns, selectedStudents, studentColumns } =
+  storeToRefs(groupListStore);
+
+const studentFormStore = useStudentFormStore();
+const { dialog } = storeToRefs(studentFormStore);
 
 const search = useSearchStore();
 const { filters } = storeToRefs(search);
@@ -36,14 +40,14 @@ const { filters } = storeToRefs(search);
     <template #end>
       <div class="toolbar_part">
         <Button
-          label="Добавить обучающегося"
+          label="Добавить студента"
           icon="pi pi-user-plus"
           iconPos="right"
           @click="dialog.openDialog(ACTIONS.ADD)"
         />
         <Button
           :disabled="!selectedStudents.length"
-          label="Удалить обучающегося"
+          label="Удалить студентов"
           icon="pi pi-user-minus"
           iconPos="right"
           @click="confirmDeleteStudents()"

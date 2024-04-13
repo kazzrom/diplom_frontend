@@ -96,10 +96,14 @@ export const socialPassportTables = [
 ];
 
 export const TABLE_API_URL = {
-  ORPHANS: "orphans",
-  GUARDIANS: "guardians",
-  INCOMPLETE_FAMILIES: "incomplete-families",
-  PROBLEM_FAMILIES: "problem-families",
-  LARGE_FAMILIES: "large-families",
-  LOW_INCOME_FAMILIES: "low-income-families",
+  ORPHANS: "/orphans",
+  GUARDIANS: "/guardians",
+  INCOMPLETE_FAMILIES: "/incomplete-families",
+  PROBLEM_FAMILIES: "/problem-families",
+  LARGE_FAMILIES: "/large-families",
+  LOW_INCOME_FAMILIES: "/low-income-families",
+  UNEMPLOYED_PARENTS: "/unemployed-parents",
+  REGISTERED_OPPN: "/registered-oppn",
+  STUDENTS_WITH_CHRONIC_DISEASE: "/students-with-chronic-disease",
+  DISABLED_PARENTS: "/disabled-parents",
 };
