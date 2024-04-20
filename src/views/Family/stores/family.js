@@ -52,26 +52,6 @@ export const useFamilySectionStore = defineStore("familySection", () => {
       jobTitle: "Повар",
       kinship: "Мать",
     },
-    {
-      id: 3,
-      name: "Ясsdfмина",
-      surname: "Молчанова",
-      patronymic: "Тимуровна",
-      phoneNumber: "+79122717256",
-      workPlace: "Кухня",
-      jobTitle: "Повар",
-      kinship: "Мать",
-    },
-    {
-      id: 4,
-      name: "sfdsfsfdds",
-      surname: "Молчанова",
-      patronymic: "Тимуровна",
-      phoneNumber: "+79122717256",
-      workPlace: "Кухня",
-      jobTitle: "Повар",
-      kinship: "Мать",
-    },
   ]);
 
   function addRelative() {

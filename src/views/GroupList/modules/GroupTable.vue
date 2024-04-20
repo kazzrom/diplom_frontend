@@ -26,11 +26,11 @@ const { filters } = storeToRefs(search);
     :value="students"
     tableStyle="min-width: 50rem"
     paginator
-    :rows="13"
+    :rows="9"
     @row-dblclick="openProfile"
   >
     <Column selectionMode="multiple" />
-    <Column field="fullname" header="ФИО" style="min-width: 300px" />
+    <Column field="fullname" header="ФИО" style="min-width: 200px" />
     <Column
       v-for="column in selectedColumns"
       :key="column.id"

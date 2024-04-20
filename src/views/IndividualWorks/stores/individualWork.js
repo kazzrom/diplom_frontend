@@ -20,11 +20,6 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
       participant: "Березина Мария Данииловна",
       questions: "Успеваемость обучающего на первый семестр",
     },
-    {
-      workDate: "11.02.2022",
-      participant: "Березина Мария Данииловна",
-      questions: undefined,
-    },
   ]);
 
   function NoneEmpty(arr) {

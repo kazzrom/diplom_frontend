@@ -29,7 +29,7 @@ export const useGroupListStore = defineStore("groupList", () => {
       header: "Табельный номер",
       minWidth: 200,
     },
-    { field: "Personaldatum.SNILS", header: "СНИЛС", minWidth: 150 },
+    { field: "Personaldatum.SNILS", header: "СНИЛС", minWidth: 200 },
     {
       field: "Personaldatum.medicalPolicy",
       header: "Медицинский полис",
