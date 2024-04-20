@@ -4,6 +4,8 @@ import DialogForm from "@/utils/dialog.js";
 import ky from "ky";
 import { API_URL, GROUP_ID } from "@/constants";
 import { useGroupListStore } from "./groupList";
+import { rulesForm } from "@/validators/validatorForm.js";
+import { useVuelidate } from "@vuelidate/core";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
@@ -36,18 +38,16 @@ export const useStudentFormStore = defineStore("studentForm", () => {
     },
   });
 
-  function NoneEmpty(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] === "" || arr[i] === undefined) return false;
-    }
-    return true;
-  }
+  const v$ = useVuelidate(
+    computed(() => rulesForm),
+    student
+  );
+
+  const isSubmit = ref(false);
 
   async function addStudent() {
-    if (
-      NoneEmpty(Object.values(student.value)) &&
-      NoneEmpty(Object.values(student.value.Personaldatum))
-    ) {
+    isSubmit.value = true;
+    if (!v$.value.$invalid) {
       const createdStudent = await ky
         .post(`${API_URL}/students`, {
           json: student.value,
@@ -57,6 +57,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
       groupListStore.students.push(createdStudent);
       setEmptyForm();
       dialog.value.closeDialog();
+      isSubmit.value = false;
     } else {
       alert("Заполните все обязательные поля");
     }
@@ -88,5 +89,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
     dialog,
     student,
     addStudent,
+    v$,
+    isSubmit,
   };
 });

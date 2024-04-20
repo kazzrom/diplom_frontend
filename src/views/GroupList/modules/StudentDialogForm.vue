@@ -4,8 +4,8 @@ import { useStudentFormStore } from "../stores/studentForm.js";
 import Dropdown from "primevue/dropdown";
 
 const store = useStudentFormStore();
-const { addStudent } = store;
-const { student, dialog } = storeToRefs(store);
+const { addStudent, v$ } = store;
+const { student, dialog, isSubmit } = storeToRefs(store);
 </script>
 
 <template>
@@ -19,11 +19,21 @@ const { student, dialog } = storeToRefs(store);
       <div class="form_wrapper">
         <div class="form_item">
           <label for="surname">Фамилия</label>
-          <InputText id="surname" name="surname" v-model="student.surname" />
+          <InputText
+            id="surname"
+            name="surname"
+            v-model="student.surname"
+            :invalid="v$.surname.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="name">Имя</label>
-          <InputText id="name" name="name" v-model="student.name" />
+          <InputText
+            id="name"
+            name="name"
+            v-model="student.name"
+            :invalid="v$.name.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="patronymic">Отчество</label>
@@ -31,6 +41,7 @@ const { student, dialog } = storeToRefs(store);
             id="patronymic"
             name="patronymic"
             v-model="student.patronymic"
+            :invalid="v$.patronymic.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -39,6 +50,7 @@ const { student, dialog } = storeToRefs(store);
             id="sex"
             :options="['Мужской', 'Женский']"
             v-model="student.sex"
+            :invalid="v$.sex.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -47,6 +59,7 @@ const { student, dialog } = storeToRefs(store);
             id="residentialAddress"
             name="residentialAddress"
             v-model="student.Personaldatum.residentialAddress"
+            :invalid="v$.Personaldatum.residentialAddress.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -56,6 +69,7 @@ const { student, dialog } = storeToRefs(store);
             name="phoneNumber"
             mask="+7 999 999-99-99"
             v-model="student.Personaldatum.phoneNumber"
+            :invalid="v$.Personaldatum.phoneNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -67,15 +81,17 @@ const { student, dialog } = storeToRefs(store);
             dateFormat="dd.mm.yy"
             showIcon
             iconDisplay="input"
+            :invalid="v$.Personaldatum.birthday.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
           <label for="reportCardNumber">Табельный номер</label>
-          <InputNumber
+          <InputMask
             id="reportCardNumber"
             name="reportCardNumber"
+            mask="99999"
             v-model="student.Personaldatum.reportCardNumber"
-            :use-grouping="false"
+            :invalid="v$.Personaldatum.reportCardNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -85,6 +101,7 @@ const { student, dialog } = storeToRefs(store);
             name="SNILS"
             mask="999-999-999 99"
             v-model="student.Personaldatum.SNILS"
+            :invalid="v$.Personaldatum.SNILS.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -94,6 +111,7 @@ const { student, dialog } = storeToRefs(store);
             name="medicalPolicy"
             mask="9999 9999 9999 9999"
             v-model="student.Personaldatum.medicalPolicy"
+            :invalid="v$.Personaldatum.medicalPolicy.$invalid && isSubmit"
           />
         </div>
         <div class="form_buttons">

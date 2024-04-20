@@ -3,7 +3,7 @@ import { useGeneralInformationStore } from "../stores/generalInformation.js";
 import { storeToRefs } from "pinia";
 
 const store = useGeneralInformationStore();
-const { editStudent } = store;
+const { editStudent, v$ } = store;
 const { student, isEditForm } = storeToRefs(store);
 </script>
 
@@ -16,11 +16,17 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="surname"
           v-model="student.surname"
+          :invalid="v$.surname.$invalid"
         />
       </div>
       <div class="input-text">
         <label for="name">Имя</label>
-        <InputText :readonly="isEditForm" id="name" v-model="student.name" />
+        <InputText
+          :readonly="isEditForm"
+          id="name"
+          v-model="student.name"
+          :invalid="v$.name.$invalid"
+        />
       </div>
       <div class="input-text">
         <label for="patronymic">Отчество</label>
@@ -28,6 +34,7 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="patronymic"
           v-model="student.patronymic"
+          :invalid="v$.patronymic.$invalid"
         />
       </div>
       <div class="input-text">
@@ -36,6 +43,7 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="residentialAddress"
           v-model="student.Personaldatum.residentialAddress"
+          :invalid="v$.Personaldatum.residentialAddress.$invalid"
         />
       </div>
       <div class="input-text">
@@ -45,6 +53,7 @@ const { student, isEditForm } = storeToRefs(store);
           id="phoneNumber"
           mask="+7 999 999-99-99"
           v-model="student.Personaldatum.phoneNumber"
+          :invalid="v$.Personaldatum.phoneNumber.$invalid"
         />
       </div>
       <div class="input-text">
@@ -52,6 +61,7 @@ const { student, isEditForm } = storeToRefs(store);
         <Calendar
           :readonly="isEditForm"
           v-model="student.Personaldatum.birthday"
+          :invalid="v$.Personaldatum.birthday.$invalid"
           dateFormat="dd.mm.yy"
           showIcon
           iconDisplay="input"
@@ -59,11 +69,12 @@ const { student, isEditForm } = storeToRefs(store);
       </div>
       <div class="input-text">
         <label for="reportCardNuber">Табельный номер</label>
-        <InputNumber
+        <InputMask
           :readonly="isEditForm"
           id="reportCardNuber"
+          mask="99999"
           v-model="student.Personaldatum.reportCardNumber"
-          :useGrouping="false"
+          :invalid="v$.Personaldatum.reportCardNumber.$invalid"
         />
       </div>
       <div class="input-text">
@@ -73,6 +84,7 @@ const { student, isEditForm } = storeToRefs(store);
           id="SNILS"
           mask="999-999-999 99"
           v-model="student.Personaldatum.SNILS"
+          :invalid="v$.Personaldatum.SNILS.$invalid"
         />
       </div>
       <div class="input-text">
@@ -82,6 +94,7 @@ const { student, isEditForm } = storeToRefs(store);
           id="medicalPolicy"
           mask="9999 9999 9999 9999"
           v-model="student.Personaldatum.medicalPolicy"
+          :invalid="v$.Personaldatum.medicalPolicy.$invalid"
         />
       </div>
     </div>
