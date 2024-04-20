@@ -4,7 +4,7 @@ import DialogForm from "@/utils/dialog.js";
 import ky from "ky";
 import { API_URL, GROUP_ID } from "@/constants";
 import { useGroupListStore } from "./groupList";
-import { rulesForm } from "@/validators/validatorForm.js";
+import { rulesForm } from "@/validators/validatorStudentForm.js";
 import { useVuelidate } from "@vuelidate/core";
 
 export const useStudentFormStore = defineStore("studentForm", () => {

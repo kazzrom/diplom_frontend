@@ -40,11 +40,11 @@ const { relative, kinships, dialog } = storeToRefs(store);
         </div>
         <div class="form_item">
           <label for="phoneNumber">Место работы</label>
-          <InputText id="phoneNumber" v-model="relative.workPlace" />
+          <InputText id="phoneNumber" v-model="relative.workplace" />
         </div>
         <div class="form_item">
           <label for="phoneNumber">Должность</label>
-          <InputText id="phoneNumber" v-model="relative.jobTitle" />
+          <InputText id="phoneNumber" v-model="relative.post" />
         </div>
         <div class="form_item">
           <label for="kinship">Родство</label>

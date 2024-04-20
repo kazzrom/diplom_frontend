@@ -6,7 +6,13 @@ import { ACTIONS } from "@/constants";
 import { useFamilySectionStore } from "../stores/family.js";
 
 const store = useFamilySectionStore();
+const { clearForm } = store;
 const { dialog } = storeToRefs(store);
+
+function openAddDialog() {
+  clearForm();
+  dialog.value.openDialog(ACTIONS.ADD);
+}
 </script>
 
 <template>
@@ -17,7 +23,7 @@ const { dialog } = storeToRefs(store);
           label="Добавить члена семьи"
           icon="pi pi-plus"
           icon-pos="right"
-          @click="dialog.openDialog(ACTIONS.ADD)"
+          @click="openAddDialog"
         />
       </div>
     </template>

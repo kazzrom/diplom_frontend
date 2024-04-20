@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { API_URL } from "@/constants";
 import { useConfirm } from "primevue/useconfirm";
 import { useVuelidate } from "@vuelidate/core";
-import { rulesForm } from "@/validators/validatorForm";
+import { rulesForm } from "@/validators/validatorStudentForm";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
