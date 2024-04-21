@@ -4,11 +4,13 @@ import DialogForm from "@/utils/dialog.js";
 import ky from "ky";
 import { API_URL, GROUP_ID } from "@/constants";
 import { useGroupListStore } from "./groupList";
-import { rulesForm } from "@/validators/validatorStudentForm.js";
+import studentFormRules from "@/validators/studentFormRules.js";
 import { useVuelidate } from "@vuelidate/core";
+import { useToast } from "primevue/usetoast";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
+  const toast = useToast();
 
   const dialog = ref(
     new DialogForm({
@@ -39,7 +41,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   });
 
   const v$ = useVuelidate(
-    computed(() => rulesForm),
+    computed(() => studentFormRules),
     student
   );
 
@@ -58,8 +60,19 @@ export const useStudentFormStore = defineStore("studentForm", () => {
       setEmptyForm();
       dialog.value.closeDialog();
       isSubmit.value = false;
+      toast.add({
+        severity: "success",
+        summary: "Успех",
+        detail: "Студент успешно добавлен",
+        life: 2000,
+      });
     } else {
-      alert("Заполните все обязательные поля");
+      toast.add({
+        severity: "warn",
+        summary: "Предупреждение",
+        detail: "Заполните все обязательные поля",
+        life: 2000,
+      });
     }
   }
 

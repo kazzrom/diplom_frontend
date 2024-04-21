@@ -5,10 +5,12 @@ import { API_URL } from "@/constants";
 import { useConfirm } from "primevue/useconfirm";
 import { useVuelidate } from "@vuelidate/core";
 import studentFormRules from "@/validators/studentFormRules.js";
+import { useToast } from "primevue/usetoast";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
   () => {
+    const toast = useToast();
     const student = ref({
       id: undefined,
       surname: undefined,
@@ -54,13 +56,24 @@ export const useGeneralInformationStore = defineStore(
         acceptClass: "p-button-info",
         accept: async () => {
           if (v$.value.$invalid) {
-            alert("Заполните все обязательные поля");
+            toast.add({
+              severity: "warn",
+              summary: "Предупреждение",
+              detail: "Заполните все обязательные поля",
+              life: 2000,
+            });
             return;
           }
           await ky.put(`${API_URL}/students`, {
             json: student.value,
           });
           isEditForm.value = true;
+          toast.add({
+            severity: "info",
+            summary: "Инфо",
+            detail: "Данные об родственнике успешно изменены",
+            life: 2000,
+          });
         },
         reject: () => {
           fetchStudent(student.value.id);

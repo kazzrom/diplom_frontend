@@ -6,8 +6,10 @@ import { API_URL } from "@/constants";
 import { useConfirm } from "primevue/useconfirm";
 import { useVuelidate } from "@vuelidate/core";
 import relativeFormRules from "@/validators/relativeFormRules.js";
+import { useToast } from "primevue/usetoast";
 
 export const useFamilySectionStore = defineStore("familySection", () => {
+  const toast = useToast();
   const dialog = ref(
     new DialogForm({
       add: "Добавление члена семьи",
@@ -79,8 +81,19 @@ export const useFamilySectionStore = defineStore("familySection", () => {
       relatives.value.push(newRelative);
       dialog.value.closeDialog();
       isSubmit.value = false;
+      toast.add({
+        severity: "success",
+        summary: "Успех",
+        detail: "Родственник успешно добавлен",
+        life: 2000,
+      });
     } else {
-      alert("Заполните все обязательные поля");
+      toast.add({
+        severity: "warn",
+        summary: "Предупреждение",
+        detail: "Заполните все обязательные поля",
+        life: 2000,
+      });
     }
   }
 
@@ -91,6 +104,12 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     await fetchRelatives(studentId.value);
     dialog.value.closeDialog();
     isSubmit.value = false;
+    toast.add({
+      severity: "info",
+      summary: "Инфо",
+      detail: "Данные о родственнике успешно изменены",
+      life: 2000,
+    });
   }
 
   const confirmEditRelative = () => {
@@ -104,7 +123,12 @@ export const useFamilySectionStore = defineStore("familySection", () => {
       acceptClass: "p-button-info",
       accept: async () => {
         if (v$.value.$invalid) {
-          alert("Заполните все обязательные поля");
+          toast.add({
+            severity: "warn",
+            summary: "Предупреждение",
+            detail: "Заполните все обязательные поля",
+            life: 2000,
+          });
           return;
         }
         editRelative();
@@ -119,7 +143,12 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   async function deleteRelative(id) {
     relatives.value = relatives.value.filter((relative) => relative.id !== id);
     await ky.delete(`${API_URL}/relatives/${id}`);
-    console.log(id);
+    toast.add({
+      severity: "success",
+      summary: "Успех",
+      detail: "Родственник успешно удален",
+      life: 2000,
+    });
   }
 
   const confirm = useConfirm();

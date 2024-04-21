@@ -4,9 +4,11 @@ import { defineStore } from "pinia";
 import ky from "ky";
 import { useConfirm } from "primevue/useconfirm";
 import { API_URL } from "@/constants";
+import { useToast } from "primevue/usetoast";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();
+  const toast = useToast();
 
   const loading = ref(false);
 
@@ -68,6 +70,13 @@ export const useGroupListStore = defineStore("groupList", () => {
     });
 
     selectedStudents.value = [];
+
+    toast.add({
+      severity: "success",
+      summary: "Успех",
+      detail: "Выбранные студенты были успешно удалены",
+      life: 2000,
+    });
   }
 
   const confirm = useConfirm();

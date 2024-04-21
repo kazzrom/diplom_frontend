@@ -2,6 +2,7 @@ import "./assets/main.css";
 import "primeicons/primeicons.css";
 
 import { createApp } from "vue";
+import ToastService from "primevue/toastservice";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./routes/mainRouter.js";
@@ -43,7 +44,7 @@ app.use(PrimeVue, {
   locale: locale_ru,
 });
 
-app.use(ConfirmationService).use(createPinia()).use(router);
+app.use(ToastService).use(ConfirmationService).use(createPinia()).use(router);
 
 app
   .component("Button", Button)
