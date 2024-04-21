@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -11,14 +11,24 @@ const route = useRoute();
 
 const store = useFamilySectionStore();
 const { confirmDeleteRelative } = store;
-const { dialog, relative: editedRelative } = storeToRefs(store);
+const { dialog, relative: editedRelative, isSubmit } = storeToRefs(store);
 
 const relative = ref(props.relative);
 
+const isEditing = ref(false);
+
 function openEditDialog() {
   editedRelative.value = { ...relative.value };
+  isSubmit.value = true;
+  isEditing.value = true;
   dialog.value.openDialog(ACTIONS.EDIT);
 }
+
+watch(editedRelative, (newRelative) => {
+  if (dialog.value.action === ACTIONS.EDIT && isEditing.value) {
+    relative.value = newRelative;
+  }
+});
 </script>
 
 <template>

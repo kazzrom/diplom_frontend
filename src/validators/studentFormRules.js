@@ -1,6 +1,6 @@
 import { required, maxLength } from "@vuelidate/validators";
 
-export const rulesForm = {
+export default {
   surname: { required, maxLength: maxLength(50) },
   name: { required, maxLength: maxLength(50) },
   patronymic: { required, maxLength: maxLength(50) },

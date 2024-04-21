@@ -6,8 +6,8 @@ import { ACTIONS } from "@/constants";
 import { useFamilySectionStore } from "../stores/family.js";
 
 const store = useFamilySectionStore();
-const { addRelative, editRelative } = store;
-const { relative, kinships, dialog } = storeToRefs(store);
+const { addRelative, confirmEditRelative, v$ } = store;
+const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
 </script>
 
 <template>
@@ -20,15 +20,27 @@ const { relative, kinships, dialog } = storeToRefs(store);
       <div class="form_items">
         <div class="form_item">
           <label for="surname">Фамилия</label>
-          <InputText id="surname" v-model="relative.surname" />
+          <InputText
+            id="surname"
+            v-model="relative.surname"
+            :invalid="v$.surname.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="name">Имя</label>
-          <InputText id="name" v-model="relative.name" />
+          <InputText
+            id="name"
+            v-model="relative.name"
+            :invalid="v$.name.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="patronymic">Отчество</label>
-          <InputText id="patronymic" v-model="relative.patronymic" />
+          <InputText
+            id="patronymic"
+            v-model="relative.patronymic"
+            :invalid="v$.patronymic.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="phoneNumber">Номер телефона</label>
@@ -36,15 +48,24 @@ const { relative, kinships, dialog } = storeToRefs(store);
             id="phoneNumber"
             mask="+7 999 999-99-99"
             v-model="relative.phoneNumber"
+            :invalid="v$.phoneNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
           <label for="phoneNumber">Место работы</label>
-          <InputText id="phoneNumber" v-model="relative.workplace" />
+          <InputText
+            id="phoneNumber"
+            v-model="relative.workplace"
+            :invalid="v$.workplace.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
-          <label for="phoneNumber">Должность</label>
-          <InputText id="phoneNumber" v-model="relative.post" />
+          <label for="post">Должность</label>
+          <InputText
+            id="post"
+            v-model="relative.post"
+            :invalid="v$.post.$invalid && isSubmit"
+          />
         </div>
         <div class="form_item">
           <label for="kinship">Родство</label>
@@ -52,6 +73,7 @@ const { relative, kinships, dialog } = storeToRefs(store);
             id="kinship"
             v-model="relative.kinship"
             :options="kinships"
+            :invalid="v$.kinship.$invalid && isSubmit"
           />
         </div>
       </div>
@@ -65,7 +87,7 @@ const { relative, kinships, dialog } = storeToRefs(store);
         />
         <Button
           v-show="dialog.action === ACTIONS.EDIT"
-          @click="editRelative"
+          @click="confirmEditRelative"
           label="Сохранить"
           icon="pi pi-save"
           iconPos="right"

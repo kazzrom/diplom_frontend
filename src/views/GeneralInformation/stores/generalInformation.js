@@ -4,7 +4,7 @@ import { ref } from "vue";
 import { API_URL } from "@/constants";
 import { useConfirm } from "primevue/useconfirm";
 import { useVuelidate } from "@vuelidate/core";
-import { rulesForm } from "@/validators/validatorStudentForm";
+import studentFormRules from "@/validators/studentFormRules.js";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
@@ -26,7 +26,7 @@ export const useGeneralInformationStore = defineStore(
       },
     });
 
-    const v$ = useVuelidate(rulesForm, student);
+    const v$ = useVuelidate(studentFormRules, student);
 
     const isEditForm = ref(true);
 
