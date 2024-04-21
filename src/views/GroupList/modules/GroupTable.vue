@@ -4,6 +4,7 @@ import { storeToRefs } from "pinia";
 
 import { useGroupListStore } from "../stores/groupList.js";
 import { useSearchStore } from "@/stores/search.js";
+import NoRecordsView from "@/components/NoRecordsView.vue";
 
 onMounted(() => fetchStudents());
 
@@ -19,6 +20,7 @@ const { filters } = storeToRefs(search);
 <template>
   <DataTable
     scrollable
+    v-if="students.length"
     :filters="filters"
     :global-filter-fields="['fullname']"
     :loading="loading"
@@ -39,4 +41,5 @@ const { filters } = storeToRefs(search);
       :style="'min-width: ' + column.minWidth + 'px'"
     />
   </DataTable>
+  <NoRecordsView v-else message="Нет ни одного студента" />
 </template>

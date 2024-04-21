@@ -4,7 +4,7 @@ import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 import DataView from "primevue/dataview";
 
 import MeetingItem from "../components/MeetingItem.vue";
-import NoRecordsItem from "../components/NoRecordsItem.vue";
+import NoRecordsView from "@/components/NoRecordsView.vue";
 
 const store = useParentMeetingsStore();
 const { getParentMeetins } = store;
@@ -23,17 +23,11 @@ const items = getParentMeetins;
       />
     </template>
   </DataView>
-  <div v-else class="none_items">
-    <NoRecordsItem />
-  </div>
+  <NoRecordsView v-else />
 </template>
 
 <style scoped>
 .wrapper {
   @apply flex flex-col;
-}
-
-.none_items {
-  @apply flex justify-center items-center;
 }
 </style>
