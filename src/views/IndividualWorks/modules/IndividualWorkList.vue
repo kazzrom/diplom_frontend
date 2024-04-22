@@ -5,9 +5,12 @@ import { storeToRefs } from "pinia";
 import { useIndividualWorkStore } from "../stores/individualWork.js";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import { ACTIONS } from "@/constants";
+import { useSearchStore } from "@/stores/search.js";
 
 const route = useRoute();
 
+const searchStore = useSearchStore();
+const { filters } = storeToRefs(searchStore);
 const store = useIndividualWorkStore();
 const { fetchIndividualWorks } = store;
 const {
@@ -31,6 +34,8 @@ function openDialog(data, action) {
     :value="individualWorks"
     :paginator="individualWorks.length > 10"
     :rows="10"
+    :filters="filters"
+    :global-filter-fields="['workDate', 'participant', 'workContent']"
     v-model:selection="selectedIndividualWorks"
   >
     <Column selection-mode="multiple" />

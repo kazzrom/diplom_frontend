@@ -3,7 +3,10 @@ import { storeToRefs } from "pinia";
 import Toolbar from "primevue/toolbar";
 import { useIndividualWorkStore } from "../stores/individualWork";
 import { ACTIONS } from "@/constants.js";
+import { useSearchStore } from "@/stores/search";
 
+const searchStore = useSearchStore();
+const { filters } = storeToRefs(searchStore);
 const store = useIndividualWorkStore();
 const { confirmDeleteIndividualWorks } = store;
 const { dialog, selectedIndividualWorks } = storeToRefs(store);
@@ -14,7 +17,7 @@ const { dialog, selectedIndividualWorks } = storeToRefs(store);
     <template #start>
       <IconField iconPosition="left">
         <InputIcon class="pi pi-search" />
-        <InputText placeholder="Поиск" />
+        <InputText placeholder="Поиск" v-model="filters['global'].value" />
       </IconField>
     </template>
     <template #end>
