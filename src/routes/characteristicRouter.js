@@ -1,4 +1,4 @@
-import RelationshipForm from "@/views/Characteristic/modules/RelationshipForm.vue";
+import RelationshipForm from "@/views/Characteristic/modules/AttitudeForm.vue";
 import PersonalityForm from "@/views/Characteristic/modules/PersonalityForm.vue";
 
 export default [
