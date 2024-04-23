@@ -4,9 +4,20 @@ import Toolbar from "primevue/toolbar";
 
 import { ACTIONS } from "@/constants";
 import { useParentMeetingsStore } from "../stores/parentMeetings.js";
+import { useSearchStore } from "@/stores/search";
+import Dropdown from "primevue/dropdown";
 
 const store = useParentMeetingsStore();
-const { dialog } = storeToRefs(store);
+const { resetParentMeeting, confirmDeleteParentMeeting } = store;
+const { dialog, selectedParentMeetings } = storeToRefs(store);
+
+const searchStore = useSearchStore();
+const { filters } = storeToRefs(searchStore);
+
+function openAddDialog() {
+  resetParentMeeting();
+  dialog.value.openDialog(ACTIONS.ADD);
+}
 </script>
 
 <template>
@@ -15,13 +26,24 @@ const { dialog } = storeToRefs(store);
       <div class="toolbar_start">
         <IconField iconPosition="left">
           <InputIcon class="pi pi-search" />
-          <InputText placeholder="Поиск" />
+          <InputText placeholder="Поиск" v-model="filters['global'].value" />
         </IconField>
         <Button
           label="Добавить"
           icon="pi pi-plus"
           icon-pos="right"
-          @click="dialog.openDialog(ACTIONS.ADD)"
+          @click="openAddDialog"
+        />
+      </div>
+    </template>
+    <template #end>
+      <div class="toolbar_start">
+        <Button
+          label="Удалить выбранные протоколы"
+          @click="confirmDeleteParentMeeting"
+          :disabled="!selectedParentMeetings.length"
+          icon="pi pi-trash"
+          icon-pos="right"
         />
       </div>
     </template>

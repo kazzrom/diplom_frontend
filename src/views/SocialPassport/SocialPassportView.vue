@@ -6,6 +6,7 @@ import ViewHeader from "@/components/ViewHeader.vue";
 import { useSocialPassportStore } from "@/views/SocialPassport/stores/socialPassport";
 import { socialPassportTables, TABLE_API_URL } from "./utils/tables.js";
 import StudentsTable from "./modules/StudentsTable.vue";
+import NoRecordsView from "@/components/NoRecordsView.vue";
 
 onMounted(() => store.fetchStudents(TABLE_API_URL.ORPHANS));
 
@@ -32,7 +33,12 @@ const students = store.getStudents;
         :key="table.header"
         :header="table.header"
       >
-        <StudentsTable :items="students" :columns="table.columns" />
+        <StudentsTable
+          v-if="students.length"
+          :items="students"
+          :columns="table.columns"
+        />
+        <NoRecordsView v-else />
       </TabPanel>
     </TabView>
   </div>
