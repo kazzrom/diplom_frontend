@@ -8,8 +8,13 @@ import { useSearchStore } from "@/stores/search";
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);
 const store = useIndividualWorkStore();
-const { confirmDeleteIndividualWorks } = store;
+const { confirmDeleteIndividualWorks, setEmptyIndividualWork } = store;
 const { dialog, selectedIndividualWorks } = storeToRefs(store);
+
+function openAddDialog() {
+  setEmptyIndividualWork();
+  dialog.value.openDialog(ACTIONS.ADD);
+}
 </script>
 
 <template>
@@ -24,7 +29,7 @@ const { dialog, selectedIndividualWorks } = storeToRefs(store);
       <div class="toolbar_buttons">
         <Button
           label="Добавить запись"
-          @click="dialog.openDialog(ACTIONS.ADD)"
+          @click="openAddDialog"
           icon="pi pi-plus"
           iconPos="right"
         />

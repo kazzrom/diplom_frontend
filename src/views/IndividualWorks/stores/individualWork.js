@@ -172,5 +172,6 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
     confirmDeleteIndividualWorks,
     selectedIndividualWorks,
     dialog,
+    setEmptyIndividualWork,
   };
 });
