@@ -9,8 +9,7 @@ import { storeToRefs } from "pinia";
 const route = useRoute();
 
 const store = useCharacteristicStore();
-const { fetchStudentAttitudes, fetchStudentPersonality, editStudentAttitudes } =
-  store;
+const { fetchStudentAttitudes, confirmEditAttitudes } = store;
 const { studentAttitudes } = storeToRefs(store);
 
 onMounted(() => {
@@ -60,7 +59,7 @@ const relationships = ref(["Положительные", "Нейтральные
         label="Сохранить"
         icon="pi pi-save"
         iconPos="right"
-        @click="editStudentAttitudes"
+        @click="confirmEditAttitudes"
       />
     </div>
   </div>

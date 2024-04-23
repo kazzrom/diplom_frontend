@@ -6,12 +6,11 @@ import { API_URL, GROUP_ID } from "@/constants";
 import { useGroupListStore } from "./groupList";
 import studentFormRules from "@/validators/studentFormRules.js";
 import { useVuelidate } from "@vuelidate/core";
-import { useToast } from "primevue/usetoast";
+import { useConfirmStore } from "@/stores/confirms";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
-  const toast = useToast();
-
+  const { confirmAdd } = useConfirmStore();
   const dialog = ref(
     new DialogForm({
       add: "Добавление студента",
@@ -49,31 +48,21 @@ export const useStudentFormStore = defineStore("studentForm", () => {
 
   async function addStudent() {
     isSubmit.value = true;
-    if (!v$.value.$invalid) {
-      const createdStudent = await ky
-        .post(`${API_URL}/students`, {
-          json: student.value,
-        })
-        .json();
+    confirmAdd({
+      invalid: v$.value.$invalid,
+      funcIf: async () => {
+        const createdStudent = await ky
+          .post(`${API_URL}/students`, {
+            json: student.value,
+          })
+          .json();
 
-      groupListStore.students.push(createdStudent);
-      setEmptyForm();
-      dialog.value.closeDialog();
-      isSubmit.value = false;
-      toast.add({
-        severity: "success",
-        summary: "Успех",
-        detail: "Студент успешно добавлен",
-        life: 2000,
-      });
-    } else {
-      toast.add({
-        severity: "warn",
-        summary: "Предупреждение",
-        detail: "Заполните все обязательные поля",
-        life: 2000,
-      });
-    }
+        groupListStore.students.push(createdStudent);
+        setEmptyForm();
+        dialog.value.closeDialog();
+        isSubmit.value = false;
+      },
+    });
   }
 
   function setEmptyForm() {

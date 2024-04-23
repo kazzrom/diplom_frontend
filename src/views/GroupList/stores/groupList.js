@@ -3,12 +3,12 @@ import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import ky from "ky";
 import { useConfirm } from "primevue/useconfirm";
-import { API_URL } from "@/constants";
-import { useToast } from "primevue/usetoast";
+import { API_URL, GROUP_ID } from "@/constants";
+import { useConfirmStore } from "@/stores/confirms";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();
-  const toast = useToast();
+  const { confirmDelete } = useConfirmStore();
 
   const loading = ref(false);
 
@@ -70,30 +70,13 @@ export const useGroupListStore = defineStore("groupList", () => {
     });
 
     selectedStudents.value = [];
-
-    toast.add({
-      severity: "success",
-      summary: "Успех",
-      detail: "Выбранные студенты были успешно удалены",
-      life: 2000,
-    });
   }
-
-  const confirm = useConfirm();
-
   const confirmDeleteStudents = () => {
-    confirm.require({
-      message: "Вы точно хотите удалить выбранных студентов?",
-      header: "Удаление",
-      icon: "pi pi-info-circle",
-      rejectLabel: "Отмена",
-      acceptLabel: "Удалить",
-      rejectClass: "p-button-secondary p-button-outlined",
-      acceptClass: "p-button-danger",
-      accept: () => {
+    confirmDelete({
+      funcAccept: () => {
         deleteStudents();
       },
-      reject: () => {
+      funcReject: () => {
         selectedStudents.value = [];
       },
     });

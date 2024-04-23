@@ -11,7 +11,7 @@ import { storeToRefs } from "pinia";
 const route = useRoute();
 
 const store = useCharacteristicStore();
-const { fetchStudentPersonality, editStudentPersonality } = store;
+const { fetchStudentPersonality, confirmEditPersonality } = store;
 const { studentPersonality } = storeToRefs(store);
 
 onMounted(() => fetchStudentPersonality(route.params.id));
@@ -76,7 +76,7 @@ const inclinations = ref([
         label="Сохранить"
         icon="pi pi-save"
         iconPos="right"
-        @click="editStudentPersonality"
+        @click="confirmEditPersonality"
       />
     </div>
   </div>

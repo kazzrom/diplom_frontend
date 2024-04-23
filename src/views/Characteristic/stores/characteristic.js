@@ -2,10 +2,10 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import ky from "ky";
 import { API_URL } from "@/constants";
-import { useToast } from "primevue/usetoast";
+import { useConfirmStore } from "@/stores/confirms";
 
 export const useCharacteristicStore = defineStore("characteristic", () => {
-  const toast = useToast();
+  const { confirmEdit } = useConfirmStore();
 
   const studentAttitudes = ref({
     attitudeToStudy: undefined,
@@ -38,30 +38,35 @@ export const useCharacteristicStore = defineStore("characteristic", () => {
   }
 
   async function editStudentAttitudes() {
-    await ky
-      .put(`${API_URL}/student-attitudes/${studentAttitudes.value.id}`, {
-        json: { studentId: studentId.value, ...studentAttitudes.value },
-      })
-      .json();
-    toast.add({
-      severity: "info",
-      summary: "Инфо",
-      detail: "Данные об отношениях успешно изменены",
-      life: 2000,
+    await ky.put(`${API_URL}/student-attitudes/${studentAttitudes.value.id}`, {
+      json: { studentId: studentId.value, ...studentAttitudes.value },
+    });
+  }
+
+  async function confirmEditAttitudes() {
+    confirmEdit({
+      invalid: false,
+      funcAccept: async () => {
+        await editStudentAttitudes();
+      },
     });
   }
 
   async function editStudentPersonality() {
-    await ky
-      .put(`${API_URL}/student-personalities/${studentPersonality.value.id}`, {
+    await ky.put(
+      `${API_URL}/student-personalities/${studentPersonality.value.id}`,
+      {
         json: { studentId: studentId.value, ...studentPersonality.value },
-      })
-      .json();
-    toast.add({
-      severity: "info",
-      summary: "Инфо",
-      detail: "Данные об личности успешно изменены",
-      life: 2000,
+      }
+    );
+  }
+
+  async function confirmEditPersonality() {
+    confirmEdit({
+      invalid: false,
+      funcAccept: async () => {
+        await editStudentPersonality();
+      },
     });
   }
 
@@ -70,7 +75,7 @@ export const useCharacteristicStore = defineStore("characteristic", () => {
     studentPersonality,
     fetchStudentAttitudes,
     fetchStudentPersonality,
-    editStudentAttitudes,
-    editStudentPersonality,
+    confirmEditAttitudes,
+    confirmEditPersonality,
   };
 });

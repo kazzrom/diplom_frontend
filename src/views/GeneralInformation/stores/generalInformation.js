@@ -2,15 +2,15 @@ import { defineStore } from "pinia";
 import ky from "ky";
 import { ref } from "vue";
 import { API_URL } from "@/constants";
-import { useConfirm } from "primevue/useconfirm";
 import { useVuelidate } from "@vuelidate/core";
 import studentFormRules from "@/validators/studentFormRules.js";
-import { useToast } from "primevue/usetoast";
+import { useConfirmStore } from "@/stores/confirms";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
   () => {
-    const toast = useToast();
+    const { confirmEdit } = useConfirmStore();
+
     const student = ref({
       id: undefined,
       surname: undefined,
@@ -44,40 +44,19 @@ export const useGeneralInformationStore = defineStore(
       isEditForm.value = false;
     }
 
-    const confirm = useConfirm();
     const confirmEditStudent = () => {
-      confirm.require({
-        message: "Сохранить изменения?",
-        header: "Изменение студента",
-        icon: "pi pi-info-circle",
-        rejectLabel: "Отмена",
-        acceptLabel: "Изменить",
-        rejectClass: "p-button-secondary p-button-outlined",
-        acceptClass: "p-button-info",
-        accept: async () => {
-          if (v$.value.$invalid) {
-            toast.add({
-              severity: "warn",
-              summary: "Предупреждение",
-              detail: "Заполните все обязательные поля",
-              life: 2000,
-            });
-            return;
-          }
+      confirmEdit({
+        invalid: v$.value.$invalid,
+        funcAccept: async () => {
           await ky.put(`${API_URL}/students`, {
             json: student.value,
           });
           isEditForm.value = true;
-          toast.add({
-            severity: "info",
-            summary: "Инфо",
-            detail: "Данные об родственнике успешно изменены",
-            life: 2000,
-          });
         },
-        reject: () => {
-          fetchStudent(student.value.id);
+        funcReject: async () => {
+          await fetchStudent(student.value.id);
           isEditForm.value = true;
+          console.log("reject");
         },
       });
     };
