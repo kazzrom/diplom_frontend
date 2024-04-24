@@ -15,6 +15,7 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
     v-model:visible="dialog.isShowDialog"
     :header="dialog.currentHeader"
     modal
+    :closable="dialog.action === ACTIONS.VIEW"
   >
     <div class="form_wrapper">
       <div class="form_items">

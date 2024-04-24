@@ -14,6 +14,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
     modal
     v-model:visible="dialog.isShowDialog"
     :header="dialog.currentHeader"
+    :closable="false"
   >
     <form @submit.prevent="addStudent" method="post">
       <div class="form_wrapper">

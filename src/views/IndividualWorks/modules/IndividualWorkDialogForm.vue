@@ -4,11 +4,23 @@ import Textarea from "primevue/textarea";
 import { storeToRefs } from "pinia";
 import { useIndividualWorkStore } from "../stores/individualWork.js";
 import { ACTIONS } from "@/constants";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const store = useIndividualWorkStore();
-const { addIndividualWork, v$, confirmEditIndividualWork } = store;
-const { individualWork, isSubmit, selectedIndividualWorks, dialog } =
-  storeToRefs(store);
+const {
+  addIndividualWork,
+  v$,
+  confirmEditIndividualWork,
+  fetchIndividualWorks,
+} = store;
+
+const { individualWork, isSubmit, dialog } = storeToRefs(store);
+
+async function cancelForm() {
+  await fetchIndividualWorks(route.params.id);
+  dialog.value.closeDialog();
+}
 </script>
 
 <template>
@@ -17,6 +29,7 @@ const { individualWork, isSubmit, selectedIndividualWorks, dialog } =
     modal
     v-model:visible="dialog.isShowDialog"
     :header="dialog.currentHeader"
+    :closable="dialog.action === ACTIONS.VIEW"
   >
     <form @submit.prevent="addIndividualWork" class="form">
       <div class="form_item">
@@ -52,17 +65,17 @@ const { individualWork, isSubmit, selectedIndividualWorks, dialog } =
       </div>
       <div class="form_buttons">
         <Button
+          v-if="dialog.action === ACTIONS.ADD"
           type="submit"
           label="Добавить"
           icon="pi pi-plus"
           iconPos="right"
-          v-if="dialog.action === ACTIONS.ADD"
         />
         <Button
+          v-else-if="dialog.action === ACTIONS.EDIT"
           label="Сохранить"
           icon="pi pi-save"
           iconPos="right"
-          v-else-if="dialog.action === ACTIONS.EDIT"
           @click="confirmEditIndividualWork()"
         />
         <Button
@@ -71,7 +84,7 @@ const { individualWork, isSubmit, selectedIndividualWorks, dialog } =
           iconPos="right"
           severity="secondary"
           v-show="dialog.action !== ACTIONS.VIEW"
-          @click="dialog.closeDialog()"
+          @click="cancelForm"
         />
       </div>
     </form>

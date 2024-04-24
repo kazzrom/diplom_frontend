@@ -65,11 +65,9 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   }
 
   async function editParentMetting() {
-    await ky
-      .put(`${API_URL}/parent-meetings/${parentMeeting.value.id}`, {
-        json: parentMeeting.value,
-      })
-      .json();
+    await ky.put(`${API_URL}/parent-meetings/${parentMeeting.value.id}`, {
+      json: parentMeeting.value,
+    });
     await fetchParentMeetings();
   }
 
@@ -78,10 +76,11 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
       invalid: v$.value.$invalid,
       funcAccept: async () => {
         await editParentMetting();
-        dialog.value.closeDialog();
         isSubmit.value = false;
+        dialog.value.closeDialog();
       },
-      funcReject: () => {
+      funcReject: async () => {
+        await fetchParentMeetings();
         dialog.value.closeDialog();
       },
     });

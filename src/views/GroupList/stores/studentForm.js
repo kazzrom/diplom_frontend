@@ -46,18 +46,22 @@ export const useStudentFormStore = defineStore("studentForm", () => {
 
   const isSubmit = ref(false);
 
+  async function addStudentApi() {
+    const createdStudent = await ky
+      .post(`${API_URL}/students`, {
+        json: student.value,
+      })
+      .json();
+
+    groupListStore.students.push(createdStudent);
+  }
+
   async function addStudent() {
     isSubmit.value = true;
     confirmAdd({
       invalid: v$.value.$invalid,
       funcIf: async () => {
-        const createdStudent = await ky
-          .post(`${API_URL}/students`, {
-            json: student.value,
-          })
-          .json();
-
-        groupListStore.students.push(createdStudent);
+        await addStudentApi();
         setEmptyForm();
         dialog.value.closeDialog();
         isSubmit.value = false;

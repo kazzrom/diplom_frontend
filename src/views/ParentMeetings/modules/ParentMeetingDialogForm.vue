@@ -1,4 +1,5 @@
 <script setup>
+import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import Dialog from "primevue/dialog";
 import Editor from "primevue/editor";
@@ -7,9 +8,16 @@ import { ACTIONS } from "@/constants";
 import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 import MultiSelect from "primevue/multiselect";
 
+const route = useRoute();
 const store = useParentMeetingsStore();
-const { addParentMetting, confirmEditParentMeeting, v$ } = store;
+const { addParentMetting, confirmEditParentMeeting, v$, fetchParentMeetings } =
+  store;
 const { parentMeeting, dialog, isSubmit, presentParents } = storeToRefs(store);
+
+async function cancelForm() {
+  await fetchParentMeetings();
+  dialog.value.closeDialog();
+}
 </script>
 
 <template>
@@ -18,6 +26,7 @@ const { parentMeeting, dialog, isSubmit, presentParents } = storeToRefs(store);
     modal
     v-model:visible="dialog.isShowDialog"
     :header="dialog.currentHeader"
+    :closable="dialog.action === ACTIONS.VIEW"
   >
     <div class="form_wrapper">
       <div class="form_items">
@@ -45,7 +54,6 @@ const { parentMeeting, dialog, isSubmit, presentParents } = storeToRefs(store);
             <MultiSelect
               id="present"
               v-model="presentParents"
-              
               :readonly="dialog.action === ACTIONS.VIEW"
             />
           </div>
@@ -81,7 +89,7 @@ const { parentMeeting, dialog, isSubmit, presentParents } = storeToRefs(store);
         />
         <Button
           v-show="dialog.action !== ACTIONS.VIEW"
-          @click="dialog.closeDialog()"
+          @click="cancelForm"
           label="Отмена"
           severity="secondary"
         />

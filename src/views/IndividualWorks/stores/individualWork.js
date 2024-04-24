@@ -86,6 +86,7 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
       },
       funcReject: async () => {
         setEmptyIndividualWork();
+        await fetchIndividualWorks(studentId.value);
         dialog.value.closeDialog();
       },
     });
