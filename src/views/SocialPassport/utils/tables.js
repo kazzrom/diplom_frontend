@@ -1,7 +1,7 @@
 // Сироты
 const orphansColumns = [
-  { field: "studentFullname", header: "ФИО студента" },
-  { field: "relativeFullname", header: "ФИО родственника" },
+  { field: "fullname", header: "ФИО студента" },
+  { field: "Familyties.Relative", header: "ФИО родственника" },
   { field: "address", header: "Адрес проживания" },
   { field: "contacts", header: "Контакты" },
 ];
@@ -69,31 +69,6 @@ const disabledParentsColumns = [
   { field: "note", header: "Примечание" },
 ];
 
-export const socialPassportTables = [
-  { header: "Сироты", columns: orphansColumns },
-  { header: "Опекаемые", columns: guardiansColumns },
-  { header: "Неполные семьи", columns: incompleteFamiliesColumns },
-  { header: "Проблемные семьи", columns: problemFamiliesColumns },
-  { header: "Многодетные семьи", columns: largeFamiliesColumns },
-  { header: "Малообечпеченные семьи", columns: lowIncomeFamiliesColumns },
-  {
-    header: "Обучающиеся, у которых родители безработные",
-    columns: unemployedParentsColumns,
-  },
-  {
-    header: "Обучающиеся, стоящие на учете в ОППН",
-    columns: registeredOPPNFamiliesColumns,
-  },
-  {
-    header: "Обучающиеся, имеющие хронические заболевания",
-    columns: studentsWithChronicDiseasesColumns,
-  },
-  {
-    header:
-      "Обучающиеся, из семей, в которых родители (1 из родителей) инвалид",
-    columns: disabledParentsColumns,
-  },
-];
 
 export const TABLE_API_URL = {
   ORPHANS: "/orphans",

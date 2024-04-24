@@ -107,6 +107,7 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     });
   };
 
+  // FIXME: пофиксить визуальное удаление
   async function deleteRelative(id) {
     await API.deleteRelative(id);
     relatives.value = relatives.value.filter((relative) => relative.id !== id);
