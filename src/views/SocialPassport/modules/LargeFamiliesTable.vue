@@ -1,13 +1,14 @@
 <script setup>
+// TODO: не забудь сделать эту таблицу, пожалуйста
 import DefaultTable from "./DefaultTable.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import { required } from "@vuelidate/validators";
 
-const problemFamily = {
+const largeFamily = {
   reason: undefined,
 };
 
-const problemFamilyRules = {
+const registeredOPPNRules = {
   Student: { required },
   reason: { required },
 };
@@ -17,9 +18,9 @@ const tableColumns = [{ field: "reason", header: "Причина" }];
 
 <template>
   <DefaultTable
-    :table-api-url="TABLE_API_URL.PROBLEM_FAMILIES"
-    :item="problemFamily"
-    :rules="problemFamilyRules"
+    :table-api-url="TABLE_API_URL.REGISTERED_OPPN"
+    :item="largeFamily"
+    :rules="registeredOPPNRules"
     :table-columns="tableColumns"
   >
     <template #addingForm="{ item, v, isSubmit }">

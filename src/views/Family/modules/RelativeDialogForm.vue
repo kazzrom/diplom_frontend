@@ -54,19 +54,11 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
         </div>
         <div class="form_item">
           <label for="phoneNumber">Место работы</label>
-          <InputText
-            id="phoneNumber"
-            v-model="relative.workplace"
-            :invalid="v$.workplace.$invalid && isSubmit"
-          />
+          <InputText id="phoneNumber" v-model.trim="relative.workplace" />
         </div>
         <div class="form_item">
           <label for="post">Должность</label>
-          <InputText
-            id="post"
-            v-model="relative.post"
-            :invalid="v$.post.$invalid && isSubmit"
-          />
+          <InputText id="post" v-model.trim="relative.post" />
         </div>
         <div class="form_item">
           <label for="kinship">Родство</label>
