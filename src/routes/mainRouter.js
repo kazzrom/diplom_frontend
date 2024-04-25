@@ -10,10 +10,29 @@ import HomeroomsView from "@/views/Homerooms/HomeroomsView.vue";
 import ProfileView from "@/views/Profile/ProfileView.vue";
 import profileRouter from "./profileRouter.js";
 
+import HomeView from "@/auth/views/HomeView.vue";
+import RegisterForm from "@/auth/views/RegisterForm.vue";
+import LoginForm from "@/auth/views/LoginForm.vue";
+
 const routes = [
   {
     path: "/",
     component: StartView,
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/sign-up",
+    name: "register",
+    component: RegisterForm,
+  },
+  {
+    path: "/sign-in",
+    name: "login",
+    component: LoginForm,
   },
   {
     path: "/students",

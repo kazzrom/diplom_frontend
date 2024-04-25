@@ -1,14 +1,19 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import ky from "ky";
 import { useConfirm } from "primevue/useconfirm";
 import { API_URL, GROUP_ID } from "@/constants";
 import { useConfirmStore } from "@/stores/confirms";
+import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();
   const { confirmDelete } = useConfirmStore();
+
+  const studentAPI = ky.create({
+    prefixUrl: `${API_URL}/students`,
+  });
 
   const loading = ref(false);
 
@@ -49,7 +54,13 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const fetchStudents = async () => {
     loading.value = true;
-    const response = await ky.get(`${API_URL}/students`).json();
+    const response = await studentAPI
+      .get("", {
+        headers: {
+          Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+        },
+      })
+      .json();
     students.value = response;
     loading.value = false;
   };
@@ -65,7 +76,13 @@ export const useGroupListStore = defineStore("groupList", () => {
 
     ids.forEach(async (id) => {
       students.value = students.value.filter((stud) => stud.id !== id);
-      const answer = await ky.delete(`${API_URL}/students/${id}`).json();
+      const answer = await studentAPI
+        .delete(`${id}`, {
+          headers: {
+            Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+          },
+        })
+        .json();
       console.log(answer);
     });
 
