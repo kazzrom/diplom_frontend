@@ -31,6 +31,7 @@ const tableColumns = [{ field: "Relative.fullname", header: "ФИО родите
         :options="relatives"
         option-label="fullname"
         :invalid="v.Relative.$invalid && isSubmit"
+        placeholder="Выберите родителя"
       />
     </template>
   </DefaultTable>

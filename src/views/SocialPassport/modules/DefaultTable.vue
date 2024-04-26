@@ -98,6 +98,7 @@ function clearForm() {
         :options="students"
         option-label="fullname"
         :invalid="v$.Student.$invalid && isSubmit"
+        placeholder="Выберите студента"
       />
       <slot
         name="addingForm"
@@ -139,6 +140,6 @@ function clearForm() {
         </template>
       </Column>
     </DataTable>
-    <NoRecordsView class="mt-[50px]" v-else />
+    <NoRecordsView v-else />
   </div>
 </template>

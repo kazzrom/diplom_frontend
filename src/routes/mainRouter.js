@@ -9,31 +9,32 @@ import GroupMeetingsView from "@/views/GroupMeetings/GroupMeetingsView.vue";
 import HomeroomsView from "@/views/Homerooms/HomeroomsView.vue";
 import ProfileView from "@/views/Profile/ProfileView.vue";
 import profileRouter from "./profileRouter.js";
+import socialPassportRouter from "./socialPassportRouter.js";
 
-import HomeView from "@/auth/views/HomeView.vue";
-import RegisterForm from "@/auth/views/RegisterForm.vue";
-import LoginForm from "@/auth/views/LoginForm.vue";
+// import HomeView from "@/auth/views/HomeView.vue";
+// import RegisterForm from "@/auth/views/RegisterForm.vue";
+// import LoginForm from "@/auth/views/LoginForm.vue";
 
 const routes = [
   {
     path: "/",
     component: StartView,
   },
-  {
-    path: "/home",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/sign-up",
-    name: "register",
-    component: RegisterForm,
-  },
-  {
-    path: "/sign-in",
-    name: "login",
-    component: LoginForm,
-  },
+  // {
+  //   path: "/home",
+  //   name: "home",
+  //   component: HomeView,
+  // },
+  // {
+  //   path: "/sign-up",
+  //   name: "register",
+  //   component: RegisterForm,
+  // },
+  // {
+  //   path: "/sign-in",
+  //   name: "login",
+  //   component: LoginForm,
+  // },
   {
     path: "/students",
     name: "Students",
@@ -48,6 +49,7 @@ const routes = [
     path: "/social-passport",
     name: "SocialPassport",
     component: SocialPassportView,
+    children: socialPassportRouter,
   },
   {
     path: "/parent-meetings",

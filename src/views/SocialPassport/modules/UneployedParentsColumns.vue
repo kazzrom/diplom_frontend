@@ -5,6 +5,7 @@ import Dropdown from "primevue/dropdown";
 import { computed } from "vue";
 import { required } from "@vuelidate/validators";
 
+// FIXME: надо пофиксить форму добавления, чтобы ссылки объектов не путались
 const uneployedParent = {
   Relative: undefined,
 };
@@ -31,6 +32,7 @@ const tableColumns = [{ field: "Relative.fullname", header: "ФИО родите
         :options="relatives"
         option-label="fullname"
         :invalid="v.Relative.$invalid && isSubmit"
+        placeholder="Выберите родителя"
       />
     </template>
   </DefaultTable>
