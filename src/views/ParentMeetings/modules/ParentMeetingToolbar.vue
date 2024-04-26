@@ -5,7 +5,6 @@ import Toolbar from "primevue/toolbar";
 import { ACTIONS } from "@/constants";
 import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 import { useSearchStore } from "@/stores/search";
-import Dropdown from "primevue/dropdown";
 
 const store = useParentMeetingsStore();
 const { resetParentMeeting, confirmDeleteParentMeeting } = store;

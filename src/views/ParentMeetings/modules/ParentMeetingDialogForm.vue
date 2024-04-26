@@ -3,19 +3,35 @@ import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import Dialog from "primevue/dialog";
 import Editor from "primevue/editor";
+import Listbox from "primevue/listbox";
 
 import { ACTIONS } from "@/constants";
 import { useParentMeetingsStore } from "../stores/parentMeetings.js";
 import MultiSelect from "primevue/multiselect";
+import { onMounted } from "vue";
 
-const route = useRoute();
+onMounted(async () => await fetchParents());
+
 const store = useParentMeetingsStore();
-const { addParentMetting, confirmEditParentMeeting, v$, fetchParentMeetings } =
-  store;
-const { parentMeeting, dialog, isSubmit, presentParents } = storeToRefs(store);
+const {
+  addParentMetting,
+  confirmEditParentMeeting,
+  v$,
+  fetchParentMeetings,
+  fetchParents,
+} = store;
+const {
+  parentMeeting,
+  dialog,
+  isSubmit,
+  presentParents,
+  presentParentsComputed,
+  parents,
+} = storeToRefs(store);
 
 async function cancelForm() {
   await fetchParentMeetings();
+  isSubmit.value = false;
   dialog.value.closeDialog();
 }
 </script>
@@ -49,17 +65,26 @@ async function cancelForm() {
               :invalid="v$.theme.$invalid && isSubmit"
             />
           </div>
-          <div class="form_item">
-            <label for="present">Присутствовали</label>
-            <MultiSelect
-              id="present"
-              v-model="presentParents"
-              :readonly="dialog.action === ACTIONS.VIEW"
-            />
-          </div>
-          <div class="form_item">
-            <label for="absent">Отсутствовали</label>
-            <InputText id="absent" :readonly="dialog.action === ACTIONS.VIEW" />
+          <div class="items">
+            <div class="form_item" v-if="dialog.action !== ACTIONS.VIEW">
+              <label for="present">Присутствовали</label>
+              <MultiSelect
+                id="present"
+                v-model="presentParents"
+                :options="parents"
+                option-label="fullname"
+                :max-selected-labels="0"
+                filter
+              />
+            </div>
+            <div class="form_item" listStyle="max-height: 50px" v-else>
+              <label for="present">Присутствовали</label>
+              <Listbox
+                id="present"
+                :options="presentParentsComputed"
+                option-label="fullname"
+              />
+            </div>
           </div>
         </div>
         <div class="form_item">

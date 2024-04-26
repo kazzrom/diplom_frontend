@@ -2,10 +2,11 @@ import { API_URL, GROUP_ID } from "@/constants";
 import DialogForm from "@/utils/dialog";
 import ky from "ky";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import parentMeetingRules from "@/validators/parentMeetingRules.js";
 import { useConfirmStore } from "@/stores/confirms";
+// import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   const { confirmAdd, confirmEdit, confirmDelete } = useConfirmStore();
@@ -22,6 +23,7 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     meettingDate: undefined,
     theme: undefined,
     meetingContent: undefined,
+    Attendanceparentmeetings: [],
   });
 
   const v$ = useVuelidate(parentMeetingRules, parentMeeting);
@@ -31,6 +33,7 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
       meettingDate: undefined,
       theme: undefined,
       meetingContent: undefined,
+      Attendanceparentmeetings: [],
     };
   }
 
@@ -39,11 +42,25 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
 
   const presentParents = ref([]);
 
+  const presentParentsComputed = computed(() => {
+    try {
+      return parentMeeting.value.Attendanceparentmeetings.map(
+        (attendance) => attendance.Relative
+      );
+    } catch (error) {
+      return [];
+    }
+  });
+  const parents = ref([]);
+
   async function fetchParentMeetings() {
-    const response = await ky
-      .get(`${API_URL}/parent-meetings/${GROUP_ID}`)
-      .json();
+    const response = await ky.get(`${API_URL}/parent-meetings`).json();
     parentMeetings.value = response;
+  }
+
+  async function fetchParents() {
+    const response = await ky.get(`${API_URL}/parents`).json();
+    parents.value = response;
   }
 
   const isSubmit = ref(false);
@@ -54,7 +71,11 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
       funcIf: async () => {
         const response = await ky
           .post(`${API_URL}/parent-meetings`, {
-            json: { groupId: GROUP_ID, ...parentMeeting.value },
+            json: {
+              groupId: GROUP_ID,
+              ...parentMeeting.value,
+              presentParents: presentParents.value,
+            },
           })
           .json();
         parentMeetings.value.push(response);
@@ -66,7 +87,11 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
 
   async function editParentMetting() {
     await ky.put(`${API_URL}/parent-meetings/${parentMeeting.value.id}`, {
-      json: parentMeeting.value,
+      json: {
+        groupId: GROUP_ID,
+        ...parentMeeting.value,
+        presentParents: presentParents.value,
+      },
     });
     await fetchParentMeetings();
   }
@@ -118,5 +143,8 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     resetParentMeeting,
     isSubmit,
     presentParents,
+    presentParentsComputed,
+    parents,
+    fetchParents,
   };
 });
