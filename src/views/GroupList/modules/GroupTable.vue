@@ -6,8 +6,10 @@ import { useGroupListStore } from "../stores/groupList.js";
 import { useSearchStore } from "@/stores/search.js";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 
+onMounted(async () => await fetchStudents());
+
 const store = useGroupListStore();
-const { getStudents, openProfile } = store;
+const { getStudents, openProfile, fetchStudents } = store;
 const { selectedColumns, loading, selectedStudents, students } =
   storeToRefs(store);
 

@@ -29,6 +29,6 @@ const { relatives } = storeToRefs(store);
 
 <style scoped>
 .relative-cards {
-  @apply flex flex-col;
+  @apply flex flex-col gap-3 m-3;
 }
 </style>
