@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import Button from "primevue/button";
 import { useHomeStore } from "../stores/Home.js";
 import { useAuthProvider } from "../stores/AuthContext";
@@ -22,4 +22,4 @@ const { data } = storeToRefs(useHomeStore());
 .container {
   @apply flex flex-col items-center gap-3 w-1/5;
 }
-</style>
+</style> -->

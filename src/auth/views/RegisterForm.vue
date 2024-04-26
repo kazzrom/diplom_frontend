@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import Card from "primevue/card";
@@ -30,4 +30,4 @@ function signUp() {
       </div>
     </form>
   </div>
-</template>
+</template> -->

@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref } from "vue";
 import Card from "primevue/card";
 import Button from "primevue/button";
@@ -38,4 +38,4 @@ function signIn() {
     border border-solid border-slate-200 rounded-xl 
     p-10 gap-6;
 }
-</style>
+</style> -->
