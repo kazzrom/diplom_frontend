@@ -5,7 +5,7 @@ import ky from "ky";
 import { useConfirm } from "primevue/useconfirm";
 import { API_URL, GROUP_ID } from "@/constants";
 import { useConfirmStore } from "@/stores/confirms";
-import InMemoryJWT from "@/auth/services/InMemoryJWT";
+// import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();
@@ -54,13 +54,7 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const fetchStudents = async () => {
     loading.value = true;
-    const response = await studentAPI
-      .get("", {
-        headers: {
-          Authorization: `Bearer ${InMemoryJWT.getToken()}`,
-        },
-      })
-      .json();
+    const response = await studentAPI.get("").json();
     students.value = response;
     loading.value = false;
   };
@@ -76,13 +70,7 @@ export const useGroupListStore = defineStore("groupList", () => {
 
     ids.forEach(async (id) => {
       students.value = students.value.filter((stud) => stud.id !== id);
-      const answer = await studentAPI
-        .delete(`${id}`, {
-          headers: {
-            Authorization: `Bearer ${InMemoryJWT.getToken()}`,
-          },
-        })
-        .json();
+      const answer = await studentAPI.delete(`${id}`).json();
       console.log(answer);
     });
 
