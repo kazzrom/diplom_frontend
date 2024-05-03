@@ -1,16 +1,17 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import DialogForm from "@/utils/dialog.js";
-import ky from "ky";
-import { API_URL, GROUP_ID } from "@/constants";
 import { useGroupListStore } from "./groupList";
 import studentFormRules from "@/validators/studentFormRules.js";
 import { useVuelidate } from "@vuelidate/core";
 import { useConfirmStore } from "@/stores/confirms";
+import studentModel from "../models/student.js";
+import * as API from "../api/students.js";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
   const { confirmAdd } = useConfirmStore();
+
   const dialog = ref(
     new DialogForm({
       add: "Добавление студента",
@@ -19,25 +20,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
     })
   );
 
-  const student = ref({
-    surname: undefined,
-    name: undefined,
-    patronymic: undefined,
-    fullname: computed(
-      () =>
-        `${student.value.surname} ${student.value.name} ${student.value.patronymic}`
-    ),
-    sex: undefined,
-    groupId: GROUP_ID,
-    Personaldatum: {
-      birthday: undefined,
-      reportCardNumber: undefined,
-      phoneNumber: undefined,
-      residentialAddress: undefined,
-      SNILS: undefined,
-      medicalPolicy: undefined,
-    },
-  });
+  const student = ref(studentModel.fields);
 
   const v$ = useVuelidate(
     computed(() => studentFormRules),
@@ -47,13 +30,14 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   const isSubmit = ref(false);
 
   async function addStudentApi() {
-    const createdStudent = await ky
-      .post(`${API_URL}/students`, {
-        json: student.value,
-      })
-      .json();
-
-    groupListStore.students.push(createdStudent);
+    await API.createStudent(student.value);
+    student.value.fullname =
+      student.value.surname +
+      " " +
+      student.value.name +
+      " " +
+      student.value.patronymic;
+    groupListStore.students.push(student.value);
   }
 
   async function addStudent() {
@@ -70,25 +54,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   }
 
   function setEmptyForm() {
-    student.value = {
-      surname: undefined,
-      name: undefined,
-      patronymic: undefined,
-      fullname: computed(
-        () =>
-          `${student.value.surname} ${student.value.name} ${student.value.patronymic}`
-      ),
-      sex: undefined,
-      groupId: GROUP_ID,
-      Personaldatum: {
-        birthday: undefined,
-        reportCardNumber: undefined,
-        phoneNumber: undefined,
-        residentialAddress: undefined,
-        SNILS: undefined,
-        medicalPolicy: undefined,
-      },
-    };
+    student.value = studentModel.fields;
   }
 
   return {

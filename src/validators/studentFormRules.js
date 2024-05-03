@@ -5,7 +5,7 @@ export default {
   name: { required, maxLength: maxLength(50) },
   patronymic: { required, maxLength: maxLength(50) },
   sex: { required },
-  Personaldatum: {
+  PersonalDatum: {
     birthday: { required },
     reportCardNumber: { required },
     phoneNumber: { required },

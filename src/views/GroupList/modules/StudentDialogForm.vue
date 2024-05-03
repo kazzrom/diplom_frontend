@@ -59,8 +59,8 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="residentialAddress"
             name="residentialAddress"
-            v-model="student.Personaldatum.residentialAddress"
-            :invalid="v$.Personaldatum.residentialAddress.$invalid && isSubmit"
+            v-model="student.PersonalDatum.residentialAddress"
+            :invalid="v$.PersonalDatum.residentialAddress.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -69,8 +69,8 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             id="phoneNumber"
             name="phoneNumber"
             mask="+7 999 999-99-99"
-            v-model="student.Personaldatum.phoneNumber"
-            :invalid="v$.Personaldatum.phoneNumber.$invalid && isSubmit"
+            v-model="student.PersonalDatum.phoneNumber"
+            :invalid="v$.PersonalDatum.phoneNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -78,11 +78,11 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <Calendar
             id="birthday"
             name="birthday"
-            v-model="student.Personaldatum.birthday"
+            v-model="student.PersonalDatum.birthday"
             dateFormat="dd.mm.yy"
             showIcon
             iconDisplay="input"
-            :invalid="v$.Personaldatum.birthday.$invalid && isSubmit"
+            :invalid="v$.PersonalDatum.birthday.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -91,8 +91,8 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             id="reportCardNumber"
             name="reportCardNumber"
             mask="99999"
-            v-model="student.Personaldatum.reportCardNumber"
-            :invalid="v$.Personaldatum.reportCardNumber.$invalid && isSubmit"
+            v-model="student.PersonalDatum.reportCardNumber"
+            :invalid="v$.PersonalDatum.reportCardNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -101,8 +101,8 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             id="SNILS"
             name="SNILS"
             mask="999-999-999 99"
-            v-model="student.Personaldatum.SNILS"
-            :invalid="v$.Personaldatum.SNILS.$invalid && isSubmit"
+            v-model="student.PersonalDatum.SNILS"
+            :invalid="v$.PersonalDatum.SNILS.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -111,8 +111,8 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             id="medicalPolicy"
             name="medicalPolicy"
             mask="9999 9999 9999 9999"
-            v-model="student.Personaldatum.medicalPolicy"
-            :invalid="v$.Personaldatum.medicalPolicy.$invalid && isSubmit"
+            v-model="student.PersonalDatum.medicalPolicy"
+            :invalid="v$.PersonalDatum.medicalPolicy.$invalid && isSubmit"
           />
         </div>
         <div class="form_buttons">

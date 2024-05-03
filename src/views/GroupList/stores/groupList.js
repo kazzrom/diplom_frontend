@@ -1,48 +1,20 @@
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
-import ky from "ky";
-import { useConfirm } from "primevue/useconfirm";
-import { API_URL, GROUP_ID } from "@/constants";
 import { useConfirmStore } from "@/stores/confirms";
+import * as API from "../api/students.js";
+import columns from "../constants/columns.js";
 // import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();
   const { confirmDelete } = useConfirmStore();
 
-  const studentAPI = ky.create({
-    prefixUrl: `${API_URL}/students`,
-  });
-
   const loading = ref(false);
 
   const students = ref([]);
 
-  const studentColumns = ref([
-    { field: "Personaldatum.birthday", header: "Дата рождения", minWidth: 200 },
-    {
-      field: "Personaldatum.phoneNumber",
-      header: "Номер телефона",
-      minWidth: 200,
-    },
-    {
-      field: "Personaldatum.residentialAddress",
-      header: "Домашний адрес",
-      minWidth: 300,
-    },
-    {
-      field: "Personaldatum.reportCardNumber",
-      header: "Табельный номер",
-      minWidth: 200,
-    },
-    { field: "Personaldatum.SNILS", header: "СНИЛС", minWidth: 200 },
-    {
-      field: "Personaldatum.medicalPolicy",
-      header: "Медицинский полис",
-      minWidth: 200,
-    },
-  ]);
+  const studentColumns = ref(columns);
 
   const selectedColumns = ref(studentColumns.value);
 
@@ -54,7 +26,7 @@ export const useGroupListStore = defineStore("groupList", () => {
 
   const fetchStudents = async () => {
     loading.value = true;
-    const response = await studentAPI.get("").json();
+    const response = await API.fetchStudents();
     students.value = response;
     loading.value = false;
   };
@@ -70,8 +42,7 @@ export const useGroupListStore = defineStore("groupList", () => {
 
     ids.forEach(async (id) => {
       students.value = students.value.filter((stud) => stud.id !== id);
-      const answer = await studentAPI.delete(`${id}`).json();
-      console.log(answer);
+      await API.deleteStudent(id);
     });
 
     selectedStudents.value = [];
