@@ -2,8 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useVuelidate } from "@vuelidate/core";
 import individualWorkFormRules from "@/validators/individualWorkFormRules.js";
-import ky from "ky";
-import { API_URL } from "@/constants";
+import * as API from "../api/individualWorks.js";
 import DialogForm from "@/utils/dialog";
 import { useConfirmStore } from "@/stores/confirms";
 
@@ -33,7 +32,7 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
 
   const studentId = ref();
   async function fetchIndividualWorks(id) {
-    const response = await ky.get(`${API_URL}/individualWorks/${id}`).json();
+    const response = await API.getAllIndividualWorksByStudentId(id);
     individualWorks.value = response;
     studentId.value = id;
   }
@@ -54,11 +53,10 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
     confirmAdd({
       invalid: v$.value.$invalid,
       funcIf: async () => {
-        const createdIndividualWork = await ky
-          .post(`${API_URL}/individualWorks`, {
-            json: { studentId: studentId.value, ...individualWork.value },
-          })
-          .json();
+        const createdIndividualWork = await API.addIndividualWork({
+          studentId: studentId.value,
+          ...individualWork.value,
+        });
         individualWorks.value.push(createdIndividualWork);
         setEmptyIndividualWork();
         isSubmit.value = false;
@@ -68,8 +66,9 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
   }
 
   async function editIndividualWork() {
-    await ky.put(`${API_URL}/individualWorks/${individualWork.value.id}`, {
-      json: individualWork.value,
+    await API.updateIndividualWork({
+      id: individualWork.value.id,
+      data: individualWork.value,
     });
 
     await fetchIndividualWorks(studentId.value);
@@ -96,7 +95,7 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
 
   function deleteSelectedIndividualWorks() {
     selectedIndividualWorks.value.forEach(async (individualWork) => {
-      await ky.delete(`${API_URL}/individualWorks/${individualWork.id}`);
+      await API.deleteIndividualWork(individualWork.id);
       individualWorks.value = individualWorks.value.filter(
         (work) => work.id !== individualWork.id
       );
