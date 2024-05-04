@@ -42,8 +42,8 @@ const { student, isEditForm } = storeToRefs(store);
         <InputText
           :readonly="isEditForm"
           id="residentialAddress"
-          v-model="student.Personaldatum.residentialAddress"
-          :invalid="v$.Personaldatum.residentialAddress.$invalid"
+          v-model="student.PersonalDatum.residentialAddress"
+          :invalid="v$.PersonalDatum.residentialAddress.$invalid"
         />
       </div>
       <div class="input-text">
@@ -52,16 +52,16 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="phoneNumber"
           mask="+7 999 999-99-99"
-          v-model="student.Personaldatum.phoneNumber"
-          :invalid="v$.Personaldatum.phoneNumber.$invalid"
+          v-model="student.PersonalDatum.phoneNumber"
+          :invalid="v$.PersonalDatum.phoneNumber.$invalid"
         />
       </div>
       <div class="input-text">
         <label for="birthday">Дата рождения</label>
         <Calendar
           :readonly="isEditForm"
-          v-model="student.Personaldatum.birthday"
-          :invalid="v$.Personaldatum.birthday.$invalid"
+          v-model="student.PersonalDatum.birthday"
+          :invalid="v$.PersonalDatum.birthday.$invalid"
           dateFormat="dd.mm.yy"
           showIcon
           iconDisplay="input"
@@ -73,8 +73,8 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="reportCardNuber"
           mask="99999"
-          v-model="student.Personaldatum.reportCardNumber"
-          :invalid="v$.Personaldatum.reportCardNumber.$invalid"
+          v-model="student.PersonalDatum.reportCardNumber"
+          :invalid="v$.PersonalDatum.reportCardNumber.$invalid"
         />
       </div>
       <div class="input-text">
@@ -83,8 +83,8 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="SNILS"
           mask="999-999-999 99"
-          v-model="student.Personaldatum.SNILS"
-          :invalid="v$.Personaldatum.SNILS.$invalid"
+          v-model="student.PersonalDatum.SNILS"
+          :invalid="v$.PersonalDatum.SNILS.$invalid"
         />
       </div>
       <div class="input-text">
@@ -93,8 +93,8 @@ const { student, isEditForm } = storeToRefs(store);
           :readonly="isEditForm"
           id="medicalPolicy"
           mask="9999 9999 9999 9999"
-          v-model="student.Personaldatum.medicalPolicy"
-          :invalid="v$.Personaldatum.medicalPolicy.$invalid"
+          v-model="student.PersonalDatum.medicalPolicy"
+          :invalid="v$.PersonalDatum.medicalPolicy.$invalid"
         />
       </div>
     </div>

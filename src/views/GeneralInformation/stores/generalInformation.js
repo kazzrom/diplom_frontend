@@ -1,39 +1,24 @@
-import { defineStore } from "pinia";
-import ky from "ky";
 import { ref } from "vue";
-import { API_URL } from "@/constants";
+import { defineStore } from "pinia";
 import { useVuelidate } from "@vuelidate/core";
 import studentFormRules from "@/validators/studentFormRules.js";
 import { useConfirmStore } from "@/stores/confirms";
+import studentModel from "@/views/GroupList/models/student.js";
+import * as API from "../api/students.js";
 
 export const useGeneralInformationStore = defineStore(
   "generalInformation",
   () => {
     const { confirmEdit } = useConfirmStore();
 
-    const student = ref({
-      id: undefined,
-      surname: undefined,
-      name: undefined,
-      patronymic: undefined,
-      sex: undefined,
-      Personaldatum: {
-        studentId: undefined,
-        birthday: undefined,
-        reportCardNumber: undefined,
-        phoneNumber: undefined,
-        residentialAddress: undefined,
-        SNILS: undefined,
-        medicalPolicy: undefined,
-      },
-    });
+    const student = ref(studentModel.fields);
 
     const v$ = useVuelidate(studentFormRules, student);
 
     const isEditForm = ref(true);
 
     const fetchStudent = async (id) => {
-      const response = await ky.get(`${API_URL}/students/${id}`).json();
+      const response = await API.getStudentById(id);
       student.value = response;
     };
 
@@ -48,15 +33,12 @@ export const useGeneralInformationStore = defineStore(
       confirmEdit({
         invalid: v$.value.$invalid,
         funcAccept: async () => {
-          await ky.put(`${API_URL}/students`, {
-            json: student.value,
-          });
+          await API.updateStudent(student.value.id, student.value);
           isEditForm.value = true;
         },
         funcReject: async () => {
           await fetchStudent(student.value.id);
           isEditForm.value = true;
-          console.log("reject");
         },
       });
     };
