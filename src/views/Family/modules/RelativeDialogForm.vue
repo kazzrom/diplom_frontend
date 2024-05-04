@@ -4,10 +4,16 @@ import Dropdown from "primevue/dropdown";
 
 import { ACTIONS } from "@/constants";
 import { useFamilySectionStore } from "../stores/family.js";
+import { KINSHIPS } from "../constants/constants";
 
 const store = useFamilySectionStore();
-const { addRelative, confirmEditRelative, v$ } = store;
-const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
+const { addRelative, confirmEditRelative, fetchRelative, v$ } = store;
+const { familyMember, relations, dialog, isSubmit } = storeToRefs(store);
+
+async function cancelForm() {
+  await fetchRelative(familyMember.value.id);
+  dialog.value.closeDialog();
+}
 </script>
 
 <template>
@@ -23,7 +29,7 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
           <label for="surname">Фамилия</label>
           <InputText
             id="surname"
-            v-model="relative.surname"
+            v-model="familyMember.surname"
             :invalid="v$.surname.$invalid && isSubmit"
           />
         </div>
@@ -31,7 +37,7 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
           <label for="name">Имя</label>
           <InputText
             id="name"
-            v-model="relative.name"
+            v-model="familyMember.name"
             :invalid="v$.name.$invalid && isSubmit"
           />
         </div>
@@ -39,8 +45,17 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
           <label for="patronymic">Отчество</label>
           <InputText
             id="patronymic"
-            v-model="relative.patronymic"
+            v-model="familyMember.patronymic"
             :invalid="v$.patronymic.$invalid && isSubmit"
+          />
+        </div>
+        <div class="form_item">
+          <label for="relation">Родство</label>
+          <Dropdown
+            id="relation"
+            v-model="familyMember.relation"
+            :options="relations"
+            :invalid="v$.relation.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -48,25 +63,28 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
           <InputMask
             id="phoneNumber"
             mask="+7 999 999-99-99"
-            v-model="relative.phoneNumber"
-            :invalid="v$.phoneNumber.$invalid && isSubmit"
+            v-model="familyMember.MemberPersonalDatum.phoneNumber"
+          />
+        </div>
+        <div class="form_item">
+          <label for="residentialAddress">Адрес</label>
+          <InputText
+            id="residentialAddress"
+            v-model="familyMember.MemberPersonalDatum.residentialAddress"
           />
         </div>
         <div class="form_item">
           <label for="phoneNumber">Место работы</label>
-          <InputText id="phoneNumber" v-model.trim="relative.workplace" />
+          <InputText
+            id="phoneNumber"
+            v-model.trim="familyMember.MemberPersonalDatum.workplace"
+          />
         </div>
         <div class="form_item">
           <label for="post">Должность</label>
-          <InputText id="post" v-model.trim="relative.post" />
-        </div>
-        <div class="form_item">
-          <label for="kinship">Родство</label>
-          <Dropdown
-            id="kinship"
-            v-model="relative.kinship"
-            :options="kinships"
-            :invalid="v$.kinship.$invalid && isSubmit"
+          <InputText
+            id="post"
+            v-model.trim="familyMember.MemberPersonalDatum.post"
           />
         </div>
       </div>
@@ -87,7 +105,7 @@ const { relative, kinships, dialog, isSubmit } = storeToRefs(store);
         />
         <Button
           v-show="dialog.action !== ACTIONS.VIEW"
-          @click="dialog.closeDialog()"
+          @click="cancelForm"
           label="Отмена"
           severity="secondary"
         />

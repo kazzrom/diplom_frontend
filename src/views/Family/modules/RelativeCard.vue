@@ -1,32 +1,30 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import { ACTIONS } from "@/constants";
 import { useFamilySectionStore } from "../stores/family.js";
 
-const props = defineProps(["relative"]);
-const route = useRoute();
+const props = defineProps(["familyMember"]);
 
 const store = useFamilySectionStore();
 const { confirmDeleteRelative } = store;
-const { dialog, relative: editedRelative, isSubmit } = storeToRefs(store);
+const { dialog, familyMember: editedFamilyMember, isSubmit } = storeToRefs(store);
 
-const relative = ref(props.relative);
+const familyMember = ref(props.familyMember);
 
 const isEditing = ref(false);
 
 function openEditDialog() {
-  editedRelative.value = { ...relative.value };
+  editedFamilyMember.value = { ...familyMember.value };
   isSubmit.value = true;
   isEditing.value = true;
   dialog.value.openDialog(ACTIONS.EDIT);
 }
 
-watch(editedRelative, (newRelative) => {
+watch(editedFamilyMember, (newRelative) => {
   if (dialog.value.action === ACTIONS.EDIT && isEditing.value) {
-    relative.value = newRelative;
+    familyMember.value = newRelative;
   }
 });
 </script>
@@ -39,39 +37,55 @@ watch(editedRelative, (newRelative) => {
         icon="pi pi-trash"
         text
         rounded
-        @click="confirmDeleteRelative(relative.id)"
+        @click="confirmDeleteRelative(familyMember.id)"
       />
     </div>
-    <h4 class="font-bold mb-5">{{ relative.kinship }}</h4>
+    <h4 class="font-bold mb-5">{{ familyMember.relation }}</h4>
     <div class="form">
       <div class="input-text">
         <label for="surname">Фамилия</label>
-        <InputText id="surname" v-model="relative.surname" readonly />
+        <InputText id="surname" v-model="familyMember.surname" readonly />
       </div>
       <div class="input-text">
         <label for="name">Имя</label>
-        <InputText id="name" v-model="relative.name" readonly />
+        <InputText id="name" v-model="familyMember.name" readonly />
       </div>
       <div class="input-text">
         <label for="patronymic">Отчество</label>
-        <InputText id="patronymic" v-model="relative.patronymic" readonly />
+        <InputText id="patronymic" v-model="familyMember.patronymic" readonly />
       </div>
       <div class="input-text">
         <label for="phoneNumber">Номер телефона</label>
         <InputMask
           id="phoneNumber"
           mask="+7 999 999-99-99"
-          v-model="relative.phoneNumber"
+          v-model="familyMember.MemberPersonalDatum.phoneNumber"
           readonly
         />
       </div>
       <div class="input-text">
         <label for="workplace">Место работы</label>
-        <InputText id="workplace" v-model="relative.workplace" readonly />
+        <InputText
+          id="workplace"
+          v-model="familyMember.MemberPersonalDatum.workplace"
+          readonly
+        />
       </div>
       <div class="input-text">
         <label for="post">Должность</label>
-        <InputText id="post" v-model="relative.post" readonly />
+        <InputText
+          id="post"
+          v-model="familyMember.MemberPersonalDatum.post"
+          readonly
+        />
+      </div>
+      <div class="input-text">
+        <label for="residentialAddress">Адрес</label>
+        <InputText
+          id="residentialAddress"
+          v-model="familyMember.MemberPersonalDatum.residentialAddress"
+          readonly
+        />
       </div>
     </div>
   </div>

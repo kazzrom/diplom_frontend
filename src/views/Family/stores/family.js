@@ -4,7 +4,9 @@ import DialogForm from "@/utils/dialog";
 import { useVuelidate } from "@vuelidate/core";
 import relativeFormRules from "@/validators/relativeFormRules.js";
 import { useConfirmStore } from "@/stores/confirms";
-import * as API from "@/views/Family/api/api";
+import * as API from "../api/families.js";
+import familyMemberModel from "../models/familyMember.js";
+import { KINSHIPS } from "../constants/constants.js";
 
 export const useFamilySectionStore = defineStore("familySection", () => {
   const { confirmAdd, confirmEdit, confirmDelete } = useConfirmStore();
@@ -16,63 +18,40 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     })
   );
 
-  const relative = ref({
-    name: "",
-    surname: "",
-    patronymic: "",
-    phoneNumber: "",
-    workplace: "",
-    post: "",
-    kinship: "",
-  });
+  const familyMember = ref(familyMemberModel.fields);
 
   const v$ = useVuelidate(
     computed(() => relativeFormRules),
-    relative
+    familyMember
   );
 
   function clearForm() {
-    relative.value = {
-      name: "",
-      surname: "",
-      patronymic: "",
-      phoneNumber: "",
-      workplace: "",
-      post: "",
-      kinship: "",
-    };
+    familyMember.value = familyMemberModel.fields;
   }
 
-  const kinships = ref([
-    "Отец",
-    "Мать",
-    "Бабушка",
-    "Дедушка",
-    "Опекун",
-    "Сестра",
-    "Брат",
-  ]);
+  const relations = ref(KINSHIPS);
 
-  const relatives = ref([]);
+  const familyMembers = ref([]);
 
   const studentId = ref();
 
   async function fetchRelative(id) {
-    relative.value = await API.getRelative(id);
+    familyMember.value = await API.getRelative(id);
   }
   async function fetchRelatives(id) {
-    relatives.value = await API.getRelatives(id);
+    familyMembers.value = await API.getRelatives(id);
     studentId.value = id;
   }
 
   const isSubmit = ref(false);
 
   async function addRelativeApi() {
-    const newRelative = await API.addRelative({
-      relative: relative.value,
+    const newFamilyMember = await API.addRelative({
+      ...familyMember.value,
       studentId: studentId.value,
     });
-    relatives.value.push(newRelative);
+    console.log(newFamilyMember);
+    familyMembers.value.push(newFamilyMember);
   }
 
   async function addRelative() {
@@ -88,7 +67,10 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   }
 
   async function editRelative() {
-    await API.editRelative({ id: relative.value.id, data: relative.value });
+    await API.editRelative({
+      id: familyMember.value.id,
+      data: familyMember.value,
+    });
     await fetchRelatives(studentId.value);
   }
 
@@ -100,8 +82,8 @@ export const useFamilySectionStore = defineStore("familySection", () => {
         dialog.value.closeDialog();
         isSubmit.value = false;
       },
-      funcReject: () => {
-        fetchRelative(relative.value.id);
+      funcReject: async () => {
+        await fetchRelative(familyMember.value.id);
         dialog.value.closeDialog();
       },
     });
@@ -110,7 +92,9 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   // FIXME: пофиксить визуальное удаление
   async function deleteRelative(id) {
     await API.deleteRelative(id);
-    relatives.value = relatives.value.filter((relative) => relative.id !== id);
+    familyMembers.value = familyMembers.value.filter(
+      (relative) => relative.id !== id
+    );
   }
 
   const confirmDeleteRelative = (id) => {
@@ -123,12 +107,13 @@ export const useFamilySectionStore = defineStore("familySection", () => {
 
   return {
     dialog,
-    relative,
-    relatives,
-    kinships,
+    familyMember,
+    familyMembers,
+    relations,
     addRelative,
     confirmEditRelative,
     confirmDeleteRelative,
+    fetchRelative,
     fetchRelatives,
     clearForm,
     v$,

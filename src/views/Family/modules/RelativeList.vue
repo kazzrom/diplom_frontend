@@ -2,7 +2,7 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
-import ScrollPanel from "primevue/scrollpanel";
+
 import NoRecordsView from "@/components/NoRecordsView.vue";
 
 import { useFamilySectionStore } from "../stores/family.js";
@@ -13,22 +13,22 @@ onMounted(() => fetchRelatives(route.params.id));
 
 const store = useFamilySectionStore();
 const { fetchRelatives } = store;
-const { relatives } = storeToRefs(store);
+const { familyMembers } = storeToRefs(store);
 </script>
 
 <template>
-  <div class="relative-cards" v-if="relatives.length">
+  <div class="family-member-cards" v-if="familyMembers.length">
     <RelativeCard
-      v-for="(relative, index) in relatives"
+      v-for="(familyMember, index) in familyMembers"
       :key="index"
-      :relative="relative"
+      :family-member="familyMember"
     />
   </div>
   <NoRecordsView message="Пока не добавлено никаких родственников" v-else />
 </template>
 
 <style scoped>
-.relative-cards {
+.family-member-cards {
   @apply flex flex-col gap-3 m-3;
 }
 </style>
