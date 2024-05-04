@@ -6,15 +6,15 @@ import Dropdown from "primevue/dropdown";
 import { useCharacteristicStore } from "../stores/characteristic.js";
 import { storeToRefs } from "pinia";
 
-const route = useRoute();
-
+// onMounted(async () => {
+//   console.log("AttitudeForm mounted", route.params.id);
+//   await fetchStudentById(route.params.id);
+// });
 const store = useCharacteristicStore();
-const { fetchStudentAttitudes, confirmEditAttitudes } = store;
-const { studentAttitudes } = storeToRefs(store);
+const { confirmEditAttitudes } = store;
+const { characteristic } = storeToRefs(store);
 
-onMounted(() => {
-  fetchStudentAttitudes(route.params.id);
-});
+// const route = useRoute();
 
 const relationships = ref(["Положительные", "Нейтральные", "Негативные"]);
 </script>
@@ -24,7 +24,7 @@ const relationships = ref(["Положительные", "Нейтральные
     <div class="form_item">
       <label for="study">Отношение к учёбе:</label>
       <Textarea
-        v-model="studentAttitudes.attitudeToStudy"
+        v-model="characteristic.studentAttitudes.attitudeToStudy"
         id="study"
         rows="10"
       />
@@ -32,7 +32,7 @@ const relationships = ref(["Положительные", "Нейтральные
     <div class="form_item">
       <label for="elder">Отношение к старшим:</label>
       <Textarea
-        v-model="studentAttitudes.attitudeToElders"
+        v-model="characteristic.studentAttitudes.attitudeToElders"
         id="elder"
         rows="10"
       />
@@ -40,7 +40,7 @@ const relationships = ref(["Положительные", "Нейтральные
     <div class="form_item">
       <label for="failures">Отношение к своим неудачам в обучении: </label>
       <Textarea
-        v-model="studentAttitudes.attitudeToFailures"
+        v-model="characteristic.studentAttitudes.attitudeToFailures"
         id="failures"
         rows="10"
       />
@@ -49,7 +49,7 @@ const relationships = ref(["Положительные", "Нейтральные
       <label for="peers">Взаимоотношения со сверстниками:</label>
       <Dropdown
         id="peers"
-        v-model="studentAttitudes.relationshipPeers"
+        v-model="characteristic.studentAttitudes.relationshipWithPeers"
         :options="relationships"
         placeholder="Выберите качество отношений"
       />

@@ -1,45 +1,29 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import ky from "ky";
-import { API_URL } from "@/constants";
+import * as API from "../api/characteristics.js";
 import { useConfirmStore } from "@/stores/confirms";
+import characteristicModel from "../models/characteristic.js";
 
 export const useCharacteristicStore = defineStore("characteristic", () => {
   const { confirmEdit } = useConfirmStore();
 
-  const studentAttitudes = ref({
-    attitudeToStudy: undefined,
-    attitudeToElders: undefined,
-    attitudeToFailures: undefined,
-    relationshipPeers: undefined,
-  });
+  const characteristic = ref(characteristicModel.fields);
+  const studentId = ref(null);
 
-  const studentPersonality = ref({
-    positiveSides: undefined,
-    negativeSides: undefined,
-    presenceOffenses: undefined,
-    inclinations: undefined,
-    leisure: undefined,
-  });
-
-  const studentId = ref();
-  async function fetchStudentAttitudes(id) {
-    const response = await ky.get(`${API_URL}/student-attitudes/${id}`).json();
-    studentAttitudes.value = response;
-    studentId.value = id;
-  }
-
-  async function fetchStudentPersonality(id) {
-    const response = await ky
-      .get(`${API_URL}/student-personalities/${id}`)
-      .json();
-    studentPersonality.value = response;
+  async function fetchCharacteristicByStudentId(id) {
+    const response = await API.fetchCharacteristicByStudentId(id);
+    characteristic.value = response;
+    characteristic.value.inclinations = response.inclinations.map(
+      (inclination) => inclination.name
+    );
+    characteristic.value.hobbies = response.hobbies.map((hobby) => hobby.name);
     studentId.value = id;
   }
 
   async function editStudentAttitudes() {
-    await ky.put(`${API_URL}/student-attitudes/${studentAttitudes.value.id}`, {
-      json: { studentId: studentId.value, ...studentAttitudes.value },
+    await API.updateStudentAttitudesByStudentId({
+      studentId: studentId.value,
+      studentAttitudes: characteristic.value.studentAttitudes,
     });
   }
 
@@ -53,12 +37,12 @@ export const useCharacteristicStore = defineStore("characteristic", () => {
   }
 
   async function editStudentPersonality() {
-    await ky.put(
-      `${API_URL}/student-personalities/${studentPersonality.value.id}`,
-      {
-        json: { studentId: studentId.value, ...studentPersonality.value },
-      }
-    );
+    await API.updateStudentPersonalityByStudentId({
+      studentId: studentId.value,
+      studentPersonality: characteristic.value.studentPersonality,
+      hobbies: characteristic.value.hobbies,
+      inclinations: characteristic.value.inclinations,
+    });
   }
 
   async function confirmEditPersonality() {
@@ -71,10 +55,8 @@ export const useCharacteristicStore = defineStore("characteristic", () => {
   }
 
   return {
-    studentAttitudes,
-    studentPersonality,
-    fetchStudentAttitudes,
-    fetchStudentPersonality,
+    characteristic,
+    fetchCharacteristicByStudentId,
     confirmEditAttitudes,
     confirmEditPersonality,
   };

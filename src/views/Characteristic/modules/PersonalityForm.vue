@@ -4,22 +4,19 @@ import Dropdown from "primevue/dropdown";
 import MultiSelect from "primevue/multiselect";
 import Textarea from "primevue/textarea";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
 import { useCharacteristicStore } from "../stores/characteristic.js";
 import { storeToRefs } from "pinia";
 
-const route = useRoute();
-
 const store = useCharacteristicStore();
-const { fetchStudentPersonality, confirmEditPersonality } = store;
-const { studentPersonality } = storeToRefs(store);
+const { confirmEditPersonality } = store;
+const { characteristic } = storeToRefs(store);
 
-onMounted(() => fetchStudentPersonality(route.params.id));
-
-const presenceOffenses = ref(["Да", "Нет"]);
+const presenceOffenses = ref([
+  { label: "Да", value: true },
+  { label: "Нет", value: false },
+]);
 
 const inclinations = ref([
-  "Нет",
   "К курению",
   "К распитию спиртного",
   "К бродяжничеству",
@@ -34,7 +31,7 @@ const inclinations = ref([
         Положительные стороны характера и личности:
       </label>
       <Textarea
-        v-model="studentPersonality.positiveSides"
+        v-model="characteristic.studentPersonality.positiveSides"
         id="positive-sides"
         rows="10"
       />
@@ -44,7 +41,7 @@ const inclinations = ref([
         Отрицательные стороны характера и личности
       </label>
       <Textarea
-        v-model="studentPersonality.negativeSides"
+        v-model="characteristic.studentPersonality.negativeSides"
         id="negative-sides"
         rows="10"
       />
@@ -53,7 +50,7 @@ const inclinations = ref([
       <label for="bad-habits">Склонности</label>
       <MultiSelect
         id="bad-habits"
-        v-model="studentPersonality.inclinations"
+        v-model="characteristic.inclinations"
         :options="inclinations"
         placeholder="Выберите плохие привычки"
       />
@@ -62,14 +59,16 @@ const inclinations = ref([
       <label for="presence-offenses">Наличие правонарушений</label>
       <Dropdown
         id="presence-offenses"
-        v-model="studentPersonality.presenceOffenses"
+        v-model="characteristic.studentPersonality.presenceOffenses"
         :options="presenceOffenses"
+        option-label="label"
+        option-value="value"
         placeholder="Выберите статус"
       />
     </div>
     <div class="form_item col-span-2">
-      <label for="leisure">Досуг обучающегося</label>
-      <Chips v-model="studentPersonality.leisure" input-id="leisure" />
+      <label for="hobbies">Досуг обучающегося</label>
+      <Chips v-model="characteristic.hobbies" input-id="hobbies" />
     </div>
     <div class="form_item col-span-2 justify-self-center">
       <Button
