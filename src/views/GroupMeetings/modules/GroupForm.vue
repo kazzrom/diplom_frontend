@@ -15,14 +15,20 @@ const {
   fetchGroupMeetings,
 } = groupMeetingsStore;
 const { dialog, groupMeeting, isSubmit } = storeToRefs(groupMeetingsStore);
+
+async function cancelDialog() {
+  dialog.value.closeDialog();
+  await fetchGroupMeetings();
+}
 </script>
 
 <template>
-  <DefaultDialog
-    :dialog="dialog"
-    :addItem="confirmAddGroupMeeting"
-    :editItem="confirmEditGroupMeeting"
-    :cancelDialog="fetchGroupMeetings"
+  <Dialog
+    class="p-5"
+    modal
+    v-model:visible="dialog.isShowDialog"
+    :header="dialog.currentHeader"
+    :closable="dialog.action === ACTIONS.VIEW"
   >
     <div class="form_wrapper">
       <div class="form_left_part">
@@ -47,9 +53,9 @@ const { dialog, groupMeeting, isSubmit } = storeToRefs(groupMeetingsStore);
         <div class="form_item">
           <label for="presence">Присутствовало</label>
           <InputNumber
-            id="presence"
-            v-model="groupMeeting.presence"
-            :invalid="v$.presence.$invalid && isSubmit"
+            id="numberPeoplePresent"
+            v-model="groupMeeting.numberPeoplePresent"
+            :invalid="v$.numberPeoplePresent.$invalid && isSubmit"
             :readonly="dialog.action === ACTIONS.VIEW"
           />
         </div>
@@ -59,12 +65,30 @@ const { dialog, groupMeeting, isSubmit } = storeToRefs(groupMeetingsStore);
         <Editor
           editorStyle="height: 300px"
           id="content"
-          v-model="groupMeeting.meetingContent"
+          v-model="groupMeeting.content"
           :readonly="dialog.action === ACTIONS.VIEW"
         />
       </div>
     </div>
-  </DefaultDialog>
+    <div class="buttons">
+      <Button
+        v-show="dialog.action === ACTIONS.ADD"
+        label="Добавить"
+        @click="confirmAddGroupMeeting"
+      />
+      <Button
+        v-show="dialog.action === ACTIONS.EDIT"
+        label="Сохранить"
+        @click="confirmEditGroupMeeting"
+      />
+      <Button
+        v-show="dialog.action !== ACTIONS.VIEW"
+        label="Отмена"
+        severity="secondary"
+        @click="cancelDialog"
+      />
+    </div>
+  </Dialog>
 </template>
 
 <style scoped>
@@ -86,5 +110,9 @@ const { dialog, groupMeeting, isSubmit } = storeToRefs(groupMeetingsStore);
 
 .form_editor {
   @apply form_item;
+}
+
+.buttons {
+  @apply flex justify-end mt-10 gap-3;
 }
 </style>
