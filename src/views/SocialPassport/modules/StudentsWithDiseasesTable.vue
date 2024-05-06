@@ -17,7 +17,7 @@ const tableColumns = [{ field: "disease", header: "Заболевание" }];
 
 <template>
   <DefaultTable
-    :table-api-url="TABLE_API_URL.STUDENTS_WITH_CHRONIC_DISEASE"
+    :table-api-url="TABLE_API_URL.CHRONIC_DISEASES"
     :item="studentWithDiseases"
     :rules="studentWithDiseasesRules"
     :table-columns="tableColumns"

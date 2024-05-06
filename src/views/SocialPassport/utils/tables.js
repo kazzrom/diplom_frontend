@@ -71,14 +71,13 @@ const disabledParentsColumns = [
 ];
 
 export const TABLE_API_URL = {
-  ORPHANS: "/orphans",
-  GUARDIANS: "/guardians",
-  INCOMPLETE_FAMILIES: "/incomplete-families",
-  PROBLEM_FAMILIES: "/problem-families",
-  LARGE_FAMILIES: "/large-families",
-  LOW_INCOME_FAMILIES: "/low-income-families",
-  UNEMPLOYED_PARENTS: "/unemployed-parents",
-  REGISTERED_OPPN: "/registered-oppn",
-  STUDENTS_WITH_CHRONIC_DISEASE: "/students-with-chronic-disease",
-  DISABLED_PARENTS: "/disabled-parents",
+  CHRONIC_DISEASES: "chronic-diseases",
+  DISABLED_PARENTS: "disabled-parents",
+  INCOMPLETE_FAMILIES: "incomplete-families",
+  LOW_INCOME_FAMILIES: "low-income-families",
+  ORPHANS: "orphans",
+  PROBLEM_FAMILIES: "problem-families",
+  STUDENTS_REGISTERED_OPPN: "students-registered-oppn",
+  UNDER_WARDSHIPS: "under-wardships",
+  UNEMPLOYED_PARENTS: "unemployed-parents",
 };

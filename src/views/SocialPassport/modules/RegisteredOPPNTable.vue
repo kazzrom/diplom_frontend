@@ -17,7 +17,7 @@ const tableColumns = [{ field: "reason", header: "Причина" }];
 
 <template>
   <DefaultTable
-    :table-api-url="TABLE_API_URL.REGISTERED_OPPN"
+    :table-api-url="TABLE_API_URL.STUDENTS_REGISTERED_OPPN"
     :item="registeredOPPN"
     :rules="registeredOPPNRules"
     :table-columns="tableColumns"

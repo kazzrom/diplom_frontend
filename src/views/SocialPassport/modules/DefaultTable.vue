@@ -1,11 +1,11 @@
 <script setup>
-import ky from "ky";
-import { API_URL } from "@/constants";
+import { GROUP_ID } from "@/constants";
 import { computed, onMounted, ref } from "vue";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import Dropdown from "primevue/dropdown";
 import { useVuelidate } from "@vuelidate/core";
 import { useConfirmStore } from "@/stores/confirms";
+import Api from "../api/socialPassport.js";
 
 const props = defineProps({
   tableApiUrl: {
@@ -29,6 +29,8 @@ const props = defineProps({
 onMounted(async () => await fetchFamilies());
 onMounted(async () => await fetchStudents());
 
+const API = new Api(props.tableApiUrl);
+
 const { confirmAdd, confirmDelete } = useConfirmStore();
 
 const items = ref([]);
@@ -39,7 +41,7 @@ const family = ref({ Student: undefined, ...props.item, note: undefined });
 
 const relatives = computed(() => {
   if (!family.value.Student || !props.needRelatives) return [];
-  return family.value.Student.Familyties.map((item) => item.Relative);
+  return family.value.Student.FamilyMembers;
 });
 
 const v$ = useVuelidate(props.rules, family);
@@ -49,13 +51,13 @@ const students = ref([]);
 
 async function fetchFamilies() {
   loading.value = true;
-  const response = await ky.get(`${API_URL}${props.tableApiUrl}`).json();
+  const response = await API.getRecords(GROUP_ID);
   items.value = response;
   loading.value = false;
 }
 
 async function fetchStudents() {
-  const response = await ky.get(`${API_URL}/social-passport/students`).json();
+  const response = await API.getStudents(GROUP_ID);
   students.value = response;
 }
 
@@ -64,11 +66,9 @@ async function addFamily() {
   confirmAdd({
     invalid: v$.value.$invalid,
     funcIf: async () => {
-      items.value.push(family.value);
+      const newFamily = await API.addRecord(family.value);
+      items.value.push(newFamily);
       isSubmit.value = false;
-      await ky.post(`${API_URL}${props.tableApiUrl}`, {
-        json: family.value,
-      });
       clearForm();
     },
   });
@@ -77,8 +77,8 @@ async function addFamily() {
 async function deleteFamily(id) {
   confirmDelete({
     funcAccept: async () => {
-      items.value = items.value.filter((item) => item.Student.id !== id);
-      await ky.delete(`${API_URL}${props.tableApiUrl}/${id}`);
+      items.value = items.value.filter((item) => item.id !== id);
+      await API.deleteRecord(id);
     },
   });
 }
@@ -135,7 +135,7 @@ function clearForm() {
             icon="pi pi-trash"
             text
             rounded
-            @click="deleteFamily(data.Student.id)"
+            @click="deleteFamily(data.id)"
           />
         </template>
       </Column>

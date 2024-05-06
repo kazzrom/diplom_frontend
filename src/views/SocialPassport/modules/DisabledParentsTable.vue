@@ -2,19 +2,18 @@
 import DefaultTable from "./DefaultTable.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import Dropdown from "primevue/dropdown";
-import { computed } from "vue";
 import { required } from "@vuelidate/validators";
 
 const disabledParent = {
-  Relative: undefined,
+  FamilyMember: undefined,
 };
 
 const disabledParentRules = {
   Student: { required },
-  Relative: { required },
+  FamilyMember: { required },
 };
 
-const tableColumns = [{ field: "Relative.fullname", header: "ФИО родителя" }];
+const tableColumns = [{ field: "FamilyMember.fullname", header: "ФИО родителя" }];
 </script>
 
 <template>
@@ -27,10 +26,10 @@ const tableColumns = [{ field: "Relative.fullname", header: "ФИО родите
   >
     <template #addingForm="{ item, v, isSubmit, relatives }">
       <Dropdown
-        v-model="item.Relative"
+        v-model="item.FamilyMember"
         :options="relatives"
         option-label="fullname"
-        :invalid="v.Relative.$invalid && isSubmit"
+        :invalid="v.FamilyMember.$invalid && isSubmit"
         placeholder="Выберите родителя"
       />
     </template>

@@ -1,11 +1,13 @@
 <script setup>
-import ky from "ky";
-import { API_URL } from "@/constants";
 import { onMounted, ref } from "vue";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import { TABLE_API_URL } from "../utils/tables";
+import Api from "../api/socialPassport.js";
+import { GROUP_ID } from "@/constants";
 
 onMounted(async () => await fetchIncompleteFamilies());
+
+const API = new Api(TABLE_API_URL.INCOMPLETE_FAMILIES);
 
 const items = ref([]);
 
@@ -13,9 +15,7 @@ const loading = ref(false);
 
 async function fetchIncompleteFamilies() {
   loading.value = true;
-  const response = await ky
-    .get(`${API_URL}${TABLE_API_URL.INCOMPLETE_FAMILIES}`)
-    .json();
+  const response = await API.getRecords(GROUP_ID);
   items.value = response;
   loading.value = false;
 }
@@ -33,7 +33,7 @@ async function fetchIncompleteFamilies() {
     <Column header="ФИО родителя">
       <template #body="{ data }">
         <p>
-          {{ data.Familyties[0].Relative.fullname }}
+          {{ data.FamilyMembers[0].fullname }}
         </p>
       </template>
     </Column>
