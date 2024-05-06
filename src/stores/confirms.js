@@ -6,7 +6,7 @@ export const useConfirmStore = defineStore("confirms", () => {
   const { successToast, infoToast, warningToast } = useToastStore();
   const confirm = useConfirm();
 
-  async function confirmAdd({ funcIf, funcElse = () => {}, invalid }) {
+  async function confirmAdd({ funcIf, funcElse = () => {}, invalid, validator }) {
     if (!invalid) {
       funcIf();
       successToast("Данные были успешно добавлены");

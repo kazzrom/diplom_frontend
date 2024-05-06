@@ -8,7 +8,7 @@ export const GROUP_MEETINGS_COLUMNS = [
     header: "Тема",
   },
   {
-    field: "presence",
+    field: "numberPeoplePresent",
     header: "Присутствовало",
   },
 ];
