@@ -1,33 +1,34 @@
 <script setup>
-// TODO: не забудь сделать эту таблицу, пожалуйста
 import DefaultTable from "./DefaultTable.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import { required } from "@vuelidate/validators";
 
 const largeFamily = {
-  reason: undefined,
+  numberChildren: undefined,
 };
 
-const registeredOPPNRules = {
+const largeFamilyRules = {
   Student: { required },
-  reason: { required },
+  numberChildren: { required },
 };
 
-const tableColumns = [{ field: "reason", header: "Причина" }];
+const tableColumns = [
+  { field: "numberChildren", header: "Кол-во детей в семье" },
+];
 </script>
 
 <template>
   <DefaultTable
-    :table-api-url="TABLE_API_URL.REGISTERED_OPPN"
+    :table-api-url="TABLE_API_URL.LARGE_FAMILIES"
     :item="largeFamily"
-    :rules="registeredOPPNRules"
+    :rules="largeFamilyRules"
     :table-columns="tableColumns"
   >
     <template #addingForm="{ item, v, isSubmit }">
-      <InputText
-        v-model="item.reason"
-        placeholder="Причина"
-        :invalid="v.reason.$invalid && isSubmit"
+      <InputNumber
+        v-model="item.numberChildren"
+        placeholder="Кол-во детей"
+        :invalid="v.numberChildren.$invalid && isSubmit"
       />
     </template>
   </DefaultTable>

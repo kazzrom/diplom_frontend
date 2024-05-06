@@ -5,7 +5,6 @@ import Dropdown from "primevue/dropdown";
 import { computed } from "vue";
 import { required } from "@vuelidate/validators";
 
-// FIXME: надо пофиксить форму добавления, чтобы ссылки объектов не путались
 const uneployedParent = {
   FamilyMember: undefined,
 };

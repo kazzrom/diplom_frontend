@@ -28,7 +28,6 @@ const problemFamiliesColumns = [
   { field: "note", header: "Примечание" },
 ];
 
-// TODO: просто не забудь, что не сделал эту таблицу
 // Многодетные семьи
 const largeFamiliesColumns = [
   { field: "studentFullname", header: "ФИО студента" },
@@ -80,4 +79,5 @@ export const TABLE_API_URL = {
   STUDENTS_REGISTERED_OPPN: "students-registered-oppn",
   UNDER_WARDSHIPS: "under-wardships",
   UNEMPLOYED_PARENTS: "unemployed-parents",
+  LARGE_FAMILIES: "large-families",
 };

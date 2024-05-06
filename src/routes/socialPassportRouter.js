@@ -2,6 +2,7 @@ import OrphansTable from "@/views/SocialPassport/modules/OrphansTable.vue";
 import GuardiansTable from "@/views/SocialPassport/modules/GuardiansTable.vue";
 import IncompleteFamiliesTable from "@/views/SocialPassport/modules/IncompleteFamiliesTable.vue";
 import ProblemFamiliesTable from "@/views/SocialPassport/modules/ProblemFamiliesTable.vue";
+import LargeFamiliesTable from "@/views/SocialPassport/modules/LargeFamiliesTable.vue";
 import LowIncomeFamiliesTable from "@/views/SocialPassport/modules/LowIncomeFamiliesTable.vue";
 import UneployedParentsColumns from "@/views/SocialPassport/modules/UneployedParentsColumns.vue";
 import RegisteredOPPNTable from "@/views/SocialPassport/modules/RegisteredOPPNTable.vue";
@@ -28,6 +29,11 @@ export default [
     path: "problem-families",
     name: "ProblemFamilies",
     component: ProblemFamiliesTable,
+  },
+  {
+    path: "large-families",
+    name: "LargeFamilies",
+    component: LargeFamiliesTable,
   },
   {
     path: "low-income-families",

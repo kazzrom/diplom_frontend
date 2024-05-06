@@ -11,6 +11,7 @@ const items = [
   { label: "Опекаемые", route: { name: "Guardians" } },
   { label: "Неполные семьи", route: { name: "IncompleteFamilies" } },
   { label: "Проблемные семьи", route: { name: "ProblemFamilies" } },
+  { label: "Многодетные семьи", route: { name: "LargeFamilies" } },
   { label: "Малообеспеченные семьи", route: { name: "LowIncomeFamilies" } },
   {
     label: "Обучающиеся, у которых родители безработные",
