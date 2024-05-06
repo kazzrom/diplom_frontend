@@ -1,11 +1,12 @@
-import { API_URL, GROUP_ID } from "@/constants";
 import DialogForm from "@/utils/dialog";
-import ky from "ky";
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import parentMeetingRules from "@/validators/parentMeetingRules.js";
 import { useConfirmStore } from "@/stores/confirms";
+import * as API from "../api/parentMeetings.js";
+import { GROUP_ID } from "@/constants";
+import parentMeetingModel from "../models/parentMeeting.js";
 // import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useParentMeetingsStore = defineStore("parentMeetings", () => {
@@ -19,22 +20,12 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     })
   );
 
-  const parentMeeting = ref({
-    meettingDate: undefined,
-    theme: undefined,
-    meetingContent: undefined,
-    Attendanceparentmeetings: [],
-  });
+  const parentMeeting = ref(parentMeetingModel.fields);
 
   const v$ = useVuelidate(parentMeetingRules, parentMeeting);
 
   function resetParentMeeting() {
-    parentMeeting.value = {
-      meettingDate: undefined,
-      theme: undefined,
-      meetingContent: undefined,
-      Attendanceparentmeetings: [],
-    };
+    parentMeeting.value = parentMeetingModel.fields;
   }
 
   const selectedParentMeetings = ref([]);
@@ -54,12 +45,12 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   const parents = ref([]);
 
   async function fetchParentMeetings() {
-    const response = await ky.get(`${API_URL}/parent-meetings`).json();
+    const response = await API.getParentMeetings();
     parentMeetings.value = response;
   }
 
   async function fetchParents() {
-    const response = await ky.get(`${API_URL}/parents`).json();
+    const response = await API.getParents();
     parents.value = response;
   }
 
@@ -69,15 +60,10 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
     confirmAdd({
       invalid: v$.value.$invalid,
       funcIf: async () => {
-        const response = await ky
-          .post(`${API_URL}/parent-meetings`, {
-            json: {
-              groupId: GROUP_ID,
-              ...parentMeeting.value,
-              presentParents: presentParents.value,
-            },
-          })
-          .json();
+        const response = await API.createParentMeeting({
+          groupId: GROUP_ID,
+          ...parentMeeting.value,
+        });
         parentMeetings.value.push(response);
         dialog.value.closeDialog();
         isSubmit.value = false;
@@ -86,11 +72,10 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   }
 
   async function editParentMetting() {
-    await ky.put(`${API_URL}/parent-meetings/${parentMeeting.value.id}`, {
-      json: {
-        groupId: GROUP_ID,
+    await API.updateParentMeeting({
+      id: parentMeeting.value.id,
+      parentMeeting: {
         ...parentMeeting.value,
-        presentParents: presentParents.value,
       },
     });
     await fetchParentMeetings();
@@ -112,7 +97,7 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
   };
 
   async function deleteParentMeeting(id) {
-    await ky.delete(`${API_URL}/parent-meetings/${id}`);
+    await API.deleteParentMeeting(id);
     parentMeetings.value = parentMeetings.value.filter(
       (meet) => meet.id !== id
     );

@@ -27,16 +27,16 @@ function openAddDialog() {
           <InputIcon class="pi pi-search" />
           <InputText placeholder="Поиск" v-model="filters['global'].value" />
         </IconField>
-        <Button
-          label="Добавить"
-          icon="pi pi-plus"
-          icon-pos="right"
-          @click="openAddDialog"
-        />
       </div>
     </template>
     <template #end>
       <div class="toolbar_start">
+        <Button
+          label="Добавить протокол"
+          icon="pi pi-plus"
+          icon-pos="right"
+          @click="openAddDialog"
+        />
         <Button
           label="Удалить выбранные протоколы"
           @click="confirmDeleteParentMeeting"
@@ -51,6 +51,6 @@ function openAddDialog() {
 
 <style scoped>
 .toolbar_start {
-  @apply flex flex-row gap-5;
+  @apply flex flex-row gap-3;
 }
 </style>

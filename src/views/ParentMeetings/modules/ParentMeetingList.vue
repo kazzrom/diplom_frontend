@@ -32,6 +32,12 @@ function openDialog(data, action) {
 
   if (action === ACTIONS.EDIT) {
     isSubmit.value = true;
+
+    parentMeetings.value.forEach((meet) => {
+      meet.FamilyMembers.forEach((member) => {
+        delete member.AttendanceParentMeetings;
+      });
+    });
   }
 }
 </script>

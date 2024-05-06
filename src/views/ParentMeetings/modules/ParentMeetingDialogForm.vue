@@ -70,7 +70,7 @@ async function cancelForm() {
               <label for="present">Присутствовали</label>
               <MultiSelect
                 id="present"
-                v-model="presentParents"
+                v-model="parentMeeting.FamilyMembers"
                 :options="parents"
                 option-label="fullname"
                 :max-selected-labels="0"
@@ -81,7 +81,7 @@ async function cancelForm() {
               <label for="present">Присутствовали</label>
               <Listbox
                 id="present"
-                :options="presentParentsComputed"
+                :options="parentMeeting.FamilyMembers"
                 option-label="fullname"
               />
             </div>
@@ -92,7 +92,7 @@ async function cancelForm() {
           <Editor
             id="content"
             editorStyle="height: 300px;"
-            v-model="parentMeeting.meetingContent"
+            v-model="parentMeeting.content"
             :readonly="dialog.action === ACTIONS.VIEW"
           />
         </div>
