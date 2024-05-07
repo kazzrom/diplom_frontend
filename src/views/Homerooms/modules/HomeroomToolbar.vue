@@ -2,8 +2,12 @@
 import Toolbar from "primevue/toolbar";
 import SearchInput from "../components/SearchInput.vue";
 import { storeToRefs } from "pinia";
+import { useHomeroomStore } from "../stores/homeroom";
 import { useCRUDStore } from "../stores/CRUD.js";
 import { ACTIONS } from "@/constants";
+
+const homeroomStore = useHomeroomStore();
+const { selectedHomerooms } = storeToRefs(homeroomStore);
 
 const crudStore = useCRUDStore();
 const { deleteHomerooms } = crudStore;
@@ -27,6 +31,7 @@ const { dialog } = storeToRefs(crudStore);
           label="Удалить выбранные протоколы"
           icon="pi pi-trash"
           iconPos="right"
+          :disabled="!selectedHomerooms.length"
           @click="deleteHomerooms"
         />
       </div>

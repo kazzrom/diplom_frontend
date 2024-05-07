@@ -2,7 +2,6 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useConfirmStore } from "@/stores/confirms.js";
 import { useHomeroomStore } from "./homeroom.js";
-import { useValidationStore } from "./validation.js";
 import DialogForm from "@/utils/dialog.js";
 
 export const useCRUDStore = defineStore("CRUD", () => {
@@ -18,15 +17,15 @@ export const useCRUDStore = defineStore("CRUD", () => {
   const { confirmAdd, confirmEdit, confirmDelete } = confirms;
 
   const homeroomStore = useHomeroomStore();
-  const { v$ } = useValidationStore();
 
   async function addHomeroom() {
-    if (v$.$invalid) {
-      v$.$touch();
+    if (homeroomStore.v$.$invalid) {
+      homeroomStore.v$.$touch();
     }
     confirmAdd({
-      invalid: v$.$invalid,
+      invalid: homeroomStore.v$.$invalid,
       funcIf: async () => {
+        dialog.value.closeDialog();
         await homeroomStore.createHomeroom();
         homeroomStore.resetHomeroom();
       },
@@ -34,12 +33,13 @@ export const useCRUDStore = defineStore("CRUD", () => {
   }
 
   async function editHomeroom() {
-    if (v$.$invalid) {
-      v$.$touch();
+    if (homeroomStore.v$.$invalid) {
+      homeroomStore.v$.$touch();
     }
     confirmEdit({
-      invalid: v$.$invalid,
-      funcIf: async () => {
+      invalid: homeroomStore.v$.$invalid,
+      funcAccept: async () => {
+        dialog.value.closeDialog();
         await homeroomStore.updateHomeroom();
         homeroomStore.resetHomeroom();
       },

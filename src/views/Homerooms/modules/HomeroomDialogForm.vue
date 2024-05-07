@@ -2,14 +2,13 @@
 import { storeToRefs } from "pinia";
 import Editor from "primevue/editor";
 import { useHomeroomStore } from "../stores/homeroom.js";
-import { useValidationStore } from "../stores/validation.js";
 import { useCRUDStore } from "../stores/CRUD.js";
 import { ACTIONS } from "@/constants";
 
 const homeroomStore = useHomeroomStore();
+const { v$ } = homeroomStore;
+const { resetHomeroom } = homeroomStore;
 const { homeroom } = storeToRefs(homeroomStore);
-
-const { v$ } = useValidationStore();
 
 const crudStore = useCRUDStore();
 const { addHomeroom, editHomeroom } = crudStore;
@@ -17,6 +16,7 @@ const { dialog } = storeToRefs(crudStore);
 
 function cancelDialog() {
   dialog.value.closeDialog();
+  resetHomeroom();
 }
 </script>
 
@@ -81,7 +81,7 @@ function cancelDialog() {
           <div class="form_item">
             <label for="tasks">Задачи</label>
             <Editor
-              editorStyle="max-height: 300px; width: 500px;"
+              editorStyle="height: 300px;"
               id="tasks"
               v-model="homeroom.tasks"
               :readonly="dialog.action === ACTIONS.VIEW"
@@ -101,7 +101,7 @@ function cancelDialog() {
           <div class="form_item">
             <label for="courseOfMeeting">Ход проведения</label>
             <Editor
-              editorStyle="height: 100px; max-height: 200px; width: 500px;"
+              editorStyle="height: 150px"
               id="courseOfMeeting"
               v-model="homeroom.courseOfMeeting"
               :readonly="dialog.action === ACTIONS.VIEW"
@@ -119,7 +119,7 @@ function cancelDialog() {
           <div class="form_item">
             <label for="results">Итоги</label>
             <Editor
-              editorStyle="max-height: 200px; width: 500px;"
+              editorStyle="height: 150px"
               id="results"
               v-model="homeroom.results"
               :readonly="dialog.action === ACTIONS.VIEW"

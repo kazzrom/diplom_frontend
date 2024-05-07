@@ -49,10 +49,16 @@ function openDialog(action, data) {
     />
     <Column>
       <template #body="{ data }">
-        <Button icon="pi pi-eye" text @click="openDialog(ACTIONS.VIEW, data)" />
+        <Button
+          icon="pi pi-eye"
+          text
+          rounded
+          @click="openDialog(ACTIONS.VIEW, data)"
+        />
         <Button
           icon="pi pi-pencil"
           text
+          rounded
           @click="openDialog(ACTIONS.EDIT, data)"
         />
       </template>

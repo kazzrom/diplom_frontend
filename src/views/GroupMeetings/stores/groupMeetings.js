@@ -1,6 +1,6 @@
 import DialogForm from "@/utils/dialog";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import groupMeetingRules from "@/validators/groupMeetingRules.js";
 import { useConfirmStore } from "@/stores/confirms";
@@ -24,7 +24,10 @@ export const useGroupMeetingsStore = defineStore("groupMeetings", () => {
     groupMeeting.value = groupMeetingModel.fields;
   }
 
-  const v$ = useVuelidate(groupMeetingRules, groupMeeting);
+  const v$ = useVuelidate(
+    computed(() => groupMeetingRules),
+    groupMeeting
+  );
 
   const selectedGroupMeetings = ref([]);
   const groupMeetings = ref([]);
@@ -48,9 +51,9 @@ export const useGroupMeetingsStore = defineStore("groupMeetings", () => {
     confirmAdd({
       invalid: v$.value.$invalid,
       funcIf: async () => {
+        dialog.value.closeDialog();
         await addGroupMeeting();
         isSubmit.value = false;
-        dialog.value.closeDialog();
       },
     });
   }
@@ -67,10 +70,10 @@ export const useGroupMeetingsStore = defineStore("groupMeetings", () => {
         dialog.value.closeDialog();
         await editGroupMeeting();
         isSubmit.value = false;
-        resetGroupMeeting();
       },
       funcReject: async () => {
         dialog.value.closeDialog();
+        resetGroupMeeting();
         await fetchGroupMeetings();
         isSubmit.value = false;
       },
@@ -90,6 +93,7 @@ export const useGroupMeetingsStore = defineStore("groupMeetings", () => {
         selectedGroupMeetings.value.forEach(async (groupMeeting) => {
           await deleteGroupMeeting(groupMeeting.id);
         });
+        selectedGroupMeetings.value = [];
       },
       funcReject: () => {
         selectedGroupMeetings.value = [];

@@ -15,12 +15,9 @@ export async function getHomerooms() {
 }
 
 export async function createHomeroom(homeroom) {
-  const response = await homeroomAPI
-    .post("", {
-      json: homeroom,
-    })
-    .then((response) => response)
-    .catch((error) => console.log(error));
+  const response = await homeroomAPI.post("", {
+    json: { ...homeroom, groupId: GROUP_ID },
+  });
 
   return response.json();
 }

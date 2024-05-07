@@ -1,4 +1,6 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import useVuelidate from "@vuelidate/core";
+import homeroomRules from "@/validators/homeroomRules.js";
 import { defineStore } from "pinia";
 import * as API from "../api/homerooms.js";
 import homeroomModel from "../models/homeroom.js";
@@ -6,8 +8,22 @@ import homeroomModel from "../models/homeroom.js";
 export const useHomeroomStore = defineStore("homeroom", () => {
   const homeroom = ref(homeroomModel.fields);
 
+  const v$ = useVuelidate(
+    computed(() => homeroomRules),
+    homeroom
+  );
+
   function resetHomeroom() {
-    homeroom.value = homeroomModel.fields;
+    homeroom.value = {
+      meetingDate: null,
+      theme: null,
+      location: null,
+      numberPeoplePresent: null,
+      purpose: null,
+      tasks: null,
+      courseOfMeeting: null,
+      results: null,
+    };
   }
 
   const selectedHomerooms = ref([]);
@@ -41,10 +57,17 @@ export const useHomeroomStore = defineStore("homeroom", () => {
     ids.forEach(async (id) => {
       await deleteHomeroom(id);
     });
+
+    homerooms.value = homerooms.value.filter(
+      (homeroom) => !selectedHomerooms.value.includes(homeroom)
+    );
+
+    resetSelectedHomerooms();
   }
 
   return {
     homeroom,
+    v$,
     selectedHomerooms,
     homerooms,
     resetHomeroom,
