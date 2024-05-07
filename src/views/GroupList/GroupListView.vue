@@ -9,7 +9,7 @@ import ViewHeader from "@/components/ViewHeader.vue";
   <div class="wrapper">
     <ViewHeader>Список группы: 403 ИСП</ViewHeader>
     <GroupToolbar />
-    <GroupTable />
+    <GroupTable/>
     <StudentDialogForm />
   </div>
 </template>

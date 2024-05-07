@@ -56,7 +56,6 @@ export const useParentMeetingsStore = defineStore("parentMeetings", () => {
 
   const isSubmit = ref(false);
 
-  // FIXME: пофиксить закрытие диалога, как-нибудь
   async function addParentMetting() {
     isSubmit.value = true;
     confirmAdd({

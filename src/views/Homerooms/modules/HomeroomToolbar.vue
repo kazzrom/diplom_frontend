@@ -12,6 +12,11 @@ const { selectedHomerooms } = storeToRefs(homeroomStore);
 const crudStore = useCRUDStore();
 const { deleteHomerooms } = crudStore;
 const { dialog } = storeToRefs(crudStore);
+
+function openAddDialog() {
+  homeroomStore.resetHomeroom();
+  dialog.value.openDialog(ACTIONS.ADD);
+}
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const { dialog } = storeToRefs(crudStore);
           label="Добавить протокол"
           icon="pi pi-plus"
           iconPos="right"
-          @click="dialog.openDialog(ACTIONS.ADD)"
+          @click="openAddDialog"
         />
         <Button
           label="Удалить выбранные протоколы"

@@ -1,5 +1,4 @@
 <script setup>
-import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import Dialog from "primevue/dialog";
 import Editor from "primevue/editor";
@@ -24,8 +23,6 @@ const {
   parentMeeting,
   dialog,
   isSubmit,
-  presentParents,
-  presentParentsComputed,
   parents,
 } = storeToRefs(store);
 
@@ -51,7 +48,12 @@ async function cancelForm() {
             <label for="date">Дата</label>
             <Calendar
               id="date"
+              name="date"
+              show-button-bar
+              show-icon
+              icon-display="input"
               v-model="parentMeeting.meetingDate"
+              dateFormat="dd.mm.yy"
               :readonly="dialog.action === ACTIONS.VIEW"
               :invalid="v$.meetingDate.$invalid && isSubmit"
             />

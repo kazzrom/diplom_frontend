@@ -112,5 +112,6 @@ export const useGroupMeetingsStore = defineStore("groupMeetings", () => {
     confirmAddGroupMeeting,
     confirmEditGroupMeeting,
     confirmDeleteGroupMeeting,
+    resetGroupMeeting,
   };
 });
