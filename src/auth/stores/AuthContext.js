@@ -100,7 +100,6 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         InMemoryJWT.setToken(accessToken, accessTokenExpiration);
         setIsAppReady(true);
         setIsUserLogged(true);
-        router.push({ name: "Students" });
         fetchStudents();
       })
       .catch(() => {

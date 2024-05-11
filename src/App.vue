@@ -20,7 +20,7 @@ const { isUserLogged } = storeToRefs(store);
         <Avatar class="bg-transparent mr-3" icon="pi pi-book" />
         <h4>Журнал педагогических наблюдений куратора/мастера группы</h4>
       </div>
-      <nav class="flex py-4 gap-3">
+      <nav class="flex items-center py-4 gap-3">
         <RouterLink v-show="isUserLogged" to="/home">Home</RouterLink>
         <Button
           v-show="isUserLogged"

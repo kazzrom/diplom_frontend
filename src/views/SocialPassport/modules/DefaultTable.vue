@@ -1,5 +1,4 @@
 <script setup>
-import { GROUP_ID } from "@/constants";
 import { computed, onMounted, ref } from "vue";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import Dropdown from "primevue/dropdown";
@@ -51,13 +50,13 @@ const students = ref([]);
 
 async function fetchFamilies() {
   loading.value = true;
-  const response = await API.getRecords(GROUP_ID);
+  const response = await API.getRecords();
   items.value = response;
   loading.value = false;
 }
 
 async function fetchStudents() {
-  const response = await API.getStudents(GROUP_ID);
+  const response = await API.getStudents();
   students.value = response;
 }
 
