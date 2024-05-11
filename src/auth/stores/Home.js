@@ -1,12 +1,12 @@
-// import { defineStore } from "pinia";
-// import { ref } from "vue";
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
-// export const useHomeStore = defineStore("HomeStore", () => {
-//   const data = ref();
+export const useHomeStore = defineStore("HomeStore", () => {
+  const data = ref();
 
-//   function setData(responseData) {
-//     data.value = responseData;
-//   }
+  function setData(responseData) {
+    data.value = responseData;
+  }
 
-//   return { data, setData };
-// });
+  return { data, setData };
+});

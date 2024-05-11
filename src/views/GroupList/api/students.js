@@ -1,16 +1,18 @@
 import ky from "ky";
-import { API_URL, GROUP_ID } from "@/constants";
+import { API_URL } from "@/constants";
+import InMemoryJWT from "@/auth/services/InMemoryJWT.js";
 
 const studentAPI = ky.create({
   prefixUrl: `${API_URL}/students`,
-  headers: {
-    groupid: GROUP_ID,
-  },
 });
 
 export async function fetchStudents() {
   const response = await studentAPI
-    .get("")
+    .get("", {
+      headers: {
+        Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+      },
+    })
     .then((response) => response)
     .catch((error) => console.log(error));
 
@@ -20,6 +22,9 @@ export async function fetchStudents() {
 export async function createStudent(student) {
   await studentAPI.post("", {
     json: student,
+    headers: {
+      Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+    },
   });
 }
 

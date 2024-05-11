@@ -57,22 +57,20 @@ function openDialog(data, action) {
       :field="column.field"
       :header="column.header"
     />
-    <Column style="width: 100px">
+    <Column>
       <template #body="slotProps">
-        <div class="flex flex-row gap-3">
-          <Button
-            @click="openDialog(slotProps.data, ACTIONS.VIEW)"
-            icon="pi pi-eye"
-            text
-            rounded
-          />
-          <Button
-            @click="openDialog(slotProps.data, ACTIONS.EDIT)"
-            icon="pi pi-pencil"
-            text
-            rounded
-          />
-        </div>
+        <Button
+          @click="openDialog(slotProps.data, ACTIONS.VIEW)"
+          icon="pi pi-eye"
+          text
+          rounded
+        />
+        <Button
+          @click="openDialog(slotProps.data, ACTIONS.EDIT)"
+          icon="pi pi-pencil"
+          text
+          rounded
+        />
       </template>
     </Column>
   </DataTable>

@@ -4,7 +4,6 @@ import { defineStore } from "pinia";
 import { useConfirmStore } from "@/stores/confirms";
 import * as API from "../api/students.js";
 import columns from "../constants/columns.js";
-// import InMemoryJWT from "@/auth/services/InMemoryJWT";
 
 export const useGroupListStore = defineStore("groupList", () => {
   const router = useRouter();

@@ -3,12 +3,12 @@ import Navbar from "@/components/Navbar/Navbar.vue";
 import ConfirmDialog from "primevue/confirmdialog";
 import Toast from "primevue/toast";
 
-// import { useAuthProvider } from "@/auth/stores/AuthContext.js";
+import { useAuthProvider } from "@/auth/stores/AuthContext.js";
 import { storeToRefs } from "pinia";
 
-// const store = useAuthProvider();
-// const { handleLogOut } = store;
-// const { isUserLogged } = storeToRefs(store);
+const store = useAuthProvider();
+const { handleLogOut } = store;
+const { isUserLogged } = storeToRefs(store);
 </script>
 
 <template>
@@ -20,17 +20,23 @@ import { storeToRefs } from "pinia";
         <Avatar class="bg-transparent mr-3" icon="pi pi-book" />
         <h4>Журнал педагогических наблюдений куратора/мастера группы</h4>
       </div>
-      <!-- <nav class="flex py-4 gap-3">
+      <nav class="flex py-4 gap-3">
         <RouterLink v-show="isUserLogged" to="/home">Home</RouterLink>
-        <Button v-show="isUserLogged" text severity="secondary" label="Выйти" @click="handleLogOut" />
+        <Button
+          v-show="isUserLogged"
+          text
+          severity="secondary"
+          label="Выйти"
+          @click="handleLogOut"
+        />
         <RouterLink v-show="!isUserLogged" to="/sign-up"
           >Зарегистироваться</RouterLink
         >
         <RouterLink v-show="!isUserLogged" to="/sign-in">Войти</RouterLink>
-      </nav> -->
+      </nav>
     </header>
     <main class="flex flex-row grow">
-      <Navbar class="w-80" />
+      <Navbar v-show="isUserLogged" class="w-80" />
       <router-view class="grow"></router-view>
     </main>
   </div>

@@ -1,5 +1,6 @@
 import ky from "ky";
-import { API_URL, GROUP_ID } from "@/constants";
+import { API_URL } from "@/constants";
+import InMemoryJWT from "@/auth/services/InMemoryJWT.js";
 
 const homeroomAPI = ky.create({
   prefixUrl: `${API_URL}/protocols/homerooms`,
@@ -7,7 +8,11 @@ const homeroomAPI = ky.create({
 
 export async function getHomerooms() {
   const response = await homeroomAPI
-    .get(`${GROUP_ID}`)
+    .get("", {
+      headers: {
+        Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+      },
+    })
     .then((response) => response)
     .catch((error) => console.log(error));
 
@@ -16,7 +21,10 @@ export async function getHomerooms() {
 
 export async function createHomeroom(homeroom) {
   const response = await homeroomAPI.post("", {
-    json: { ...homeroom, groupId: GROUP_ID },
+    json: homeroom,
+    headers: {
+      Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+    },
   });
 
   return response.json();

@@ -1,11 +1,8 @@
 import ky from "ky";
-import { API_URL, GROUP_ID } from "@/constants";
+import { API_URL } from "@/constants";
 
 const studentAPI = ky.create({
   prefixUrl: `${API_URL}/students`,
-  headers: {
-    groupid: GROUP_ID,
-  },
 });
 
 export async function getStudentById(id) {

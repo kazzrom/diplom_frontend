@@ -28,6 +28,7 @@ const { filters } = storeToRefs(search);
     :value="students"
     tableStyle="min-width: 50rem"
     paginator
+    row-hover
     :rows="9"
     @row-dblclick="openProfile"
   >

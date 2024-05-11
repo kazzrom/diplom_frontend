@@ -31,7 +31,8 @@ const items = [
   },
 ];
 
-const selecredItem = ref();
+const selecredItem = ref(items[0]);
+router.push(items[0].route);
 
 function change(event) {
   router.push(event.value.route);

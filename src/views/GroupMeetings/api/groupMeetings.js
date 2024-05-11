@@ -1,5 +1,6 @@
 import ky from "ky";
-import { API_URL, GROUP_ID } from "@/constants";
+import { API_URL } from "@/constants";
+import InMemoryJWT from "@/auth/services/InMemoryJWT.js";
 
 const groupMeetingAPI = ky.create({
   prefixUrl: `${API_URL}/protocols/group-meetings`,
@@ -7,7 +8,11 @@ const groupMeetingAPI = ky.create({
 
 export async function getGroupMeetings() {
   const response = await groupMeetingAPI
-    .get(`${GROUP_ID}`)
+    .get("", {
+      headers: {
+        Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+      },
+    })
     .then((response) => response)
     .catch((error) => console.log(error));
 
@@ -17,8 +22,10 @@ export async function getGroupMeetings() {
 export async function createGroupMeeting(groupMeeting) {
   const response = await groupMeetingAPI.post("", {
     json: {
-      groupId: GROUP_ID,
       ...groupMeeting,
+    },
+    headers: {
+      Authorization: `Bearer ${InMemoryJWT.getToken()}`,
     },
   });
 
