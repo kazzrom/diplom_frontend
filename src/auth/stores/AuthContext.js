@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { useHomeStore } from "./Home.js";
 import axios from "axios";
-import { API_URL, GROUP_ID } from "@/constants.js";
+import { API_URL } from "@/constants.js";
 import InMemoryJWT from "../services/InMemoryJWT.js";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -51,7 +51,6 @@ export const useAuthProvider = defineStore("AuthStore", () => {
     ResourceClient.get("/protected")
       .then((res) => {
         setData(res.data);
-        GROUP_ID.value = res.data.groupId;
       })
       .catch((err) => {
         console.log(err);

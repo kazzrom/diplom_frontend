@@ -24,6 +24,7 @@ import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import InputMask from "primevue/inputmask";
 import InputNumber from "primevue/inputnumber";
+import Password from "primevue/password";
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -63,6 +64,7 @@ app
   .component("Calendar", Calendar)
   .component("PanelMenu", PanelMenu)
   .component("Avatar", Avatar)
-  .component("TabMenu", TabMenu);
+  .component("TabMenu", TabMenu)
+  .component("Password", Password);
 
 app.mount("#app");
