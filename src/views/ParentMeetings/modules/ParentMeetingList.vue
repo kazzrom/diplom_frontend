@@ -5,6 +5,11 @@ import { useSearchStore } from "@/stores/search";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import { ACTIONS } from "@/constants";
 import { onMounted } from "vue";
+import { useAuthProvider } from "@/auth/stores/AuthContext.js";
+
+onMounted(async () => {
+  await fetchParentMeetings();
+});
 
 const store = useParentMeetingsStore();
 const { fetchParentMeetings } = store;
@@ -15,8 +20,6 @@ const {
   selectedParentMeetings,
   isSubmit,
 } = storeToRefs(store);
-
-onMounted(() => fetchParentMeetings());
 
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);

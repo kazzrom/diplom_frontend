@@ -10,7 +10,7 @@ onMounted(async () => await fetchStudents());
 
 const store = useGroupListStore();
 const { getStudents, openProfile, fetchStudents } = store;
-const { selectedColumns, loading, selectedStudents, students } =
+const { selectedColumns, loading, selectedStudents, students, studentList } =
   storeToRefs(store);
 
 const search = useSearchStore();
@@ -20,6 +20,7 @@ const { filters } = storeToRefs(search);
 <template>
   <DataTable
     scrollable
+    ref="studentList"
     v-if="students.length"
     :filters="filters"
     :global-filter-fields="['fullname']"

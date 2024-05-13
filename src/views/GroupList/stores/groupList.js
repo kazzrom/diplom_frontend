@@ -1,13 +1,16 @@
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 import { useConfirmStore } from "@/stores/confirms";
-import * as API from "../api/students.js";
+import { useAPIStore } from "../api/students.js";
 import columns from "../constants/columns.js";
 
 export const useGroupListStore = defineStore("groupList", () => {
+  const API = useAPIStore();
   const router = useRouter();
   const { confirmDelete } = useConfirmStore();
+
+  const studentList = ref();
 
   const loading = ref(false);
 
@@ -58,6 +61,7 @@ export const useGroupListStore = defineStore("groupList", () => {
   };
 
   return {
+    studentList,
     students,
     selectedStudents,
     studentColumns,

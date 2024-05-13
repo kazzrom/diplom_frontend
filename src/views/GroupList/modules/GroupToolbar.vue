@@ -6,10 +6,11 @@ import { ACTIONS } from "@/constants";
 import { useGroupListStore } from "../stores/groupList.js";
 import { useStudentFormStore } from "../stores/studentForm.js";
 import { useSearchStore } from "@/stores/search.js";
+import { useExportStore } from "@/utils/export.js";
 
 const groupListStore = useGroupListStore();
 const { onToggle, getStudentColumns, confirmDeleteStudents } = groupListStore;
-const { selectedColumns, selectedStudents, studentColumns } =
+const { selectedColumns, selectedStudents, studentColumns, studentList } =
   storeToRefs(groupListStore);
 
 const studentFormStore = useStudentFormStore();
@@ -17,6 +18,11 @@ const { dialog } = storeToRefs(studentFormStore);
 
 const search = useSearchStore();
 const { filters } = storeToRefs(search);
+
+const { exportXLSX } = useExportStore();
+function exportInExcel() {
+  exportXLSX(studentList.value.value, selectedColumns.value, true);
+}
 </script>
 
 <template>
@@ -34,6 +40,13 @@ const { filters } = storeToRefs(search);
           @update:model-value="onToggle"
           :max-selected-labels="3"
           placeholder="Выберите столбцы"
+        />
+        <Button
+          @click="exportInExcel"
+          label="Экспорт в Excel"
+          icon="pi pi-file-excel"
+          severity="success"
+          iconPos="right"
         />
       </div>
     </template>

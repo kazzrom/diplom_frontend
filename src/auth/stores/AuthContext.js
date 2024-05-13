@@ -79,7 +79,7 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         const { accessToken, accessTokenExpiration } = res.data;
         InMemoryJWT.setToken(accessToken, accessTokenExpiration);
         setIsUserLogged(true);
-        router.push({ name: "home" });
+        router.push({ name: "Students" });
       })
       .catch((error) => {
         warningToast(error.response.data.error);
@@ -100,7 +100,7 @@ export const useAuthProvider = defineStore("AuthStore", () => {
       });
   };
 
-  onMounted(async () => {
+  const refresh = async () => {
     await AuthClient.post("/refresh")
       .then((res) => {
         const { accessToken, accessTokenExpiration } = res.data;
@@ -114,6 +114,10 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         setIsUserLogged(false);
         router.push({ name: "login" });
       });
+  };
+
+  onMounted(async () => {
+    await refresh();
     handleFetchProtected();
   });
 
@@ -122,6 +126,7 @@ export const useAuthProvider = defineStore("AuthStore", () => {
     handleLogOut,
     handleSignUp,
     handleSignIn,
+    refresh,
     isUserLogged,
     isAppReady,
   };
