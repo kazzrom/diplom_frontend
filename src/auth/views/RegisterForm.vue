@@ -45,7 +45,7 @@ function signUp() {
                 <small
                   v-show="v$.login.$dirty && v$.login.$invalid"
                   id="login-help"
-                  >Логин должен содержать от 1 до 25 символов</small
+                  >Придумайте свой логин</small
                 >
               </div>
               <div class="form_item">
@@ -60,7 +60,7 @@ function signUp() {
                 <small
                   v-show="v$.password.$dirty && v$.password.$invalid"
                   id="password-help"
-                  >Пароль должен содержать от 5 до 50 символов</small
+                  >Пароль слишком короткий</small
                 >
               </div>
             </div>

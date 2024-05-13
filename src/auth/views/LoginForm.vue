@@ -37,7 +37,7 @@ function signIn() {
             aria-describedby="login-help"
           />
           <small v-show="v$.login.$dirty && v$.login.$invalid" id="login-help"
-            >Логин должен содержать от 1 до 25 символов</small
+            >Введите логин</small
           >
         </div>
         <div class="form_item">
@@ -52,7 +52,7 @@ function signIn() {
           <small
             v-show="v$.password.$dirty && v$.password.$invalid"
             id="password-help"
-            >Пароль должен содержать от 5 до 50 символов</small
+            >Пароль слишком короткий</small
           >
         </div>
         <Button label="Войти" type="submit" />

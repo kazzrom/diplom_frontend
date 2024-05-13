@@ -6,6 +6,7 @@ import InMemoryJWT from "../services/InMemoryJWT.js";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useGroupListStore } from "@/views/GroupList/stores/groupList.js";
+import { useToastStore } from "@/stores/toasts.js";
 
 export const AuthClient = axios.create({
   baseURL: `${API_URL}/auth`,
@@ -22,7 +23,7 @@ ResourceClient.interceptors.request.use(
     const accessToken = InMemoryJWT.getToken();
 
     if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
+      config.headers["Authorization"] = `Bearer ${InMemoryJWT.getToken()}`;
     }
     return config;
   },
@@ -34,6 +35,7 @@ ResourceClient.interceptors.request.use(
 export const useAuthProvider = defineStore("AuthStore", () => {
   const { setData } = useHomeStore();
   const { fetchStudents } = useGroupListStore();
+  const { successToast, warningToast } = useToastStore();
 
   const router = useRouter();
 
@@ -48,7 +50,9 @@ export const useAuthProvider = defineStore("AuthStore", () => {
   };
 
   const handleFetchProtected = () => {
-    ResourceClient.get("/protected")
+    ResourceClient.get("/protected", {
+      headers: { Authorization: `Bearer ${InMemoryJWT.getToken()}` },
+    })
       .then((res) => {
         setData(res.data);
       })
@@ -77,7 +81,9 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         setIsUserLogged(true);
         router.push({ name: "home" });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        warningToast(error.response.data.error);
+      });
   };
 
   const handleSignIn = (data) => {
@@ -89,11 +95,13 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         router.push({ name: "Students" });
         fetchStudents();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        warningToast(error.response.data.error);
+      });
   };
 
-  onMounted(() => {
-    AuthClient.post("/refresh")
+  onMounted(async () => {
+    await AuthClient.post("/refresh")
       .then((res) => {
         const { accessToken, accessTokenExpiration } = res.data;
         InMemoryJWT.setToken(accessToken, accessTokenExpiration);
@@ -106,6 +114,7 @@ export const useAuthProvider = defineStore("AuthStore", () => {
         setIsUserLogged(false);
         router.push({ name: "login" });
       });
+    handleFetchProtected();
   });
 
   return {
