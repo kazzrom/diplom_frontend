@@ -5,7 +5,7 @@ import { useSearchStore } from "@/stores/search";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import { ACTIONS } from "@/constants";
 import { onMounted } from "vue";
-import { useAuthProvider } from "@/auth/stores/AuthContext.js";
+import { useExportStore } from "../utils/export.js";
 
 onMounted(async () => {
   await fetchParentMeetings();
@@ -43,6 +43,8 @@ function openDialog(data, action) {
     });
   }
 }
+
+const { exportToParentMeetingInDOCX } = useExportStore();
 </script>
 
 <template>
@@ -71,6 +73,13 @@ function openDialog(data, action) {
         <Button
           @click="openDialog(slotProps.data, ACTIONS.EDIT)"
           icon="pi pi-pencil"
+          text
+          rounded
+        />
+        <Button
+          @click="exportToParentMeetingInDOCX(slotProps.data)"
+          icon="pi pi-file-word"
+          severity="info"
           text
           rounded
         />
