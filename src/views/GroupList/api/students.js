@@ -1,33 +1,65 @@
+import { defineStore } from "pinia";
+import axios from "axios";
 import ky from "ky";
 import { API_URL } from "@/constants";
 import InMemoryJWT from "@/auth/services/InMemoryJWT.js";
+import { useToastStore } from "@/stores/toasts";
 
-const studentAPI = ky.create({
-  prefixUrl: `${API_URL}/students`,
-});
+export const useAPIStore = defineStore("APIStore", () => {
+  const { warningToast } = useToastStore();
 
-export async function fetchStudents() {
-  const response = await studentAPI
-    .get("", {
-      headers: {
-        Authorization: `Bearer ${InMemoryJWT.getToken()}`,
-      },
-    })
-    .then((response) => response)
-    .catch((error) => console.log(error));
-
-  return response.json();
-}
-
-export async function createStudent(student) {
-  await studentAPI.post("", {
-    json: student,
-    headers: {
-      Authorization: `Bearer ${InMemoryJWT.getToken()}`,
-    },
+  const axiosStudentAPI = axios.create({
+    baseURL: `${API_URL}/students`,
+    withCredentials: true,
   });
-}
 
-export async function deleteStudent(id) {
-  await studentAPI.delete(`${id}`);
-}
+  const studentAPI = ky.create({
+    prefixUrl: `${API_URL}/students`,
+  });
+
+  async function fetchStudents() {
+    const response = await studentAPI
+      .get("", {
+        headers: {
+          Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+        },
+      })
+      .then((response) => response)
+      .catch((error) => console.log(error));
+
+    return response.json();
+  }
+
+  async function createStudent(student) {
+    // await studentAPI
+    //   .post("", {
+    //     json: student,
+    //     headers: {
+    //       Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+    //     },
+    //   })
+    //   .then((response) => response)
+    //   .catch((error) => {
+    //     console.log("error");
+    //     console.log(error);
+    //   });
+
+    await axiosStudentAPI
+      .post("", student, {
+        headers: {
+          Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+        },
+      })
+      .then((response) => response.data)
+      .catch((error) => {
+        warningToast(error.response.data.error);
+        throw new Error(error);
+      });
+  }
+
+  async function deleteStudent(id) {
+    await studentAPI.delete(`${id}`);
+  }
+
+  return { fetchStudents, createStudent, deleteStudent };
+});

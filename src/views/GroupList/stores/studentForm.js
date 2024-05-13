@@ -6,10 +6,14 @@ import studentFormRules from "@/validators/studentFormRules.js";
 import { useVuelidate } from "@vuelidate/core";
 import { useConfirmStore } from "@/stores/confirms";
 import studentModel from "../models/student.js";
-import * as API from "../api/students.js";
+import { useAPIStore } from "../api/students.js";
+import { useToastStore } from "@/stores/toasts";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
+  const { warningToast } = useToastStore();
+
+  const API = useAPIStore();
   const { confirmAdd } = useConfirmStore();
 
   const dialog = ref(
@@ -30,27 +34,35 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   const isSubmit = ref(false);
 
   async function addStudentApi() {
-    await API.createStudent(student.value);
-    student.value.fullname =
-      student.value.surname +
-      " " +
-      student.value.name +
-      " " +
-      student.value.patronymic;
-    groupListStore.students.push(student.value);
+    try {
+      await API.createStudent(student.value);
+      student.value.fullname =
+        student.value.surname +
+        " " +
+        student.value.name +
+        " " +
+        student.value.patronymic;
+      groupListStore.students.push(student.value);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async function addStudent() {
-    isSubmit.value = true;
-    confirmAdd({
-      invalid: v$.value.$invalid,
-      funcIf: async () => {
-        await addStudentApi();
-        setEmptyForm();
-        dialog.value.closeDialog();
-        isSubmit.value = false;
-      },
-    });
+    try {
+      isSubmit.value = true;
+      confirmAdd({
+        invalid: v$.value.$invalid,
+        funcIf: async () => {
+          await addStudentApi();
+          setEmptyForm();
+          dialog.value.closeDialog();
+          isSubmit.value = false;
+        },
+      });
+    } catch (error) {
+      return;
+    }
   }
 
   function setEmptyForm() {
