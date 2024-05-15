@@ -1,35 +1,41 @@
 <script setup>
-import DefaultTable from "./DefaultTable.vue";
+import { onMounted, ref } from "vue";
+import NoRecordsView from "@/components/NoRecordsView.vue";
 import { TABLE_API_URL } from "../utils/tables";
-import { required } from "@vuelidate/validators";
+import Api from "../api/socialPassport.js";
+import { GROUP_ID } from "@/constants";
 
-const largeFamily = {
-  numberChildren: undefined,
-};
+onMounted(async () => await fetchLargeFamilies());
 
-const largeFamilyRules = {
-  Student: { required },
-  numberChildren: { required },
-};
+const items = ref([]);
 
-const tableColumns = [
-  { field: "numberChildren", header: "Кол-во детей в семье" },
-];
+const API = new Api(TABLE_API_URL.LARGE_FAMILIES);
+
+const loading = ref(false);
+async function fetchLargeFamilies() {
+  loading.value = true;
+  const response = await API.getRecords(GROUP_ID);
+  items.value = response;
+  loading.value = false;
+}
 </script>
 
 <template>
-  <DefaultTable
-    :table-api-url="TABLE_API_URL.LARGE_FAMILIES"
-    :item="largeFamily"
-    :rules="largeFamilyRules"
-    :table-columns="tableColumns"
+  <DataTable
+    v-if="items.length"
+    :loading="loading"
+    ref="dataStudentsTable"
+    :value="items"
   >
-    <template #addingForm="{ item, v, isSubmit }">
-      <InputNumber
-        v-model="item.numberChildren"
-        placeholder="Кол-во детей"
-        :invalid="v.numberChildren.$invalid && isSubmit"
-      />
-    </template>
-  </DefaultTable>
+    <Column field="id" header="№" />
+    <Column field="fullname" header="ФИО студента" />
+    <Column header="Количество детей">
+      <template #body="{ data }">
+        <p>
+          {{ data.FamilyMembers.length + 1 }}
+        </p>
+      </template>
+    </Column>
+  </DataTable>
+  <NoRecordsView v-else />
 </template>

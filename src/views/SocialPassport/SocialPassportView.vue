@@ -10,8 +10,8 @@ const items = [
   { label: "Сироты", route: { name: "Orphans" } },
   { label: "Опекаемые", route: { name: "Guardians" } },
   { label: "Неполные семьи", route: { name: "IncompleteFamilies" } },
-  { label: "Проблемные семьи", route: { name: "ProblemFamilies" } },
   { label: "Многодетные семьи", route: { name: "LargeFamilies" } },
+  { label: "Проблемные семьи", route: { name: "ProblemFamilies" } },
   { label: "Малообеспеченные семьи", route: { name: "LowIncomeFamilies" } },
   {
     label: "Обучающиеся, у которых родители безработные",
