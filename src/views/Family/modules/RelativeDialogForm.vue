@@ -64,6 +64,7 @@ async function cancelForm() {
             id="phoneNumber"
             mask="+7 999 999-99-99"
             v-model="familyMember.MemberPersonalDatum.phoneNumber"
+            :invalid="v$.MemberPersonalDatum.phoneNumber.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">

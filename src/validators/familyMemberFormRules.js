@@ -5,4 +5,7 @@ export default {
   surname: { required, maxLength: maxLength(50) },
   patronymic: { required, maxLength: maxLength(50) },
   relation: { required },
+  MemberPersonalDatum: {
+    phoneNumber: { required },
+  },
 };

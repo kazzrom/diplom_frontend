@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import DialogForm from "@/utils/dialog";
 import { useVuelidate } from "@vuelidate/core";
-import relativeFormRules from "@/validators/relativeFormRules.js";
+import familyMemberFormRules from "@/validators/familyMemberFormRules.js";
 import { useConfirmStore } from "@/stores/confirms";
 import * as API from "../api/families.js";
 import familyMemberModel from "../models/familyMember.js";
@@ -21,7 +21,7 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   const familyMember = ref(familyMemberModel.fields);
 
   const v$ = useVuelidate(
-    computed(() => relativeFormRules),
+    computed(() => familyMemberFormRules),
     familyMember
   );
 
