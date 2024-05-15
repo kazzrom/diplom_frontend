@@ -6,6 +6,7 @@ export default class Student {
       surname: null,
       name: null,
       patronymic: null,
+      sex: null,
       fullname: null,
       groupId: GROUP_ID,
       note: null,

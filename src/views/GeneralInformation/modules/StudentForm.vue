@@ -39,12 +39,31 @@ const { student, isEditForm } = storeToRefs(store);
         />
       </div>
       <div class="input-text">
+        <label for="sex">Пол</label>
+        <Dropdown
+          :class="{ dropdown_readonly: isEditForm }"
+          id="sex"
+          v-model="student.sex"
+          :options="['Мужской', 'Женский']"
+          :invalid="v$.sex.$invalid"
+        />
+      </div>
+      <div class="input-text">
         <label for="residentialAddress">Домашний адрес</label>
         <InputText
           :readonly="isEditForm"
           id="residentialAddress"
           v-model="student.PersonalDatum.residentialAddress"
           :invalid="v$.PersonalDatum.residentialAddress.$invalid"
+        />
+      </div>
+      <div class="input-text">
+        <label for="whereFrom">Городской/Сельский/Иногородний</label>
+        <Dropdown
+          :class="{ dropdown_readonly: isEditForm }"
+          id="whereFrom"
+          v-model="student.PersonalDatum.whereFrom"
+          :options="['Городской', 'Сельский', 'Иногородний']"
         />
       </div>
       <div class="input-text">
@@ -126,7 +145,7 @@ const { student, isEditForm } = storeToRefs(store);
   @apply flex flex-col items-center gap-7;
 }
 .form_items {
-  @apply grid grid-cols-3 gap-5;
+  @apply grid grid-cols-4 gap-5;
 }
 
 .input-text {
@@ -135,5 +154,9 @@ const { student, isEditForm } = storeToRefs(store);
 
 .input-text label {
   @apply font-bold;
+}
+
+.dropdown_readonly {
+  pointer-events: none;
 }
 </style>
