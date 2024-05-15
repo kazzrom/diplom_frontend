@@ -1,14 +1,20 @@
 <script setup>
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useAuthProvider } from "../stores/AuthContext.js";
 import UserModel from "../models/newUser.js";
 import useVuelidate from "@vuelidate/core";
 import signUpRules from "@/validators/signUpRules.js";
 import Panel from "primevue/panel";
+import * as groupAPI from "../api/group.js";
+
+onMounted(async () => {
+  groupNames.value = await groupAPI.getGroupNames();
+});
 
 const user = ref(UserModel.fields);
+const groupNames = ref([]);
 
 const v$ = useVuelidate(
   computed(() => signUpRules),
@@ -102,19 +108,22 @@ function signUp() {
             <div class="form_group">
               <div class="form_item">
                 <label for="groupNumber">Номер группы</label>
-                <InputText
+                <InputNumber
                   id="groupNumber"
                   v-model="user.Group.groupNumber"
+                  :use-grouping="false"
                   :invalid="
                     v$.Group.groupNumber.$dirty && v$.Group.groupNumber.$invalid
                   "
                 />
               </div>
               <div class="form_item">
-                <label for="groupName">Название группы</label>
-                <InputText
+                <label for="groupName">Специальность группы</label>
+                <Dropdown
                   id="groupName"
+                  :options="groupNames"
                   v-model="user.Group.groupName"
+                  :editable="true"
                   :invalid="
                     v$.Group.groupName.$dirty && v$.Group.groupName.$invalid
                   "

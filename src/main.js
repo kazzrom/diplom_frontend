@@ -15,6 +15,7 @@ import locale_ru from "./locale_ru";
 import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup";
 
+import Dropdown from "primevue/dropdown";
 import MultiSelect from "primevue/multiselect";
 
 import InputGroup from "primevue/inputgroup";
@@ -52,6 +53,7 @@ app
   .component("ButtonGroup", ButtonGroup)
   .component("DataTable", DataTable)
   .component("Column", Column)
+  .component("Dropdown", Dropdown)
   .component("MultiSelect", MultiSelect)
   .component("InputGroup", InputGroup)
   .component("InputGroupAddon", InputGroupAddon)
