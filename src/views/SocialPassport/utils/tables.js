@@ -80,4 +80,5 @@ export const TABLE_API_URL = {
   UNDER_WARDSHIPS: "under-wardships",
   UNEMPLOYED_PARENTS: "unemployed-parents",
   LARGE_FAMILIES: "large-families",
+  DISABLED_STUDENTS: "disabled-students",
 };

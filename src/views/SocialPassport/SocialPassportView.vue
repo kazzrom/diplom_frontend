@@ -29,6 +29,10 @@ const items = [
     label: "Обучающиеся, из семей, в которых eсть родители-инвалиды",
     route: { name: "DisabledParents" },
   },
+  {
+    label: "Лица ОВЗ и инвалиды",
+    route: { name: "DisabledStudents" },
+  },
 ];
 
 const selecredItem = ref(items[0]);

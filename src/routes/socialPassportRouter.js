@@ -8,6 +8,7 @@ import UneployedParentsColumns from "@/views/SocialPassport/modules/UneployedPar
 import RegisteredOPPNTable from "@/views/SocialPassport/modules/RegisteredOPPNTable.vue";
 import StudentsWithDiseasesTable from "@/views/SocialPassport/modules/StudentsWithDiseasesTable.vue";
 import DisabledParentsTable from "@/views/SocialPassport/modules/DisabledParentsTable.vue";
+import DisabledStudentsTable from "@/views/SocialPassport/modules/DisabledStudentsTable.vue";
 
 export default [
   {
@@ -59,5 +60,10 @@ export default [
     path: "disabled-parents",
     name: "DisabledParents",
     component: DisabledParentsTable,
+  },
+  {
+    path: "disabled-students",
+    name: "DisabledStudents",
+    component: DisabledStudentsTable,
   },
 ];
