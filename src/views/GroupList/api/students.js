@@ -44,7 +44,7 @@ export const useAPIStore = defineStore("APIStore", () => {
     //     console.log(error);
     //   });
 
-    await axiosStudentAPI
+    const response = await axiosStudentAPI
       .post("", student, {
         headers: {
           Authorization: `Bearer ${InMemoryJWT.getToken()}`,
@@ -55,6 +55,8 @@ export const useAPIStore = defineStore("APIStore", () => {
         warningToast(error.response.data.error);
         throw new Error(error);
       });
+
+    return response;
   }
 
   async function deleteStudent(id) {

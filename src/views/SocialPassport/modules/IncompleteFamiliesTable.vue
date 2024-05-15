@@ -33,7 +33,9 @@ async function fetchIncompleteFamilies() {
     <Column header="ФИО родителя">
       <template #body="{ data }">
         <p>
-          {{ data.FamilyMembers[0].fullname }}
+          {{ data.FamilyMembers[0].fullname }} ({{
+            data.FamilyMembers[0].relation
+          }})
         </p>
       </template>
     </Column>

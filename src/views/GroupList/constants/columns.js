@@ -6,6 +6,11 @@ export default [
     minWidth: 200,
   },
   {
+    field: "PersonalDatum.email",
+    header: "Почта",
+    minWidth: 200,
+  },
+  {
     field: "PersonalDatum.residentialAddress",
     header: "Домашний адрес",
     minWidth: 300,
@@ -21,4 +26,5 @@ export default [
     header: "Медицинский полис",
     minWidth: 200,
   },
+  { field: "note", header: "Примечание", minWidth: 200 },
 ];

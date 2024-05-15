@@ -1,4 +1,4 @@
-import { required, maxLength } from "@vuelidate/validators";
+import { required, maxLength, email } from "@vuelidate/validators";
 
 export default {
   surname: { required, maxLength: maxLength(50) },
@@ -9,8 +9,7 @@ export default {
     birthday: { required },
     reportCardNumber: { required },
     phoneNumber: { required },
+    email: { required, email },
     residentialAddress: { required },
-    SNILS: { required },
-    medicalPolicy: { required },
   },
 };

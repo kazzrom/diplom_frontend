@@ -74,6 +74,15 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           />
         </div>
         <div class="form_item">
+          <label for="email">Почта</label>
+          <InputText
+            id="email"
+            name="email"
+            v-model="student.PersonalDatum.email"
+            :invalid="v$.PersonalDatum.email.$invalid && isSubmit"
+          />
+        </div>
+        <div class="form_item">
           <label for="birthday">Дата рождения</label>
           <Calendar
             id="birthday"
@@ -102,7 +111,6 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             name="SNILS"
             mask="999-999-999 99"
             v-model="student.PersonalDatum.SNILS"
-            :invalid="v$.PersonalDatum.SNILS.$invalid && isSubmit"
           />
         </div>
         <div class="form_item">
@@ -112,7 +120,6 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             name="medicalPolicy"
             mask="9999 9999 9999 9999"
             v-model="student.PersonalDatum.medicalPolicy"
-            :invalid="v$.PersonalDatum.medicalPolicy.$invalid && isSubmit"
           />
         </div>
         <div class="form_buttons">

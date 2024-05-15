@@ -35,14 +35,8 @@ export const useStudentFormStore = defineStore("studentForm", () => {
 
   async function addStudentApi() {
     try {
-      await API.createStudent(student.value);
-      student.value.fullname =
-        student.value.surname +
-        " " +
-        student.value.name +
-        " " +
-        student.value.patronymic;
-      groupListStore.students.push(student.value);
+      const response = await API.createStudent(student.value);
+      groupListStore.students.push(response);
     } catch (error) {
       throw new Error(error);
     }

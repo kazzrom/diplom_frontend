@@ -1,6 +1,7 @@
 <script setup>
 import { useGeneralInformationStore } from "../stores/generalInformation.js";
 import { storeToRefs } from "pinia";
+import Textarea from "primevue/textarea";
 
 const store = useGeneralInformationStore();
 const { editStudent, v$ } = store;
@@ -57,6 +58,15 @@ const { student, isEditForm } = storeToRefs(store);
         />
       </div>
       <div class="input-text">
+        <label for="email">Почта</label>
+        <InputText
+          :readonly="isEditForm"
+          id="email"
+          v-model="student.PersonalDatum.email"
+          :invalid="v$.PersonalDatum.email.$invalid"
+        />
+      </div>
+      <div class="input-text">
         <label for="birthday">Дата рождения</label>
         <Calendar
           :readonly="isEditForm"
@@ -84,7 +94,6 @@ const { student, isEditForm } = storeToRefs(store);
           id="SNILS"
           mask="999-999-999 99"
           v-model="student.PersonalDatum.SNILS"
-          :invalid="v$.PersonalDatum.SNILS.$invalid"
         />
       </div>
       <div class="input-text">
@@ -94,8 +103,11 @@ const { student, isEditForm } = storeToRefs(store);
           id="medicalPolicy"
           mask="9999 9999 9999 9999"
           v-model="student.PersonalDatum.medicalPolicy"
-          :invalid="v$.PersonalDatum.medicalPolicy.$invalid"
         />
+      </div>
+      <div class="input-text">
+        <label for="note">Примечание</label>
+        <Textarea id="note" v-model="student.note" :readonly="isEditForm" />
       </div>
     </div>
     <div class="form_buttons">
