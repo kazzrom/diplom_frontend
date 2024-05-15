@@ -15,7 +15,6 @@ const store = useIndividualWorkStore();
 const { fetchIndividualWorks } = store;
 const {
   individualWorks,
-  columns,
   selectedIndividualWorks,
   dialog,
   individualWork,
@@ -39,17 +38,18 @@ function openDialog(data, action) {
     v-model:selection="selectedIndividualWorks"
   >
     <Column selection-mode="multiple" />
-    <Column
-      v-for="(column, index) in columns"
-      :key="index"
-      :field="column.field"
-      :header="column.header"
-    />
-    <Column field="workContent" header="Какие вопросы обсуждались">
+    <Column field="workDate" header="Дата" />
+    <Column field="participant" header="Участник" />
+    <Column field="workContent" header="С кем проведена беседа">
       <template #body="{ data }">
-        <span>{{ data.workContent.substring(0, 20) }}</span
-        >
+        <span>{{ data.workContent.substring(0, 20) }}</span>
         <span v-show="data.workContent.length > 20">...</span>
+      </template>
+    </Column>
+    <Column field="expectedResult" header="Предполагаемый результат">
+      <template #body="{ data }">
+        <span>{{ data.expectedResult.substring(0, 20) }}</span>
+        <span v-show="data.expectedResult.length > 20">...</span>
       </template>
     </Column>
     <Column>

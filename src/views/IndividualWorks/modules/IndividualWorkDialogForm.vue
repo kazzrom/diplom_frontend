@@ -63,6 +63,15 @@ async function cancelForm() {
           :readonly="dialog.action === ACTIONS.VIEW"
         />
       </div>
+      <div class="form_item">
+        <label for="expectedResult">Предполагаемый результат</label>
+        <Textarea
+          id="expectedResult"
+          v-model="individualWork.expectedResult"
+          :invalid="v$.expectedResult.$invalid && isSubmit"
+          :readonly="dialog.action === ACTIONS.VIEW"
+        />
+      </div>
       <div class="form_buttons">
         <Button
           v-if="dialog.action === ACTIONS.ADD"

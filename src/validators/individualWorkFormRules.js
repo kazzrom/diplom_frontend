@@ -4,4 +4,5 @@ export default {
   workDate: { required },
   participant: { required, maxLength: maxLength(50) },
   workContent: { required },
+  expectedResult: { required },
 };
