@@ -45,6 +45,13 @@ function openDialog(data, action) {
       :field="column.field"
       :header="column.header"
     />
+    <Column field="workContent" header="Какие вопросы обсуждались">
+      <template #body="{ data }">
+        <span>{{ data.workContent.substring(0, 20) }}</span
+        >
+        <span v-show="data.workContent.length > 20">...</span>
+      </template>
+    </Column>
     <Column>
       <template #body="slotProps">
         <div class="flex flex-row gap-2">

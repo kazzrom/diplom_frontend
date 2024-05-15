@@ -19,7 +19,6 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
   const columns = ref([
     { field: "workDate", header: "Дата" },
     { field: "participant", header: "С кем проведена беседа" },
-    { field: "workContent", header: "Какие вопросы обсуждались" },
   ]);
 
   const individualWork = ref({
