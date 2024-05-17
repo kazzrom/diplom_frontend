@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
+import { FONT_SIZE, DEFAULT_PAGE_MARGINS } from "@/constants";
 
 export const useExportStore = defineStore("export", () => {
   function exportToGroupMeetingInDOCX(groupMeeting) {
@@ -8,7 +9,7 @@ export const useExportStore = defineStore("export", () => {
       children: [
         new TextRun({
           text: "Протокол собрания группы №" + groupMeeting.id,
-          size: "14pt",
+          size: FONT_SIZE,
           bold: true,
         }),
       ],
@@ -19,7 +20,7 @@ export const useExportStore = defineStore("export", () => {
       children: [
         new TextRun({
           text: "Группа: _________",
-          size: "14pt",
+          size: FONT_SIZE,
           break: 1,
         }),
       ],
@@ -29,11 +30,11 @@ export const useExportStore = defineStore("export", () => {
       children: [
         new TextRun({
           text: "Дата: ",
-          size: "14pt",
+          size: FONT_SIZE,
         }),
         new TextRun({
           text: groupMeeting.meetingDate,
-          size: "14pt",
+          size: FONT_SIZE,
         }),
       ],
     });
@@ -42,11 +43,11 @@ export const useExportStore = defineStore("export", () => {
       children: [
         new TextRun({
           text: "Тема: ",
-          size: "14pt",
+          size: FONT_SIZE,
         }),
         new TextRun({
           text: groupMeeting.theme,
-          size: "14pt",
+          size: FONT_SIZE,
         }),
       ],
     });
@@ -55,11 +56,11 @@ export const useExportStore = defineStore("export", () => {
       children: [
         new TextRun({
           text: "Присутствовало: ",
-          size: "14pt",
+          size: FONT_SIZE,
         }),
         new TextRun({
           text: String(groupMeeting.numberPeoplePresent),
-          size: "14pt",
+          size: FONT_SIZE,
         }),
       ],
     });
@@ -69,7 +70,7 @@ export const useExportStore = defineStore("export", () => {
         children: [
           new TextRun({
             text: "ПОВЕСТКА:",
-            size: "14pt",
+            size: FONT_SIZE,
             break: 2,
           }),
         ],
@@ -79,11 +80,11 @@ export const useExportStore = defineStore("export", () => {
         children: [
           new TextRun({
             text: groupMeeting.content,
-            size: "14pt",
+            size: FONT_SIZE,
           }),
         ],
         run: {
-          size: "14pt",
+          size: FONT_SIZE,
         },
       }),
     ];
@@ -93,12 +94,7 @@ export const useExportStore = defineStore("export", () => {
         {
           properties: {
             page: {
-              margin: {
-                top: "1cm",
-                bottom: "1cm",
-                left: "1cm",
-                right: "1cm",
-              },
+              margin: DEFAULT_PAGE_MARGINS,
             },
           },
           children: [title, group, date, theme, presentPeople, ...content],

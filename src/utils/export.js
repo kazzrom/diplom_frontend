@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import * as XLSX from "xlsx";
 
 export const useExportStore = defineStore("export", () => {
-  function exportXLSX(data, tableColumns, isGroupList = false) {
+  function exportXLSX(data, tableColumns, filename, isGroupList = false) {
     const columns = tableColumns.concat([]);
     if (isGroupList) {
       columns.unshift({ field: "fullname", header: "ФИО" });
@@ -26,7 +26,7 @@ export const useExportStore = defineStore("export", () => {
     const workBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workBook, workSheet, "data");
 
-    XLSX.writeFile(workBook, "data.xlsx");
+    XLSX.writeFile(workBook, `${filename}.xlsx`);
   }
 
   return { exportXLSX };

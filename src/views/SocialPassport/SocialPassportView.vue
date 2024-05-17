@@ -1,41 +1,16 @@
 <script setup>
-import { ref } from "vue";
 import ViewHeader from "@/components/ViewHeader.vue";
 import Dropdown from "primevue/dropdown";
 import { useRouter } from "vue-router";
+import { useSocialPassportStore } from "./stores/store.js";
+import { storeToRefs } from "pinia";
 
 const router = useRouter();
 
-const items = [
-  { label: "Сироты", route: { name: "Orphans" } },
-  { label: "Опекаемые", route: { name: "Guardians" } },
-  { label: "Неполные семьи", route: { name: "IncompleteFamilies" } },
-  { label: "Многодетные семьи", route: { name: "LargeFamilies" } },
-  { label: "Проблемные семьи", route: { name: "ProblemFamilies" } },
-  { label: "Малообеспеченные семьи", route: { name: "LowIncomeFamilies" } },
-  {
-    label: "Обучающиеся, у которых родители безработные",
-    route: { name: "UneployedParents" },
-  },
-  {
-    label: "Обучающиеся, стоящие на учете в ОППН",
-    route: { name: "RegisteredOPPN" },
-  },
-  {
-    label: "Обучающиеся с хроническими заболеваниями",
-    route: { name: "StudentsWithDiseases" },
-  },
-  {
-    label: "Обучающиеся, из семей, в которых eсть родители-инвалиды",
-    route: { name: "DisabledParents" },
-  },
-  {
-    label: "Лица ОВЗ и инвалиды",
-    route: { name: "DisabledStudents" },
-  },
-];
+const store = useSocialPassportStore();
+const { items } = store;
+const { selectedItem } = storeToRefs(store);
 
-const selecredItem = ref(items[0]);
 router.push(items[0].route);
 
 function change(event) {
@@ -48,7 +23,7 @@ function change(event) {
     <ViewHeader>Социальный паспорт</ViewHeader>
     <main>
       <Dropdown
-        v-model="selecredItem"
+        v-model="selectedItem"
         :options="items"
         optionLabel="label"
         @change="change"

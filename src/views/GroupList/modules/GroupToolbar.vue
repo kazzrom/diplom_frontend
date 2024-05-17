@@ -21,7 +21,12 @@ const { filters } = storeToRefs(search);
 
 const { exportXLSX } = useExportStore();
 function exportInExcel() {
-  exportXLSX(studentList.value.value, selectedColumns.value, true);
+  exportXLSX(
+    studentList.value.value,
+    selectedColumns.value,
+    "Список студентов",
+    true
+  );
 }
 </script>
 

@@ -4,8 +4,11 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import Api from "../api/socialPassport.js";
 import { GROUP_ID } from "@/constants";
+import { useExportStore } from "../utils/export.js";
 
 onMounted(async () => await fetchIncompleteFamilies());
+
+const { exportIncompleteFamiliesTable } = useExportStore();
 
 const API = new Api(TABLE_API_URL.INCOMPLETE_FAMILIES);
 
@@ -19,6 +22,10 @@ async function fetchIncompleteFamilies() {
   items.value = response;
   loading.value = false;
 }
+
+function exportTable() {
+  exportIncompleteFamiliesTable(items.value);
+}
 </script>
 
 <template>
@@ -28,6 +35,14 @@ async function fetchIncompleteFamilies() {
     ref="dataStudentsTable"
     :value="items"
   >
+    <template #header>
+      <Button
+        label="Экспорт в Excel"
+        icon="pi pi-file-excel"
+        severity="success"
+        @click="exportTable"
+      />
+    </template>
     <Column field="id" header="№" />
     <Column field="fullname" header="ФИО студента" />
     <Column header="ФИО родителя">

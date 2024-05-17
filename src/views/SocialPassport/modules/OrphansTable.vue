@@ -4,8 +4,11 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import Api from "../api/socialPassport.js";
 import { GROUP_ID } from "@/constants.js";
 import { TABLE_API_URL } from "../utils/tables.js";
+import { useExportStore } from "../utils/export.js";
 
 onMounted(async () => await fetchOrphans());
+
+const { exportOrphansTable } = useExportStore();
 
 const API = new Api(TABLE_API_URL.ORPHANS);
 
@@ -18,6 +21,10 @@ async function fetchOrphans() {
   items.value = response;
   loading.value = false;
 }
+
+function exportTable() {
+  exportOrphansTable(items.value);
+}
 </script>
 
 <template>
@@ -27,14 +34,20 @@ async function fetchOrphans() {
     ref="dataStudentsTable"
     :value="items"
   >
+    <template #header>
+      <Button
+        label="Экспорт в Excel"
+        icon="pi pi-file-excel"
+        severity="success"
+        @click="exportTable"
+      />
+    </template>
     <Column field="id" header="№" />
     <Column field="fullname" header="ФИО студента" />
     <Column header="ФИО родственников">
       <template #body="{ data }">
         <p v-for="familyMember in data.FamilyMembers" :key="familyMember.id">
-          {{ familyMember.fullname }} ({{
-            familyMember.relation
-          }})
+          {{ familyMember.fullname }} ({{ familyMember.relation }})
         </p>
       </template>
     </Column>

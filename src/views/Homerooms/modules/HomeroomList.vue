@@ -4,10 +4,13 @@ import { storeToRefs } from "pinia";
 import { useHomeroomStore } from "../stores/homeroom.js";
 import { useCRUDStore } from "../stores/CRUD.js";
 import { useSearchStore } from "@/stores/search.js";
+import { useExportStore } from "../utils/export.js";
 import { ACTIONS } from "@/constants";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 
 onMounted(async () => await homeroomsStore.fetchHomerooms());
+
+const { exportToHomeroomInDOCX } = useExportStore();
 
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);
@@ -62,6 +65,14 @@ function openDialog(action, data) {
           text
           rounded
           @click="openDialog(ACTIONS.EDIT, data)"
+        />
+        <Button
+          icon="pi pi-file-word"
+          severity="info"
+          title="Экспорт протокола в DOCX"
+          text
+          rounded
+          @click="exportToHomeroomInDOCX(data)"
         />
       </template>
     </Column>

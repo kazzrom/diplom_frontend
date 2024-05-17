@@ -4,7 +4,9 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import Dropdown from "primevue/dropdown";
 import { useVuelidate } from "@vuelidate/core";
 import { useConfirmStore } from "@/stores/confirms";
+import { useExportStore } from "@/utils/export.js";
 import Api from "../api/socialPassport.js";
+import { useSocialPassportStore } from "../stores/store.js";
 
 const props = defineProps({
   tableApiUrl: {
@@ -85,6 +87,34 @@ async function deleteFamily(id) {
 function clearForm() {
   family.value = { Student: undefined, ...props.item, note: undefined };
 }
+
+const exportStore = useExportStore();
+const socialPassportStore = useSocialPassportStore();
+function exportTable() {
+  let tableColumns = null;
+
+  if (props.tableColumns) {
+    tableColumns = [
+      { field: "Student.fullname", header: "ФИО студента" },
+      ...props.tableColumns,
+      { field: "note", header: "Примечание" },
+    ];
+  } else {
+    tableColumns = [
+      { field: "Student.fullname", header: "ФИО студента" },
+      {
+        field: "note",
+        header: "Примечание",
+      },
+    ];
+  }
+
+  exportStore.exportXLSX(
+    items.value,
+    tableColumns,
+    socialPassportStore.selectedItem.label
+  );
+}
 </script>
 
 <template>
@@ -120,6 +150,14 @@ function clearForm() {
       ref="dataStudentsTable"
       :value="items"
     >
+      <template #header>
+        <Button
+          label="Экспорт в Excel"
+          icon="pi pi-file-excel"
+          severity="success"
+          @click="exportTable"
+        />
+      </template>
       <Column field="Student.fullname" header="ФИО студента" />
       <Column
         v-for="column in tableColumns"

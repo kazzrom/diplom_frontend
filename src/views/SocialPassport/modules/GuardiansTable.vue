@@ -4,8 +4,11 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import Api from "../api/socialPassport.js";
 import { GROUP_ID } from "@/constants";
+import { useExportStore } from "../utils/export.js";
 
 onMounted(async () => await fetchGuardians());
+
+const { exportGuardiansTable } = useExportStore();
 
 const items = ref([]);
 
@@ -18,6 +21,10 @@ async function fetchGuardians() {
   items.value = response;
   loading.value = false;
 }
+
+function exportTable() {
+  exportGuardiansTable(items.value);
+}
 </script>
 
 <template>
@@ -27,6 +34,14 @@ async function fetchGuardians() {
     ref="dataStudentsTable"
     :value="items"
   >
+    <template #header>
+      <Button
+        label="Экспорт в Excel"
+        icon="pi pi-file-excel"
+        severity="success"
+        @click="exportTable"
+      />
+    </template>
     <Column field="id" header="№" />
     <Column field="fullname" header="ФИО студента" />
     <Column header="ФИО опекуна">
