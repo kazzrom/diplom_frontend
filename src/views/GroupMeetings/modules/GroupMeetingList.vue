@@ -46,18 +46,21 @@ function openDialog(action, data) {
         <div class="button_menu">
           <Button
             icon="pi pi-eye"
+            title="Просмотреть протокол"
             text
             rounded
             @click="openDialog(ACTIONS.VIEW, data)"
           />
           <Button
             icon="pi pi-pencil"
+            title="Редактировать протокол"
             text
             rounded
             @click="openDialog(ACTIONS.EDIT, data)"
           />
           <Button
             @click="exportToGroupMeetingInDOCX(data)"
+            title="Экспорт протокола в DOCX"
             icon="pi pi-file-word"
             severity="info"
             text

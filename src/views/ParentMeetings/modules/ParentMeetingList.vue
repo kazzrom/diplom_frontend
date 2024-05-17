@@ -66,18 +66,21 @@ const { exportToParentMeetingInDOCX } = useExportStore();
       <template #body="slotProps">
         <Button
           @click="openDialog(slotProps.data, ACTIONS.VIEW)"
+          title="Просмотреть протокол"
           icon="pi pi-eye"
           text
           rounded
         />
         <Button
           @click="openDialog(slotProps.data, ACTIONS.EDIT)"
+          title="Редактировать протокол"
           icon="pi pi-pencil"
           text
           rounded
         />
         <Button
           @click="exportToParentMeetingInDOCX(slotProps.data)"
+          title="Экспорт протокола в DOCX"
           icon="pi pi-file-word"
           severity="info"
           text

@@ -51,12 +51,14 @@ function openDialog(action, data) {
       <template #body="{ data }">
         <Button
           icon="pi pi-eye"
+          title="Просмотреть протокол"
           text
           rounded
           @click="openDialog(ACTIONS.VIEW, data)"
         />
         <Button
           icon="pi pi-pencil"
+          title="Редактировать протокол"
           text
           rounded
           @click="openDialog(ACTIONS.EDIT, data)"

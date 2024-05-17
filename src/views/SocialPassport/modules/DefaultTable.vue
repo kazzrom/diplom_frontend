@@ -132,6 +132,7 @@ function clearForm() {
         <template #body="{ data }">
           <Button
             icon="pi pi-trash"
+            title="Удалить запись"
             text
             rounded
             @click="deleteFamily(data.id)"

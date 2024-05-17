@@ -9,7 +9,11 @@ const props = defineProps(["familyMember"]);
 
 const store = useFamilySectionStore();
 const { confirmDeleteRelative } = store;
-const { dialog, familyMember: editedFamilyMember, isSubmit } = storeToRefs(store);
+const {
+  dialog,
+  familyMember: editedFamilyMember,
+  isSubmit,
+} = storeToRefs(store);
 
 const familyMember = ref(props.familyMember);
 
@@ -32,9 +36,16 @@ watch(editedFamilyMember, (newRelative) => {
 <template>
   <div class="form_wrapper">
     <div class="mini_menu">
-      <Button icon="pi pi-pencil" text rounded @click="openEditDialog" />
+      <Button
+        icon="pi pi-pencil"
+        title="Редактировать информацию о родственнике"
+        text
+        rounded
+        @click="openEditDialog"
+      />
       <Button
         icon="pi pi-trash"
+        title="Удалить родственника"
         text
         rounded
         @click="confirmDeleteRelative(familyMember.id)"

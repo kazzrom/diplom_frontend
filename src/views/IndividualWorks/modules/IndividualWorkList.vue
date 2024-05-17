@@ -13,12 +13,8 @@ const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);
 const store = useIndividualWorkStore();
 const { fetchIndividualWorks } = store;
-const {
-  individualWorks,
-  selectedIndividualWorks,
-  dialog,
-  individualWork,
-} = storeToRefs(store);
+const { individualWorks, selectedIndividualWorks, dialog, individualWork } =
+  storeToRefs(store);
 
 onMounted(() => fetchIndividualWorks(route.params.id));
 function openDialog(data, action) {
@@ -57,6 +53,7 @@ function openDialog(data, action) {
         <div class="flex flex-row gap-2">
           <Button
             icon="pi pi-eye"
+            title="Просмотреть запись"
             size="small"
             rounded
             text
@@ -64,6 +61,7 @@ function openDialog(data, action) {
           />
           <Button
             icon="pi pi-pencil"
+            title="Редактировать запись"
             size="small"
             rounded
             text
