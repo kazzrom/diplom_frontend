@@ -4,7 +4,7 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import Dropdown from "primevue/dropdown";
 import { useVuelidate } from "@vuelidate/core";
 import { useConfirmStore } from "@/stores/confirms";
-import { useExportStore } from "@/utils/export.js";
+import { exportXLSX } from "@/utils/export.js";
 import Api from "../api/socialPassport.js";
 import { useSocialPassportStore } from "../stores/store.js";
 
@@ -88,7 +88,6 @@ function clearForm() {
   family.value = { Student: undefined, ...props.item, note: undefined };
 }
 
-const exportStore = useExportStore();
 const socialPassportStore = useSocialPassportStore();
 function exportTable() {
   let tableColumns = null;
@@ -109,11 +108,7 @@ function exportTable() {
     ];
   }
 
-  exportStore.exportXLSX(
-    items.value,
-    tableColumns,
-    socialPassportStore.selectedItem.label
-  );
+  exportXLSX(items.value, tableColumns, socialPassportStore.selectedItem.label);
 }
 </script>
 

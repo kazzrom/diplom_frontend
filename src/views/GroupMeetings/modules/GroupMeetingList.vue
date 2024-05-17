@@ -4,13 +4,11 @@ import { storeToRefs } from "pinia";
 import { useGroupMeetingsStore } from "../stores/groupMeetings.js";
 import { GROUP_MEETINGS_COLUMNS } from "../constants/groupMeetings.js";
 import { useSearchStore } from "@/stores/search.js";
-import { useExportStore } from "../utils/export.js";
+import { exportToGroupMeetingInDOCX } from "../utils/export.js";
 import { ACTIONS } from "@/constants";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 
 onMounted(async () => await fetchGroupMeetings());
-
-const { exportToGroupMeetingInDOCX } = useExportStore();
 
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);

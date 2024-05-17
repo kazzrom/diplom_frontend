@@ -4,11 +4,9 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import Api from "../api/socialPassport.js";
 import { GROUP_ID } from "@/constants.js";
 import { TABLE_API_URL } from "../utils/tables.js";
-import { useExportStore } from "../utils/export.js";
+import { exportOrphansTable } from "../utils/export.js";
 
 onMounted(async () => await fetchOrphans());
-
-const { exportOrphansTable } = useExportStore();
 
 const API = new Api(TABLE_API_URL.ORPHANS);
 

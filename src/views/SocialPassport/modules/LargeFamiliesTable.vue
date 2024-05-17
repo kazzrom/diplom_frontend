@@ -4,11 +4,9 @@ import NoRecordsView from "@/components/NoRecordsView.vue";
 import { TABLE_API_URL } from "../utils/tables";
 import Api from "../api/socialPassport.js";
 import { GROUP_ID } from "@/constants";
-import { useExportStore } from "../utils/export.js";
+import { exportLargeFamiliesTable } from "../utils/export.js";
 
 onMounted(async () => await fetchLargeFamilies());
-
-const { exportLargeFamiliesTable } = useExportStore();
 
 const items = ref([]);
 

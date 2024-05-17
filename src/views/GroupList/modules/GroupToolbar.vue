@@ -6,7 +6,7 @@ import { ACTIONS } from "@/constants";
 import { useGroupListStore } from "../stores/groupList.js";
 import { useStudentFormStore } from "../stores/studentForm.js";
 import { useSearchStore } from "@/stores/search.js";
-import { useExportStore } from "@/utils/export.js";
+import { exportXLSX } from "@/utils/export.js";
 
 const groupListStore = useGroupListStore();
 const { onToggle, getStudentColumns, confirmDeleteStudents } = groupListStore;
@@ -19,7 +19,6 @@ const { dialog } = storeToRefs(studentFormStore);
 const search = useSearchStore();
 const { filters } = storeToRefs(search);
 
-const { exportXLSX } = useExportStore();
 function exportInExcel() {
   exportXLSX(
     studentList.value.value,

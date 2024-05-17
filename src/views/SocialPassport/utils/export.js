@@ -1,103 +1,100 @@
-import { defineStore } from "pinia";
 import * as XLSX from "xlsx";
 
-export const useExportStore = defineStore("export", () => {
-  function exportOrphansTable(data) {
-    const filterData = data.map((record) => {
-      const item = {};
+function exportOrphansTable(data) {
+  const filterData = data.map((record) => {
+    const item = {};
 
-      item["ФИО студента"] = record.fullname;
+    item["ФИО студента"] = record.fullname;
 
-      const familyMembers = [];
-      const contacts = [];
+    const familyMembers = [];
+    const contacts = [];
 
-      record.FamilyMembers.forEach((member) => {
-        familyMembers.push(`${member.fullname} (${member.relation})`);
-        contacts.push(
-          `${member.MemberPersonalDatum.phoneNumber} (${member.relation})`
-        );
-      });
-
-      item["ФИО родственников"] = familyMembers.join("\n");
-      item["Контакты"] = contacts.join("\n");
-
-      return item;
+    record.FamilyMembers.forEach((member) => {
+      familyMembers.push(`${member.fullname} (${member.relation})`);
+      contacts.push(
+        `${member.MemberPersonalDatum.phoneNumber} (${member.relation})`
+      );
     });
 
-    const workSheet = XLSX.utils.json_to_sheet(filterData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "data");
+    item["ФИО родственников"] = familyMembers.join("\n");
+    item["Контакты"] = contacts.join("\n");
 
-    XLSX.writeFile(workBook, `Сироты.xlsx`);
-  }
+    return item;
+  });
 
-  function exportGuardiansTable(data) {
-    const filterData = data.map((record) => {
-      const item = {};
+  const workSheet = XLSX.utils.json_to_sheet(filterData);
+  const workBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workBook, workSheet, "data");
 
-      item["ФИО студента"] = record.fullname;
+  XLSX.writeFile(workBook, `Сироты.xlsx`);
+}
 
-      const familyMembers = [];
-      const contacts = [];
+function exportGuardiansTable(data) {
+  const filterData = data.map((record) => {
+    const item = {};
 
-      record.FamilyMembers.forEach((member) => {
-        familyMembers.push(`${member.fullname}`);
-        contacts.push(`${member.MemberPersonalDatum.phoneNumber}`);
-      });
+    item["ФИО студента"] = record.fullname;
 
-      item["ФИО опекуна"] = familyMembers.join("\n");
-      item["Контакты"] = contacts.join("\n");
+    const familyMembers = [];
+    const contacts = [];
 
-      return item;
+    record.FamilyMembers.forEach((member) => {
+      familyMembers.push(`${member.fullname}`);
+      contacts.push(`${member.MemberPersonalDatum.phoneNumber}`);
     });
 
-    const workSheet = XLSX.utils.json_to_sheet(filterData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "data");
+    item["ФИО опекуна"] = familyMembers.join("\n");
+    item["Контакты"] = contacts.join("\n");
 
-    XLSX.writeFile(workBook, `Опекаемые.xlsx`);
-  }
+    return item;
+  });
 
-  function exportIncompleteFamiliesTable(data) {
-    const filterData = data.map((record) => {
-      const item = {};
+  const workSheet = XLSX.utils.json_to_sheet(filterData);
+  const workBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workBook, workSheet, "data");
 
-      item["ФИО студента"] = record.fullname;
-      item[
-        "ФИО родителя"
-      ] = `${record.FamilyMembers[0].fullname} (${record.FamilyMembers[0].relation})`;
+  XLSX.writeFile(workBook, `Опекаемые.xlsx`);
+}
 
-      return item;
-    });
+function exportIncompleteFamiliesTable(data) {
+  const filterData = data.map((record) => {
+    const item = {};
 
-    const workSheet = XLSX.utils.json_to_sheet(filterData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "data");
+    item["ФИО студента"] = record.fullname;
+    item[
+      "ФИО родителя"
+    ] = `${record.FamilyMembers[0].fullname} (${record.FamilyMembers[0].relation})`;
 
-    XLSX.writeFile(workBook, `Неполные семьи.xlsx`);
-  }
+    return item;
+  });
 
-  function exportLargeFamiliesTable(data) {
-    const filterData = data.map((record) => {
-      const item = {};
+  const workSheet = XLSX.utils.json_to_sheet(filterData);
+  const workBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workBook, workSheet, "data");
 
-      item["ФИО студента"] = record.fullname;
-      item["Количество детей"] = record.FamilyMembers.length + 1;
+  XLSX.writeFile(workBook, `Неполные семьи.xlsx`);
+}
 
-      return item;
-    });
+function exportLargeFamiliesTable(data) {
+  const filterData = data.map((record) => {
+    const item = {};
 
-    const workSheet = XLSX.utils.json_to_sheet(filterData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "data");
+    item["ФИО студента"] = record.fullname;
+    item["Количество детей"] = record.FamilyMembers.length + 1;
 
-    XLSX.writeFile(workBook, `Многодетные семьи.xlsx`);
-  }
+    return item;
+  });
 
-  return {
-    exportOrphansTable,
-    exportGuardiansTable,
-    exportIncompleteFamiliesTable,
-    exportLargeFamiliesTable,
-  };
-});
+  const workSheet = XLSX.utils.json_to_sheet(filterData);
+  const workBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workBook, workSheet, "data");
+
+  XLSX.writeFile(workBook, `Многодетные семьи.xlsx`);
+}
+
+export {
+  exportOrphansTable,
+  exportGuardiansTable,
+  exportIncompleteFamiliesTable,
+  exportLargeFamiliesTable,
+};

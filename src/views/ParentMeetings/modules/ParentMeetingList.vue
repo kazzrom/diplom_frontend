@@ -5,7 +5,7 @@ import { useSearchStore } from "@/stores/search";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import { ACTIONS } from "@/constants";
 import { onMounted } from "vue";
-import { useExportStore } from "../utils/export.js";
+import { exportToParentMeetingInDOCX } from "../utils/export.js";
 
 onMounted(async () => {
   await fetchParentMeetings();
@@ -43,8 +43,6 @@ function openDialog(data, action) {
     });
   }
 }
-
-const { exportToParentMeetingInDOCX } = useExportStore();
 </script>
 
 <template>

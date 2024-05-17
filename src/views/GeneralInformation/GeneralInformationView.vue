@@ -1,19 +1,10 @@
 <script setup>
-import { onMounted } from "vue";
-import { useRoute } from "vue-router";
-
 import { useGeneralInformationStore } from "./stores/generalInformation.js";
+import { storeToRefs } from "pinia";
 import StudentForm from "./modules/StudentForm.vue";
 import StudentPhoto from "./components/StudentPhoto.vue";
-import { storeToRefs } from "pinia";
-
-const route = useRoute();
-const studentId = route.params.id;
-
-onMounted(() => fetchStudent(studentId));
 
 const store = useGeneralInformationStore();
-const { fetchStudent } = store;
 const { student } = storeToRefs(store);
 </script>
 
