@@ -1,6 +1,6 @@
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
-import { FONT_SIZE, DEFAULT_PAGE_MARGINS } from "@/constants";
+import { FONT_SIZE, DEFAULT_PAGE_MARGINS } from "@/utils/docx_elements.js";
 
 export function exportToHomeroomInDOCX(homeroom) {
   const title = new Paragraph({

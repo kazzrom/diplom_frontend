@@ -1,7 +1,10 @@
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
-import { FONT_SIZE, DEFAULT_PAGE_MARGINS } from "@/constants";
-import { getTextField, getTitle } from "@/utils/docx_elements.js";
+import {
+  DEFAULT_PAGE_MARGINS,
+  getTextField,
+  getTitle,
+} from "@/utils/docx_elements.js";
 
 export function exportToStudentInDOCX(student) {
   const title = getTitle("Информация о студенте");
@@ -35,7 +38,11 @@ export function exportToStudentInDOCX(student) {
   const doc = new Document({
     sections: [
       {
-        properties: {},
+        properties: {
+          page: {
+            margin: DEFAULT_PAGE_MARGINS,
+          },
+        },
         children: [
           title,
           fullname,

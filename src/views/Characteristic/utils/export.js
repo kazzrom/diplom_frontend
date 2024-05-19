@@ -1,12 +1,14 @@
-import { Document, Packer, Paragraph, TextRun } from "docx";
+import { Document, Packer } from "docx";
 import { saveAs } from "file-saver";
-import { FONT_SIZE, DEFAULT_PAGE_MARGINS } from "@/constants";
-import { getTextField, getTitle, getParagraph } from "@/utils/docx_elements.js";
+import {
+  getTextField,
+  getTitle,
+  getParagraph,
+  DEFAULT_PAGE_MARGINS,
+} from "@/utils/docx_elements.js";
 
 export function exportToCharacteristicInDOCX(student, characteristic) {
   const title = getTitle("Характеристика обучающегося");
-
-  const fullname = getTextField("ФИО", student.fullname, 1);
 
   const studentAttitudes = getParagraph(
     "Отношения студента к разным вещам: ",
@@ -65,10 +67,13 @@ export function exportToCharacteristicInDOCX(student, characteristic) {
   const doc = new Document({
     sections: [
       {
-        properties: {},
+        properties: {
+          page: {
+            margin: DEFAULT_PAGE_MARGINS,
+          },
+        },
         children: [
           title,
-          fullname,
           studentAttitudes,
           attitudeToStudy,
           attitudeToElders,

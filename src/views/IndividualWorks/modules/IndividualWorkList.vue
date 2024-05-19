@@ -35,8 +35,8 @@ function openDialog(data, action) {
   >
     <Column selection-mode="multiple" />
     <Column field="workDate" header="Дата" />
-    <Column field="participant" header="Участник" />
-    <Column field="workContent" header="С кем проведена беседа">
+    <Column field="participant" header="С кем проведена беседа" />
+    <Column field="workContent" header="Какие вопросы обсуждались">
       <template #body="{ data }">
         <span>{{ data.workContent.substring(0, 20) }}</span>
         <span v-show="data.workContent.length > 20">...</span>

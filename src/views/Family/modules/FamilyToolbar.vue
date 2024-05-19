@@ -3,11 +3,16 @@ import { storeToRefs } from "pinia";
 import Toolbar from "primevue/toolbar";
 
 import { ACTIONS } from "@/constants";
+import { useGeneralInformationStore } from "@/views/GeneralInformation/stores/generalInformation.js";
 import { useFamilySectionStore } from "../stores/family.js";
+import { exportToFamilyInDOCX } from "../utils/export.js";
 
-const store = useFamilySectionStore();
-const { clearForm } = store;
-const { dialog } = storeToRefs(store);
+const store = useGeneralInformationStore();
+const { student } = storeToRefs(store);
+
+const familyStore = useFamilySectionStore();
+const { clearForm } = familyStore;
+const { dialog, familyMembers } = storeToRefs(familyStore);
 
 function openAddDialog() {
   clearForm();
@@ -25,6 +30,13 @@ function openAddDialog() {
           icon-pos="right"
           @click="openAddDialog"
         />
+        <Button
+          label="Экспорт в DOCX"
+          severity="info"
+          icon="pi pi-file-word"
+          icon-pos="right"
+          @click="exportToFamilyInDOCX(student, familyMembers)"
+        />
       </div>
     </template>
   </Toolbar>
@@ -32,6 +44,6 @@ function openAddDialog() {
 
 <style scoped>
 .toolbar_start {
-  @apply flex flex-row;
+  @apply flex flex-row gap-3;
 }
 </style>
