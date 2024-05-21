@@ -7,10 +7,13 @@ import { useHomeStore } from "@/auth/stores/Home.js";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
-// onMounted(() => handleFetchProtected());
+onMounted(async () => {
+  await refresh();
+  await handleFetchProtected();
+});
 
 const store = useAuthProvider();
-const { handleLogOut } = store;
+const { handleLogOut, handleFetchProtected, refresh } = store;
 const { isUserLogged } = storeToRefs(store);
 
 const { data } = storeToRefs(useHomeStore());

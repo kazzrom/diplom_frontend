@@ -2,7 +2,6 @@
 import { onMounted, ref } from "vue";
 import NoRecordsView from "@/components/NoRecordsView.vue";
 import Api from "../api/socialPassport.js";
-import { GROUP_ID } from "@/constants.js";
 import { TABLE_API_URL } from "../utils/tables.js";
 import { exportOrphansTable } from "../utils/export.js";
 
@@ -15,7 +14,7 @@ const loading = ref(false);
 
 async function fetchOrphans() {
   loading.value = true;
-  const response = await API.getRecords(GROUP_ID);
+  const response = await API.getRecords();
   items.value = response;
   loading.value = false;
 }

@@ -49,8 +49,8 @@ export const useAuthProvider = defineStore("AuthStore", () => {
     isUserLogged.value = value;
   };
 
-  const handleFetchProtected = () => {
-    ResourceClient.get("/protected", {
+  const handleFetchProtected = async () => {
+    await ResourceClient.get("/protected", {
       headers: { Authorization: `Bearer ${InMemoryJWT.getToken()}` },
     })
       .then((res) => {
@@ -118,7 +118,7 @@ export const useAuthProvider = defineStore("AuthStore", () => {
 
   onMounted(async () => {
     await refresh();
-    handleFetchProtected();
+    await handleFetchProtected();
   });
 
   return {
