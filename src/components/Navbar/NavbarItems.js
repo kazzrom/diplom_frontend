@@ -30,7 +30,7 @@ const NavbarItems = [
   },
   {
     label: "Успеваемость",
-    url: "#",
+    url: "https://docs.google.com/spreadsheets/d/1mzg0pqcHljTZU7aObkZ_sy-zRVhfscED/edit?usp=drive_link&ouid=114435406066204811756&rtpof=true&sd=true",
   },
 ];
 

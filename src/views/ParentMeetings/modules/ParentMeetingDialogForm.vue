@@ -19,12 +19,7 @@ const {
   fetchParentMeetings,
   fetchParents,
 } = store;
-const {
-  parentMeeting,
-  dialog,
-  isSubmit,
-  parents,
-} = storeToRefs(store);
+const { parentMeeting, dialog, isSubmit, parents } = storeToRefs(store);
 
 async function cancelForm() {
   await fetchParentMeetings();
@@ -62,6 +57,8 @@ async function cancelForm() {
             <label for="theme">Тема</label>
             <InputText
               id="theme"
+              name="theme"
+              autocomplete="off"
               v-model="parentMeeting.theme"
               :readonly="dialog.action === ACTIONS.VIEW"
               :invalid="v$.theme.$invalid && isSubmit"

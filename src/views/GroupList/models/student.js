@@ -8,7 +8,6 @@ export default class Student {
       patronymic: null,
       sex: null,
       fullname: null,
-      groupId: GROUP_ID,
       note: null,
       PersonalDatum: {
         birthday: null,

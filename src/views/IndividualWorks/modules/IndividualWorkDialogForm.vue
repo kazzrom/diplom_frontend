@@ -49,6 +49,8 @@ async function cancelForm() {
         <label for="participant">С кем проведена беседа</label>
         <InputText
           id="participant"
+          name="participant"
+          autocomplete="off"
           v-model="individualWork.participant"
           :invalid="v$.participant.$invalid && isSubmit"
           :readonly="dialog.action === ACTIONS.VIEW"

@@ -44,6 +44,9 @@ function signUp() {
                 <label for="login">Логин</label>
                 <InputText
                   id="login"
+                  autocomplete="off"
+                  readonly
+                  onfocus="this.removeAttribute('readonly')"
                   v-model="user.login"
                   :invalid="v$.login.$dirty && v$.login.$invalid"
                   aria-describedby="login-help"
@@ -58,10 +61,14 @@ function signUp() {
                 <label for="password">Пароль</label>
                 <Password
                   id="password"
+                  autocomplete="new-password"
+                  readonly
+                  onfocus="this.removeAttribute('readonly')"
                   v-model="user.password"
                   :feedback="false"
                   :invalid="v$.password.$dirty && v$.password.$invalid"
                   aria-describedby="password-help"
+                  toggle-mask
                 />
                 <small
                   v-show="v$.password.$dirty && v$.password.$invalid"
@@ -77,6 +84,7 @@ function signUp() {
                 <label for="surname">Фамилия</label>
                 <InputText
                   id="surname"
+                  autocomplete="off"
                   v-model="user.Curator.surname"
                   :invalid="
                     v$.Curator.surname.$dirty && v$.Curator.surname.$invalid
@@ -87,6 +95,7 @@ function signUp() {
                 <label for="name">Имя</label>
                 <InputText
                   id="name"
+                  autocomplete="off"
                   v-model="user.Curator.name"
                   :invalid="v$.Curator.name.$dirty && v$.Curator.name.$invalid"
                 />
@@ -95,6 +104,7 @@ function signUp() {
                 <label for="patronymic">Отчетство</label>
                 <InputText
                   id="patronymic"
+                  autocomplete="off"
                   v-model="user.Curator.patronymic"
                   :invalid="
                     v$.Curator.patronymic.$dirty &&
@@ -110,6 +120,7 @@ function signUp() {
                 <label for="groupNumber">Номер группы</label>
                 <InputNumber
                   id="groupNumber"
+                  autocomplete="off"
                   v-model="user.Group.groupNumber"
                   :use-grouping="false"
                   :invalid="

@@ -23,6 +23,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="surname"
             name="surname"
+            autocomplete="all-off"
             v-model="student.surname"
             :invalid="v$.surname.$invalid && isSubmit"
           />
@@ -32,6 +33,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="name"
             name="name"
+            autocomplete="all-off"
             v-model="student.name"
             :invalid="v$.name.$invalid && isSubmit"
           />
@@ -41,6 +43,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="patronymic"
             name="patronymic"
+            autocomplete="all-off"
             v-model="student.patronymic"
             :invalid="v$.patronymic.$invalid && isSubmit"
           />
@@ -59,6 +62,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="residentialAddress"
             name="residentialAddress"
+            autocomplete="all-off"
             v-model="student.PersonalDatum.residentialAddress"
             :invalid="v$.PersonalDatum.residentialAddress.$invalid && isSubmit"
           />
@@ -68,6 +72,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputMask
             id="phoneNumber"
             name="phoneNumber"
+            autocomplete="all-off"
             mask="+7 999 999-99-99"
             v-model="student.PersonalDatum.phoneNumber"
             :invalid="v$.PersonalDatum.phoneNumber.$invalid && isSubmit"
@@ -78,6 +83,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputText
             id="email"
             name="email"
+            autocomplete="all-off"
             v-model="student.PersonalDatum.email"
             :invalid="v$.PersonalDatum.email.$invalid && isSubmit"
           />
@@ -87,6 +93,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <Calendar
             id="birthday"
             name="birthday"
+            autocomplete="all-off"
             v-model="student.PersonalDatum.birthday"
             dateFormat="dd.mm.yy"
             showIcon
@@ -99,6 +106,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputMask
             id="reportCardNumber"
             name="reportCardNumber"
+            autocomplete="all-off"
             mask="99999"
             v-model="student.PersonalDatum.reportCardNumber"
             :invalid="v$.PersonalDatum.reportCardNumber.$invalid && isSubmit"
@@ -109,6 +117,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputMask
             id="SNILS"
             name="SNILS"
+            autocomplete="all-off"
             mask="999-999-999 99"
             v-model="student.PersonalDatum.SNILS"
           />
@@ -118,6 +127,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
           <InputMask
             id="medicalPolicy"
             name="medicalPolicy"
+            autocomplete="all-off"
             mask="9999 9999 9999 9999"
             v-model="student.PersonalDatum.medicalPolicy"
           />

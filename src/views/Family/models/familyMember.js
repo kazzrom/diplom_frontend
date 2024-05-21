@@ -6,7 +6,7 @@ export default class FamilyMember {
       patronymic: null,
       relation: null,
       MemberPersonalDatum: {
-        workPlace: null,
+        workplace: null,
         post: null,
         phoneNumber: null,
         residentialAddress: null,

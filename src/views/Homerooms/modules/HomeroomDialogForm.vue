@@ -43,6 +43,8 @@ function cancelDialog() {
             <label for="theme">Тема</label>
             <InputText
               id="theme"
+              name="theme"
+              autocomplete="off"
               v-model="homeroom.theme"
               :invalid="v$.theme.$dirty && v$.theme.$invalid"
               :readonly="dialog.action === ACTIONS.VIEW"
@@ -52,6 +54,8 @@ function cancelDialog() {
             <label for="location">Место проведения</label>
             <InputText
               id="location"
+              name="location"
+              autocomplete="off"
               v-model="homeroom.location"
               :invalid="v$.location.$dirty && v$.location.$invalid"
               :readonly="dialog.action === ACTIONS.VIEW"
@@ -61,6 +65,8 @@ function cancelDialog() {
             <label for="numberPeoplePresent">Присутствовало</label>
             <InputNumber
               id="numberPeoplePresent"
+              name="numberPeoplePresent"
+              autocomplete="off"
               v-model="homeroom.numberPeoplePresent"
               :invalid="
                 v$.numberPeoplePresent.$dirty && v$.numberPeoplePresent.$invalid
@@ -74,6 +80,8 @@ function cancelDialog() {
             <label for="purpose">Цель</label>
             <InputText
               id="purpose"
+              name="purpose"
+              autocomplete="off"
               v-model="homeroom.purpose"
               :readonly="dialog.action === ACTIONS.VIEW"
             />

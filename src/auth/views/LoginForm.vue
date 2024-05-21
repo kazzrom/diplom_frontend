@@ -28,33 +28,37 @@ function signIn() {
     <form @submit.prevent="signIn" method="post">
       <div class="form_wrapper">
         <h3>Войти в аккаунт</h3>
-        <div class="form_item">
-          <label for="login">Логин</label>
-          <InputText
-            id="login"
-            v-model="user.login"
-            :invalid="v$.login.$dirty && v$.password.$invalid"
-            aria-describedby="login-help"
-          />
-          <small v-show="v$.login.$dirty && v$.login.$invalid" id="login-help"
-            >Введите логин</small
-          >
+        <div class="form_login">
+          <div class="form_item">
+            <label for="login">Логин</label>
+            <InputText
+              id="login"
+              v-model="user.login"
+              :invalid="v$.login.$dirty && v$.password.$invalid"
+              aria-describedby="login-help"
+            />
+            <small v-show="v$.login.$dirty && v$.login.$invalid" id="login-help"
+              >Введите логин</small
+            >
+          </div>
+          <div class="form_item">
+            <label for="password">Пароль</label>
+            <Password
+              id="password"
+              v-model="user.password"
+              :feedback="false"
+              :invalid="v$.password.$dirty && v$.password.$invalid"
+              aria-describedby="password-help"
+              toggle-mask
+            />
+            <small
+              v-show="v$.password.$dirty && v$.password.$invalid"
+              id="password-help"
+              >Пароль слишком короткий</small
+            >
+          </div>
         </div>
-        <div class="form_item">
-          <label for="password">Пароль</label>
-          <Password
-            id="password"
-            v-model="user.password"
-            :feedback="false"
-            :invalid="v$.password.$dirty && v$.password.$invalid"
-            aria-describedby="password-help"
-          />
-          <small
-            v-show="v$.password.$dirty && v$.password.$invalid"
-            id="password-help"
-            >Пароль слишком короткий</small
-          >
-        </div>
+
         <Button label="Войти" type="submit" />
       </div>
     </form>
@@ -70,6 +74,10 @@ function signIn() {
   @apply flex flex-col items-center
     border border-solid border-slate-200 rounded-xl 
     p-10 gap-6;
+}
+
+.form_login {
+  @apply flex flex-col gap-5;
 }
 
 .form_item {

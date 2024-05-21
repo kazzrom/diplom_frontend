@@ -29,6 +29,8 @@ async function cancelForm() {
           <label for="surname">Фамилия</label>
           <InputText
             id="surname"
+            name="surname"
+            autocomplete="all-off"
             v-model="familyMember.surname"
             :invalid="v$.surname.$invalid && isSubmit"
           />
@@ -36,7 +38,9 @@ async function cancelForm() {
         <div class="form_item">
           <label for="name">Имя</label>
           <InputText
-            id="name"
+            id="name" 
+            name="name"
+            autocomplete="all-off"
             v-model="familyMember.name"
             :invalid="v$.name.$invalid && isSubmit"
           />
@@ -45,6 +49,8 @@ async function cancelForm() {
           <label for="patronymic">Отчество</label>
           <InputText
             id="patronymic"
+            name="patronymic"
+            autocomplete="all-off"
             v-model="familyMember.patronymic"
             :invalid="v$.patronymic.$invalid && isSubmit"
           />
@@ -53,6 +59,8 @@ async function cancelForm() {
           <label for="relation">Родство</label>
           <Dropdown
             id="relation"
+            name="relation"
+            autocomplete="all-off"
             v-model="familyMember.relation"
             :options="relations"
             :invalid="v$.relation.$invalid && isSubmit"
@@ -62,6 +70,8 @@ async function cancelForm() {
           <label for="phoneNumber">Номер телефона</label>
           <InputMask
             id="phoneNumber"
+            name="phoneNumber"
+            autocomplete="all-off"
             mask="+7 999 999-99-99"
             v-model="familyMember.MemberPersonalDatum.phoneNumber"
             :invalid="v$.MemberPersonalDatum.phoneNumber.$invalid && isSubmit"
@@ -71,6 +81,8 @@ async function cancelForm() {
           <label for="residentialAddress">Адрес</label>
           <InputText
             id="residentialAddress"
+            name="residentialAddress"
+            autocomplete="all-off"
             v-model="familyMember.MemberPersonalDatum.residentialAddress"
           />
         </div>
@@ -78,6 +90,8 @@ async function cancelForm() {
           <label for="phoneNumber">Место работы</label>
           <InputText
             id="phoneNumber"
+            name="phoneNumber"
+            autocomplete="all-off"
             v-model.trim="familyMember.MemberPersonalDatum.workplace"
           />
         </div>
@@ -85,6 +99,8 @@ async function cancelForm() {
           <label for="post">Должность</label>
           <InputText
             id="post"
+            name="post"
+            autocomplete="all-off"
             v-model.trim="familyMember.MemberPersonalDatum.post"
           />
         </div>

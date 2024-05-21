@@ -2,7 +2,7 @@ import { required, minLength, maxLength } from "@vuelidate/validators";
 
 export default {
   login: { required, maxLength: maxLength(25) },
-  password: { required, minLength: minLength(5), maxLength: maxLength(50) },
+  password: { required, minLength: minLength(8), maxLength: maxLength(50) },
   Curator: {
     surname: { required },
     name: { required },

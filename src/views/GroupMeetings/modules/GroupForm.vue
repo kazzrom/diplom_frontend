@@ -45,6 +45,8 @@ async function cancelDialog() {
           <label for="theme">Тема</label>
           <InputText
             id="theme"
+            name="theme"
+            autocomplete="off"
             v-model="groupMeeting.theme"
             :invalid="v$.theme.$invalid && isSubmit"
             :readonly="dialog.action === ACTIONS.VIEW"
@@ -54,6 +56,8 @@ async function cancelDialog() {
           <label for="presence">Присутствовало</label>
           <InputNumber
             id="numberPeoplePresent"
+            name="numberPeoplePresent"
+            autocomplete="off"
             v-model="groupMeeting.numberPeoplePresent"
             :invalid="v$.numberPeoplePresent.$invalid && isSubmit"
             :readonly="dialog.action === ACTIONS.VIEW"
