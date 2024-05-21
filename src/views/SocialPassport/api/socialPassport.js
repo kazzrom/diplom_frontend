@@ -11,6 +11,19 @@ export default class Api {
     this.api_url = api_url;
   }
 
+  static async getGeneralInformation() {
+    const response = await socialPassportAPI
+      .get("general-information", {
+        headers: {
+          Authorization: `Bearer ${InMemoryJWT.getToken()}`,
+        },
+      })
+      .then((response) => response)
+      .catch((error) => console.log(error));
+
+    return response.json();
+  }
+
   async getRecords() {
     const response = await socialPassportAPI
       .get(`${this.api_url}`, {

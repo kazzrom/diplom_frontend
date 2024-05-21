@@ -1,5 +1,6 @@
 <script setup>
 import ViewHeader from "@/components/ViewHeader.vue";
+import GeneralInformation from "./modules/GeneralInformation.vue";
 import Dropdown from "primevue/dropdown";
 import { useRouter } from "vue-router";
 import { useSocialPassportStore } from "./stores/store.js";
@@ -20,7 +21,12 @@ function change(event) {
 
 <template>
   <div class="wrapper">
-    <ViewHeader>Социальный паспорт</ViewHeader>
+    <ViewHeader>
+      Социальный паспорт
+      <template #add_content>
+        <GeneralInformation />
+      </template>
+    </ViewHeader>
     <main>
       <Dropdown
         v-model="selectedItem"
