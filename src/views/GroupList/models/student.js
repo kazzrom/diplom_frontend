@@ -10,6 +10,7 @@ export default class Student {
       fullname: null,
       note: null,
       PersonalDatum: {
+        image: null,
         birthday: null,
         reportCardNumber: null,
         phoneNumber: null,
