@@ -5,7 +5,7 @@ import Toast from "primevue/toast";
 import { useAuthProvider } from "@/auth/stores/AuthContext.js";
 import { useHomeStore } from "@/auth/stores/Home.js";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 onMounted(async () => {
   await refresh();
@@ -16,7 +16,7 @@ const store = useAuthProvider();
 const { handleLogOut, handleFetchProtected, refresh } = store;
 const { isUserLogged } = storeToRefs(store);
 
-const { data } = storeToRefs(useHomeStore());
+const { curator } = storeToRefs(useHomeStore());
 </script>
 
 <template>
@@ -30,7 +30,7 @@ const { data } = storeToRefs(useHomeStore());
       </div>
       <nav class="flex items-center py-4 gap-3">
         <!-- <RouterLink v-show="isUserLogged" to="/home">Home</RouterLink> -->
-        <p v-show="isUserLogged">{{ data }}</p>
+        <p v-show="isUserLogged">{{ curator }}</p>
         <Button
           v-show="isUserLogged"
           text
