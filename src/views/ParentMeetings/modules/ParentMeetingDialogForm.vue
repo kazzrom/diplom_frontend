@@ -64,27 +64,30 @@ async function cancelForm() {
               :invalid="v$.theme.$invalid && isSubmit"
             />
           </div>
-          <div class="items">
-            <div class="form_item" v-if="dialog.action !== ACTIONS.VIEW">
-              <label for="present">Присутствовали</label>
-              <MultiSelect
-                id="present"
-                v-model="parentMeeting.FamilyMembers"
-                :options="parents"
-                option-label="fullname"
-                :max-selected-labels="0"
-                filter
-              />
-            </div>
-            <div class="form_item" listStyle="max-height: 50px" v-else>
-              <label for="present">Присутствовали</label>
-              <Listbox
-                id="present"
-                :options="parentMeeting.FamilyMembers"
-                option-label="fullname"
-              />
-            </div>
+          <div class="form_item" v-show="dialog.action !== ACTIONS.VIEW">
+            <label for="present">Присутствовали</label>
+            <MultiSelect
+              id="present"
+              v-model="parentMeeting.FamilyMembers"
+              :options="parents"
+              option-label="fullname"
+              :max-selected-labels="0"
+              filter
+            />
           </div>
+        </div>
+        <div
+          class="form_item"
+          listStyle="max-height: 50px"
+          v-show="dialog.action === ACTIONS.VIEW"
+        >
+          <label for="present">Присутствовали</label>
+          <Listbox
+            id="present"
+            listStyle="max-height:300px"
+            :options="parentMeeting.FamilyMembers"
+            option-label="fullname"
+          />
         </div>
         <div class="form_item">
           <label for="content">Повестка</label>
