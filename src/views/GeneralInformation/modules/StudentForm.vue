@@ -44,7 +44,7 @@ const { student, isEditForm } = storeToRefs(store);
           :class="{ dropdown_readonly: isEditForm }"
           id="sex"
           v-model="student.sex"
-          :options="['Мужской', 'Женский']"
+          :options="['Мужской', 'Женский']"
           :invalid="v$.sex.$invalid"
         />
       </div>

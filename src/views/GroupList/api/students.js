@@ -31,30 +31,13 @@ export const useAPIStore = defineStore("APIStore", () => {
   }
 
   async function createStudent(student) {
-    // await studentAPI
-    //   .post("", {
-    //     json: student,
-    //     headers: {
-    //       Authorization: `Bearer ${InMemoryJWT.getToken()}`,
-    //     },
-    //   })
-    //   .then((response) => response)
-    //   .catch((error) => {
-    //     console.log("error");
-    //     console.log(error);
-    //   });
-
     const response = await axiosStudentAPI
       .post("", student, {
         headers: {
           Authorization: `Bearer ${InMemoryJWT.getToken()}`,
         },
       })
-      .then((response) => response.data)
-      .catch((error) => {
-        warningToast(error.response.data.error);
-        throw new Error(error);
-      });
+      .then((response) => response.data);
 
     return response;
   }

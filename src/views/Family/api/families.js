@@ -1,9 +1,14 @@
 import ky from "ky";
+import axios from "axios";
 import { API_URL } from "@/constants";
 
 const familyAPI = ky.create({ prefixUrl: `${API_URL}/profile/families` });
 const familyMemberAPI = ky.create({
   prefixUrl: `${API_URL}/profile/families/family-members`,
+});
+const axiosFamilyAPI = axios.create({
+  baseURL: `${API_URL}/profile/families`,
+  withCredentials: true,
 });
 
 export async function getRelative(id) {
@@ -17,11 +22,11 @@ export async function getRelatives(studentId) {
 }
 
 export async function addRelative(data) {
-  const response = await familyAPI.post("", {
-    json: data,
-  });
+  const response = await axiosFamilyAPI
+    .post("", data)
+    .then((response) => response.data);
 
-  return response.json();
+  return response;
 }
 
 export async function editRelative({ id, data }) {

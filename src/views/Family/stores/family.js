@@ -7,9 +7,11 @@ import { useConfirmStore } from "@/stores/confirms";
 import * as API from "../api/families.js";
 import familyMemberModel from "../models/familyMember.js";
 import { KINSHIPS } from "../constants/constants.js";
+import { useToastStore } from "@/stores/toasts";
 
 export const useFamilySectionStore = defineStore("familySection", () => {
   const { confirmAdd, confirmEdit, confirmDelete } = useConfirmStore();
+  const { successToast, warningToast } = useToastStore();
   const dialog = ref(
     new DialogForm({
       add: "Добавление члена семьи",
@@ -32,6 +34,9 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   const relations = ref(KINSHIPS);
 
   const familyMembers = ref([]);
+  const currentRelations = computed(() => {
+    return familyMembers.value.map((member) => member.relation);
+  });
 
   const studentId = ref();
 
@@ -55,15 +60,30 @@ export const useFamilySectionStore = defineStore("familySection", () => {
   }
 
   async function addRelative() {
-    isSubmit.value = true;
-    confirmAdd({
-      invalid: v$.value.$invalid,
-      funcIf: async () => {
+    try {
+      isSubmit.value = true;
+      if (
+        ["Мать", "Отец"].includes(familyMember.value.relation) &&
+        currentRelations.value.includes(familyMember.value.relation)
+      ) {
+        warningToast(
+          familyMember.value.relation == "Мать"
+            ? "Мать уже была добавлена в список членов семьи"
+            : "Отец уже был добавлен в список членов семьи"
+        );
+        return;
+      }
+      if (!v$.value.$invalid) {
         await addRelativeApi();
         isSubmit.value = false;
         dialog.value.closeDialog();
-      },
-    });
+        successToast("Член семьи был успешно добавлен");
+      } else {
+        warningToast("Заполните все обязательные поля");
+      }
+    } catch (error) {
+      warningToast(error.response.data.error);
+    }
   }
 
   async function editRelative() {
@@ -118,5 +138,6 @@ export const useFamilySectionStore = defineStore("familySection", () => {
     clearForm,
     v$,
     isSubmit,
+    currentRelations,
   };
 });

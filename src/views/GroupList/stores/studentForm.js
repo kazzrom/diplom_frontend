@@ -11,7 +11,7 @@ import { useToastStore } from "@/stores/toasts";
 
 export const useStudentFormStore = defineStore("studentForm", () => {
   const groupListStore = useGroupListStore();
-  const { warningToast } = useToastStore();
+  const { successToast, warningToast } = useToastStore();
 
   const API = useAPIStore();
   const { confirmAdd } = useConfirmStore();
@@ -34,28 +34,22 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   const isSubmit = ref(false);
 
   async function addStudentApi() {
-    try {
-      const response = await API.createStudent(student.value);
-      groupListStore.students.push(response);
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await API.createStudent(student.value);
+    groupListStore.students.push(response);
   }
 
   async function addStudent() {
+    isSubmit.value = true;
     try {
-      isSubmit.value = true;
-      confirmAdd({
-        invalid: v$.value.$invalid,
-        funcIf: async () => {
-          await addStudentApi();
-          setEmptyForm();
-          dialog.value.closeDialog();
-          isSubmit.value = false;
-        },
-      });
+      if (!v$.value.$invalid) {
+        await addStudentApi();
+        setEmptyForm();
+        dialog.value.closeDialog();
+        successToast("Студент был успешно добавлен");
+        isSubmit.value = false;
+      }
     } catch (error) {
-      return;
+      warningToast(error.response.data.error);
     }
   }
 
