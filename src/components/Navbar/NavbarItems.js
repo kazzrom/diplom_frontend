@@ -26,7 +26,7 @@ const NavbarItems = [
   },
   {
     label: "Посещаемость",
-    url: "#",
+    url: "https://docs.google.com/spreadsheets/d/1xl7-KVL4-_HG5R9mrI0vCl0iIuckQ6Ne/edit?usp=sharing&ouid=114435406066204811756&rtpof=true&sd=true",
   },
   {
     label: "Успеваемость",
