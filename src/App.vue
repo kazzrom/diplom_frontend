@@ -17,7 +17,6 @@ const { handleLogOut, handleFetchProtected, refresh } = store;
 const { isUserLogged } = storeToRefs(store);
 
 const { curator } = storeToRefs(useHomeStore());
-const hello = process.env.HELLO;
 </script>
 
 <template>
@@ -27,9 +26,7 @@ const hello = process.env.HELLO;
     <header class="px-5 bg-white flex flex-row justify-between items-center">
       <div class="logo flex flex-row">
         <Avatar class="bg-transparent mr-3" icon="pi pi-book" />
-        <h4>
-          Журнал педагогических наблюдений куратора/мастера группы {{ hello }}
-        </h4>
+        <h4>Журнал педагогических наблюдений куратора/мастера группы</h4>
       </div>
       <nav class="flex items-center py-4 gap-3">
         <!-- <RouterLink v-show="isUserLogged" to="/home">Home</RouterLink> -->
