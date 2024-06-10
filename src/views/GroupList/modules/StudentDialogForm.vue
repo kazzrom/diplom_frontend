@@ -4,8 +4,13 @@ import { useStudentFormStore } from "../stores/studentForm.js";
 import Dropdown from "primevue/dropdown";
 
 const store = useStudentFormStore();
-const { addStudent, v$ } = store;
+const { addStudent, v$, resetStudentForm } = store;
 const { student, dialog, isSubmit } = storeToRefs(store);
+
+function closeDialog() {
+  dialog.value.closeDialog();
+  resetStudentForm();
+}
 </script>
 
 <template>
@@ -144,7 +149,7 @@ const { student, dialog, isSubmit } = storeToRefs(store);
             icon="pi pi-times"
             iconPos="right"
             severity="secondary"
-            @click="dialog.closeDialog()"
+            @click="closeDialog"
           />
         </div>
       </div>

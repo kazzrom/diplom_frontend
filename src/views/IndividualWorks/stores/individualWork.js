@@ -121,3 +121,4 @@ export const useIndividualWorkStore = defineStore("individualWork", () => {
     setEmptyIndividualWork,
   };
 });
+

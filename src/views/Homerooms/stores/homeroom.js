@@ -14,16 +14,7 @@ export const useHomeroomStore = defineStore("homeroom", () => {
   );
 
   function resetHomeroom() {
-    homeroom.value = {
-      meetingDate: null,
-      theme: null,
-      location: null,
-      numberPeoplePresent: null,
-      purpose: null,
-      tasks: null,
-      courseOfMeeting: null,
-      results: null,
-    };
+    homeroom.value = homeroomModel.fields;
   }
 
   const selectedHomerooms = ref([]);

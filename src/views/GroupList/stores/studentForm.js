@@ -4,7 +4,6 @@ import DialogForm from "@/utils/dialog.js";
 import { useGroupListStore } from "./groupList";
 import studentFormRules from "@/validators/studentFormRules.js";
 import { useVuelidate } from "@vuelidate/core";
-import { useConfirmStore } from "@/stores/confirms";
 import studentModel from "../models/student.js";
 import { useAPIStore } from "../api/students.js";
 import { useToastStore } from "@/stores/toasts";
@@ -14,7 +13,6 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   const { successToast, warningToast } = useToastStore();
 
   const API = useAPIStore();
-  const { confirmAdd } = useConfirmStore();
 
   const dialog = ref(
     new DialogForm({
@@ -25,6 +23,11 @@ export const useStudentFormStore = defineStore("studentForm", () => {
   );
 
   const student = ref(studentModel.fields);
+
+  function resetStudentForm() {
+    student.value = studentModel.fields;
+    isSubmit.value = false;
+  }
 
   const v$ = useVuelidate(
     computed(() => studentFormRules),
@@ -47,6 +50,8 @@ export const useStudentFormStore = defineStore("studentForm", () => {
         dialog.value.closeDialog();
         successToast("Студент был успешно добавлен");
         isSubmit.value = false;
+      } else {
+        warningToast("Заполните все обязательные поля");
       }
     } catch (error) {
       warningToast(error.response.data.error);
@@ -61,6 +66,7 @@ export const useStudentFormStore = defineStore("studentForm", () => {
     dialog,
     student,
     addStudent,
+    resetStudentForm,
     v$,
     isSubmit,
   };

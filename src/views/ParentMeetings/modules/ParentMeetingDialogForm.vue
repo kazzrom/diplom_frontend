@@ -38,6 +38,19 @@ async function cancelForm() {
   >
     <div class="form_wrapper">
       <div class="form_items">
+        <div
+          class="form_item"
+          listStyle="max-height: 50px"
+          v-show="dialog.action === ACTIONS.VIEW"
+        >
+          <label for="present">Присутствовали</label>
+          <Listbox
+            id="present"
+            listStyle="max-height:300px"
+            :options="parentMeeting.FamilyMembers"
+            option-label="fullname"
+          />
+        </div>
         <div class="form_left_part">
           <div class="form_item">
             <label for="date">Дата</label>
@@ -75,19 +88,6 @@ async function cancelForm() {
               filter
             />
           </div>
-        </div>
-        <div
-          class="form_item"
-          listStyle="max-height: 50px"
-          v-show="dialog.action === ACTIONS.VIEW"
-        >
-          <label for="present">Присутствовали</label>
-          <Listbox
-            id="present"
-            listStyle="max-height:300px"
-            :options="parentMeeting.FamilyMembers"
-            option-label="fullname"
-          />
         </div>
         <div class="form_item">
           <label for="content">Повестка</label>

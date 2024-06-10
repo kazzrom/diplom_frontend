@@ -1,6 +1,6 @@
 <script setup>
 import ViewHeader from "@/components/ViewHeader.vue";
-import GroupForm from "./modules/GroupForm.vue";
+import GroupForm from "./modules/GroupMeetingForm.vue";
 import GroupMeetingToolbar from "./modules/GroupMeetingToolbar.vue";
 import GroupMeetingList from "./modules/GroupMeetingList.vue";
 </script>

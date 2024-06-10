@@ -35,6 +35,9 @@ function cancelDialog() {
             <Calendar
               id="date"
               v-model="homeroom.meetingDate"
+              show-button-bar
+              show-icon
+              icon-display="input"
               :invalid="v$.meetingDate.$dirty && v$.meetingDate.$invalid"
               :readonly="dialog.action === ACTIONS.VIEW"
             />
@@ -149,11 +152,15 @@ function cancelDialog() {
           v-show="dialog.action === ACTIONS.ADD"
           label="Добавить"
           @click="addHomeroom"
+          icon="pi pi-plus"
+          iconPos="right"
         />
         <Button
           v-show="dialog.action === ACTIONS.EDIT"
           label="Сохранить"
           @click="editHomeroom"
+          icon="pi pi-save"
+          iconPos="right"
         />
         <Button
           v-show="dialog.action !== ACTIONS.VIEW"

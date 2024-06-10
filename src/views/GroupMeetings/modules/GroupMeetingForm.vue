@@ -37,6 +37,9 @@ async function cancelDialog() {
           <Calendar
             id="date"
             v-model="groupMeeting.meetingDate"
+            show-button-bar
+            show-icon
+            icon-display="input"
             :invalid="v$.meetingDate.$invalid && isSubmit"
             :readonly="dialog.action === ACTIONS.VIEW"
           />
@@ -79,11 +82,15 @@ async function cancelDialog() {
         v-show="dialog.action === ACTIONS.ADD"
         label="Добавить"
         @click="confirmAddGroupMeeting"
+        icon="pi pi-plus"
+        iconPos="right"
       />
       <Button
         v-show="dialog.action === ACTIONS.EDIT"
         label="Сохранить"
         @click="confirmEditGroupMeeting"
+        icon="pi pi-save"
+        iconPos="right"
       />
       <Button
         v-show="dialog.action !== ACTIONS.VIEW"
